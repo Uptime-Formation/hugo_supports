@@ -10,7 +10,8 @@ weight: 1032
 # Redis need to restart to update from file stored in volume.
 -->
 
-## Portainer
+{{% expand Portainer %}}
+
 
 <!-- - Pour visualiser aisément notre environnement docker au fur et à mesure de nos TPs nous allons charger une interface web d'administration docker appelée `portainer` et qui s'installe elle-même avec Docker. -->
 
@@ -30,6 +31,8 @@ docker run --detach --name portainer \
 - Visitez ensuite la page [http://localhost:9000](http://localhost:9000) pour accéder à l'interface.
 - Créez votre user admin avec le formulaire.
 - Explorez l'interface de Portainer.
+
+{{% /expand %}}
 
 # Partie 2 : Volumes Docker
 

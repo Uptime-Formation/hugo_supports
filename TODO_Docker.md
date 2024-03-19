@@ -1,3 +1,5 @@
+mettre intertitres dans debut tp2
+rendre instructions guac optionnelles
 devcontainers
 + docker compose -f
 42 layers 

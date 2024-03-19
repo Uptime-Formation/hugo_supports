@@ -10,6 +10,7 @@ weight: 1031
 # Redis need to restart to update from file stored in volume.
 -->
 
+{{% expand Portainer %}}
 ## Portainer
 
 <!-- - Pour visualiser aisément notre environnement docker au fur et à mesure de nos TPs nous allons charger une interface web d'administration docker appelée `portainer` et qui s'installe elle-même avec Docker. -->
@@ -24,6 +25,7 @@ docker run --detach --name portainer \
     -v /var/run/docker.sock:/var/run/docker.sock \
     portainer/portainer-ce
 ```
+{{% /expand %}}
 
 <!-- - Remarque sur la commande précédente : pour que Portainer puisse fonctionner et contrôler Docker lui-même depuis l'intérieur du conteneur il est nécessaire de lui donner accès au socket de l'API Docker de l'hôte grâce au paramètre `--mount` ci-dessus. -->
 

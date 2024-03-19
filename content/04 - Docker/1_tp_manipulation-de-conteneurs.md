@@ -4,12 +4,13 @@ weight: 1015
 ---
 
 # Premier TD : on installe Docker et on joue avec
+{{% expand Installer Docker sur la VM Ubuntu dans Guacamole %}}
 
-## Installer Docker sur la VM Ubuntu dans Guacamole
 
 - Accédez à votre VM via l'interface Guacamole
 
 - Pour accéder au copier-coller de Guacamole, il faut appuyer sur **`Ctrl+Alt+Shift`** et utiliser la zone de texte qui s'affiche (réappuyer sur `Ctrl+Alt+Shift` pour revenir à la VM).
+{{% /expand %}}
 
 <!-- - Vérifiez l'installation de Docker en lançant `sudo docker info`. -->
 
