@@ -11,6 +11,13 @@ Initialisez Swarm avec `docker swarm init`.
 
 ## Créer un service
 
+### En ligne de commande
+
+En ligne de commande :
+`docker service create --name whoami --replicas 5 -p 9999:80 traefik/whoami`
+
+### Avec la clé `deploy:`
+
 A l'aide de la propriété `deploy:` de docker compose, créer un service en 5 exemplaires (`replicas`) à partir de l'image `traefik/whoami` accessible sur le port `9999` et connecté au port `80` des 5 replicas.
 
 
@@ -26,9 +33,6 @@ services:
       replicas: 5
 ```
 
-En ligne de commande :
-`docker service create --name whoami --replicas 5 -p 9999:80 traefik/whoami`
-
 {{% /expand %}}
 
 Accédez à votre service et actualisez plusieurs fois la page. Les informations affichées changent. Pourquoi ?
@@ -39,7 +43,7 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 
 - Cloner l'application `example-voting-app` ici : [https://github.com/dockersamples/example-voting-app](https://github.com/dockersamples/example-voting-app)
 
-- Lire le schéma d'architecture de l'app `example-voting-app` sur Github. A noter que le service `worker` existe en deux versions utilisant un langage de programmation différent (Java ou .NET), et que tous les services possèdent des images pour conteneurs Windows et pour conteneurs Linux. Ces versions peuvent être déployées de manière interchangeable et ne modifient pas le fonctionnement de l'application multi-conteneur. C'est une démonstration de l'utilité du paradigme de la conteneurisation et de l'architecture dite _"micro-service"_.
+- Lire le schéma d'architecture de l'app `example-voting-app` sur Github. A noter que des services possèdent des images pour conteneurs Windows et pour conteneurs Linux. Ces versions peuvent être déployées de manière interchangeable et ne modifient pas le fonctionnement de l'application multi-conteneur. C'est une démonstration de l'utilité du paradigme de la conteneurisation et de l'architecture dite _"micro-service"_.
 
 - Lire attentivement les fichiers `docker-compose.yml`, `docker-compose-simple.yml`, `docker-stack-simple.yml` et `docker-stack.yml`. Ce sont tous des fichiers Docker Compose classiques avec différentes options liées à un déploiement via Swarm. Quelles options semblent spécifiques à Docker Swarm ? Ces options permettent de configurer des fonctionnalités d'**orchestration**.
 
@@ -61,12 +65,12 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 <!-- --publish mode=host,target=80,published=8080 -->
 
 
-## Clustering entre ami·es
+## Clustering entre collègues
 
 ### Avec un service
 
 - Se grouper par 2 ou 3 pour créer un cluster à partir de vos VM respectives (il faut utiliser une commande Swarm pour récupérer les instructions nécessaires).
-- Si grouper plusieurs des VM n'est pas possible, vous pouvez créer un cluster multi-nodes très simplement avec l'interface du site [Play With Docker](https://labs.play-with-docker.com/), il faut s'y connecter avec vos identifiants Docker Hub.
+- Si grouper plusieurs des VM n'est pas possible, vous pouvez créer un cluster multi-nodes très simplement avec l'interface du site [Play With Docker](https://labs.play-with-docker.com/), il faut s'y connecter avec vos identifiants Docker Hub. Vous pouvez vous connecter à ces VM en SSH.
 - Vous pouvez faire `docker swarm --help` pour obtenir des infos manquantes, ou faire `docker swarm leave --force` pour réinitialiser votre configuration Docker Swarm si besoin.
 
 - N'hésitez pas à regarder dans les logs avec `systemctl status docker` comment se passe l'élection du nœud *leader*, à partir du moment où vous avez plus d'un manager.
@@ -90,35 +94,13 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 
 - Puis sortir un nœud du cluster (`drain`) : `docker node update --availability drain <node-name>`
 
-## _Facultatif_ : débugger la config Docker de `example-voting-app`
+## _Facultatif_ : déployer une nouvelle image pour un service de `example-voting-app`
 
-Vous avez remarqué ? Nous avons déployé une super stack d'application de vote avec succès mais, si vous testez le vote, vous verrez que ça ne marche pas, il n'est pas comptabilisé.
-Outre le fait que c'est un plaidoyer vivant contre le vote électronique, vous pourriez tenter de débugger ça maintenant (c'est plutôt facile).
-
-{{% expand "Indice 1 :" %}}
-Première étape, regarder les logs !
-{{% /expand %}}
-
-{{% expand "Indice 2 :" %}}
-Deuxième étape, vérifier sur le dépôt GitHub officiel de l'app si quelqu'un a déjà répertorié ce bug : <https://github.com/dockersamples/example-voting-app/issues/>
-{{% /expand %}}
-<!-- 
-{{% expand "Indice 3 :" %}}
-Hmm, ce serait [ce satané _commit_](https://github.com/dockersamples/example-voting-app/pull/159) qui serait à la source de toute cela !
-{{% /expand %}} -->
-
-{{% expand "Indice 3 :" %}}
-Ce commentaire semble contenir la clé du mystère au chocolat : <https://github.com/dockersamples/example-voting-app/issues/162#issuecomment-609521466>
-
-{{% /expand %}}
-
-{{% expand "Solution / explications :" %}}
-Quelqu'un a abandonné le dépôt Docker Hub lié à cette app et la personne qui y a accès est injoignable ! C'est un très bon exemple de la réalité de l'écosystème Docker, et du fait qu'il faut se méfier des images créées par d'autres. Heureusement, il suffit juste :
+Tenter :
 
 - de _rebuild_ les différentes images à partir de leur Dockerfile,
 - puis d'éditer votre fichier Docker Compose (`docker-stack.yml`) pour qu'il se base sur l'image que vous venez de reconstruire.
-
-{{% /expand %}}
+- et de déployer ces images, potentiellement en faisant varier les options de `update_config:`. Un message de warning devrait apparaître, pourquoi ?
 
 ### Introduction à Kubernetes
 
