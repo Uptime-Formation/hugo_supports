@@ -292,14 +292,15 @@ networks:
 
 
 ### Le Hot Code Reloading (rechargement du code à chaud)
+Modifions le `docker-compose.yml` pour y inclure des instructions pour lancer le serveur python en mode debug.
 
-En s'inspirant des exercices sur les volumes (TP3) et du fichier `boot.sh` de l'app microblog (TP2), modifions le `docker-compose.yml` pour y inclure des instructions pour lancer le serveur python en mode debug : la modification du code source devrait immédiatement être répercutée dans les logs d'`identidock`, et recharger la page devrait nous montrer la nouvelle version du code de l'application.
+Notre image est codée pour lancer le serveur de production appelé uWSGI (`CMD ["uwsgi", "--http", "0.0.0.0:5000", "--wsgi-file", "/app/identidock.py", \
+"--callable", "app", "--stats", "0.0.0.0:9191"]`). Nous voulons plutôt lancer le serveur de debug qui se lance avec :
+- la variable d'environnement `FLASK_ENV=development`
+- le processus lancé avec la commande `flask run -h 0.0.0.0`
 
-{{% expand "Indice :" %}}
-Les éléments importants de `boot.sh` sont :
-- La variable d'environnement `FLASK_ENV=development`
-- le processus lancé avec la commande `flask run -h 0.0.0.0``
-{{% /expand %}}
+En réfléchissant à comment utiliser les volumes, le but est de trouver comment la modification du code source devrait immédiatement être répercutée dans les logs d'`identidock` : recharger la page devrait nous montrer la nouvelle version du code de l'application.
+
 
 {{% expand "Solution :" %}}
 
