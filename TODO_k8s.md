@@ -342,3 +342,8 @@ strategy: recreate bof pour demo, mais sinon rollingupdate est default
 - solution de volume décentralisé ? contrainte à nndoe -> stockage ici ? bases de storageclasses
 - réseau vidéo
 - bien comprendre bases
+
+
+---
+
+- rancher demo avec vaches rouges et bleues en 2 deployments mais un seul service
