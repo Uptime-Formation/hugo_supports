@@ -1,4 +1,5 @@
 # TODO
+- https://www.youtube.com/@TheLearningChannel-Tech
 - https://medium.com/@.anders/learnings-from-our-8-years-of-kubernetes-in-production-two-major-cluster-crashes-ditching-self-0257c09d36cd
 - ajouter secrets and configmaps!!!
 
