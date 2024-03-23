@@ -23,25 +23,22 @@ ansible --version
 => 2.9.x
 ```
 
-
-
 - Traditionnellement lorsqu'on veut vérifier le bon fonctionnement d'une configuration on utilise `ansible all -m ping`. Que signifie-t-elle ?
 
 {{% expand "Réponse  :" %}}
 Cette commande lance le module ansible `ping` (test de connection ansible) sur le groupe all c'est à dire toutes les machines de notre inventaire. Il s'agit d'une commande ad-hoc ansible.
 {{% /expand %}}
 
-
-
 - Lancez la commande précédente. Que ce passe-t-il ?
 
 {{% expand "Réponse  :" %}}
+
 ```
 ansible all -m ping 
 ```
+
 Cette commande renvoie une erreur car `all` ne matche aucun hôte.
 {{% /expand %}}
-
 
 - Utilisez en plus l'option `-vvv` pour mettre en mode très verbeux. Ce mode est très efficace pour **débugger** lorsqu'une erreur inconnue se présente. Que se passe-t-il avec l'inventaire ?
 
@@ -52,30 +49,29 @@ Cette commande renvoie une erreur car `all` ne matche aucun hôte.
 ansible essaye de trouver un inventaire c'est à dire une liste de machine à contacter et cherche par défaut le fichier `/etc/ansible/hosts`. Comme il ne trouve rien il crée un inventaire implicite contenant uniquement localhost.
 {{% /expand %}}
 
-
 - Testez l'installation avec la commande `ansible` en vous connectant à votre machine `localhost` et en utilisant le module `ping`.
 
 {{% expand "Réponse  :" %}}
+
 ```
 ansible localhost -m ping
 ```
+
 La commande échoue car ssh n'est pas configuré sur l'hote mais la machine est contactée (sortie en rouge). Nous allons dans la suite créer des machines de lab avec ssh installé.
 {{% /expand %}}
 
-
 - Ajoutez la ligne `hotelocal ansible_host=127.0.0.1 ansible_connection=local` dans l'inventaire par défaut (le chemin est indiqué dans). Et pinguer hotelocal.
 
+## Explorer LXD / Incus
 
-<!-- ## Explorer LXD 
+LXD est une technologie de conteneurs actuellement promue par Canonical (ubuntu) qui permet de faire des conteneur linux orientés systèmes plutôt qu'application. Par exemple `systemd` est disponible à l'intérieur des conteneurs contrairement aux conteneurs Docker.
+Incus est le successeur de LXD, abandonné par ses devs à cause des choix de Canonical.
 
-LXD est une technologie de conteneurs actuellement promue par canonical (ubuntu) qui permet de faire des conteneur linux orientés systèmes plutôt qu'application. Par exemple `systemd` est disponible à l'intérieur des conteneurs contrairement aux conteneurs Docker.
+<!-- LXD est déjà installé et initialisé sur notre ubuntu (sinon `apt install snapd` + `snap install lxd` + ajouter votre utilisateur courant au group unix `lxd`). -->
 
-LXD est déjà installé et initialisé sur notre ubuntu (sinon `apt install snapd` + `snap install lxd` + ajouter votre utilisateur courant au group unix `lxd`).
+<!-- Pour initialiser LXD et générer les images de base nous allons utiliser un script bash à lancer avec `bash /opt/lxd.sh`.
 
-
-Pour initialiser LXD et générer les images de base nous allons utiliser un script bash à lancer avec `bash /opt/lxd.sh`.
-
-(Pour initialiser à la main on peut utiliser la commande `lxd init` mais utilisez plutôt ici la configuration avec le script précédent)
+(Pour initialiser à la main on peut utiliser la commande `lxd init` mais utilisez plutôt ici la configuration avec le script précédent) -->
 
 - Affichez la liste des conteneurs avec `lxc list`. Aucun conteneur ne tourne.
 - Maintenant lançons notre premier conteneur `centos` avec `lxc launch images:centos/7/amd64 centos1`.
@@ -87,20 +83,18 @@ Pour initialiser LXD et générer les images de base nous allons utiliser un scr
 
 - Supprimez la machine centos1 avec `lxc stop centos1 && lxc delete centos1` -->
 
-<!-- 
 ## Configurer des images prêtes pour Ansible
 
-Nous avons besoin d'images Linux configurées avec SSH, Python et un utilisateur de connexion (disposant idéalement d'une clé ssh configurée pour éviter d'avoir à utiliser un mot de passe de connection) -->
+Nous avons besoin d'images Linux configurées avec SSH, Python et un utilisateur de connexion (disposant idéalement d'une clé ssh configurée pour éviter d'avoir à utiliser un mot de passe de connection)
 
-<!-- {{% expand "Facultatif :" %}} -->
+{{% expand "Facultatif :" %}}
 
-<!-- ### Facultatif : Configurer un conteneur pour Ansible manuellement
+### Facultatif : Configurer un conteneur pour Ansible manuellement
 
 Si vous devez refaire les travaux pratiques from scratch (sans la VM de TP actuelle et le script de génération lxd.sh), vous pouvez générer les images LXD pour la suite avec les instructions suivantes:
 
+- Connectez vous dans le conteneur avec la commande `lxc exec` précédente. Une fois dans le conteneur  lancez les commandes suivantes:
 
-- Connectez vous dans le conteneur avec la commande `lxc exec` précédente. Une fois dans le conteneur  lancez les commandes suivantes: -->
-<!-- 
 ##### Pour centos
 
 ```bash
@@ -123,9 +117,9 @@ useradd -m -s /bin/bash -G wheel stagiaire
 passwd stagiaire
 
 exit
-``` -->
+```
 
-<!-- ##### Pour ubuntu
+##### Pour ubuntu
 
 ```bash
 # installer SSH
@@ -157,9 +151,9 @@ Maintenant nous devons configurer une identité (ou clé) ssh pour pouvoir nous 
 lxc list # permet de trouver l'ip du conteneur
 ssh-copy-id -i ~/.ssh/id_ed25519 stagiaire@<ip_conteneur>
 ssh stagiaire@<ip_conteneur>
-``` -->
+```
 
-<!-- ### Exporter nos conteneurs en image pour pouvoir les multiplier
+### Exporter nos conteneurs en image pour pouvoir les multiplier
 
 LXD permet de gérer aisément des snapshots de nos conteneurs sous forme d'images (archive du systeme de fichier + manifeste).
 
@@ -182,12 +176,10 @@ lxc launch centos_ansible_ready centos2 centos3
 ```bash
 lxc delete centos1 centos2 centos3 --force
 ```
- -->
 
-<!-- {{% /expand %}} -->
+{{% /expand %}}
 
-
-<!-- ### Lancer et tester les conteneurs
+### Lancer et tester les conteneurs
 
 Créons à partir des images du remotes un conteneur ubuntu et un autre centos:
 
@@ -200,8 +192,7 @@ lxc launch centos_ansible centos1
 
 - Déverrouillez cette clé ssh avec `ssh-add ~/.ssh/id_stagiaire` et le mot de passe `devops101` (le ssh-agent doit être démarré dans le shell pour que cette commande fonctionne si ce n'est pas le cas `eval $(ssh-agent)`).
 
-- Essayez de vous connecter à `ubu1` et `centos1` en ssh pour vérifier que la clé ssh est bien configurée et vérifiez dans chaque machine que le sudo est configuré sans mot de passe avec `sudo -i`. -->
-
+- Essayez de vous connecter à `ubu1` et `centos1` en ssh pour vérifier que la clé ssh est bien configurée et vérifiez dans chaque machine que le sudo est configuré sans mot de passe avec `sudo -i`.
 
 ## Créer un projet de code Ansible
 
@@ -214,8 +205,8 @@ Nous allons créer un tel projet de code pour la suite du tp1
 
 - Créez un dossier projet `tp1` sur le Bureau.
 
-
 {{% expand "Facultatif  :" %}}
+
 - Initialisez le en dépôt git et configurez git:
 
 ```
@@ -224,6 +215,7 @@ git config --global user.name "<votre nom>"
 git config --global user.email "<votre email>"
 git init
 ```
+
 {{% /expand %}}
 
 - Ouvrez Visual Studio Code.
@@ -244,11 +236,12 @@ bin_ansible_callbacks = True
 ```
 
 - Créez le fichier d'inventaire spécifié dans `ansible.cfg` et ajoutez à l'intérieur notre nouvelle machine `hote1`.
-<!-- Il faut pour cela lister les conteneurs lxc lancés. -->
+Il faut pour cela lister les conteneurs lxc lancés.
 
-<!-- ```
+```
 lxc list # récupérer l'ip de la machine
-``` -->
+```
+
 Générez une clé si elle n'existe pas avec `ssh-keygen`.
 
 On va copier cette clé à distance avec `ssh-copy-id`.
@@ -273,6 +266,7 @@ Ansible cherche la configuration locale dans le dossier courant. Conséquence: o
 - Créez un groupe `adhoc_lab` et ajoutez les deux machines `ubu1` et  `centos1`.
 
 {{% expand "Réponse  :" %}}
+
 ```ini
 [all:vars]
 ansible_user=<votre_user>
@@ -281,11 +275,13 @@ ansible_user=<votre_user>
 ubu1 ansible_host=<ip>
 centos1 ansible_host=<ip>
 ```
+
 {{% /expand %}}
 
 - Lancez `ping` sur les deux machines.
 
 {{% expand "Réponse  :" %}}
+
 - `ansible adhoc_lab -m ping`
 {{% /expand %}}
 
@@ -293,14 +289,12 @@ centos1 ansible_host=<ip>
 
 En précisant les paramètres de connexion dans le playbook il et aussi possible d'avoir des modes de connexion différents pour chaque machine.
 
-
 ## Installons nginx avec quelques modules
  <!-- et commandes ad-hoc -->
 
-<!-- - Modifiez l'inventaire pour créer deux sous-groupes de `adhoc_lab`, `centos_hosts` et `ubuntu_hosts` avec deux machines dans chacun. (utilisez pour cela `[adhoc_lab:children]`) -->
+- Modifiez l'inventaire pour créer deux sous-groupes de `adhoc_lab`, `centos_hosts` et `ubuntu_hosts` avec deux machines dans chacun. (utilisez pour cela `[adhoc_lab:children]`)
 
-
-<!-- ```ini
+```ini
 [all:vars]
 ansible_user=<votre_user>
 
@@ -313,11 +307,11 @@ centos1 ansible_host=<ip>
 [adhoc_lab:children]
 ubuntu_hosts
 centos_hosts
-``` -->
+```
 
-<!-- Dans un inventaire ansible on commence toujours par créer les plus petits sous groupes puis on les rassemble en plus grands groupes. -->
+Dans un inventaire ansible on commence toujours par créer les plus petits sous groupes puis on les rassemble en plus grands groupes.
 
-<!-- - Pinguer chacun des 3 groupes avec une commande ad hoc. -->
+- Pinguer chacun des 3 groupes avec une commande ad hoc.
 
 Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs façons d'installer des logiciels grâce à Ansible: en utilisant le gestionnaire de paquets de la distribution ou un gestionnaire spécifique comme `pip` ou `npm`. Chaque méthode dispose d'un module ansible spécifique.
 
@@ -326,9 +320,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 - N'hésitez pas consulter extensivement la documentation des modules avec leur exemple ou d'utiliser la commande de documentation `ansible-doc <module>`
   - utilisez `become` pour devenir root avant d'exécuter la commande (cf élévation de privilège dans le cours2)
 
-
 ## Premier playbook
-
 
 - Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
 
@@ -342,7 +334,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 
 - Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`.
 
-<!-- - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`. -->
+- Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
 - Créons un playbook rudimentaire pour installer `nginx`.
 
@@ -466,6 +458,7 @@ cat /tmp/ansible_facts/<nom_hôte_ou_IP>.json | jq '.ansible_facts.ansible_servi
 ### Créer un template Jinja2
 
 Nous allons faire que la page d'accueil Nginx affiche des données extraites d'Ansible.
+
 - créons un fichier nommé `nginx_index.j2` avec le contenu suivant :
 
 ```jinja2
@@ -476,7 +469,7 @@ Architecture CPU : {{ ansible_facts['ansible_architecture'] }}
 
 - Ajoutez à ce modèle Jinja l'affichage d'une nouvelle variable à partir de l'exercice précédent.
 
-<!-- 
+```
 {% if 'nginx' in ansible_facts['ansible_services'] %}
 Service Nginx : En cours d'exécution
 Version de Nginx : {{ ansible_facts['ansible_services']['nginx']['version'] }}
@@ -485,9 +478,8 @@ Fichier de configuration Nginx : {{ ansible_facts['ansible_services']['nginx']['
 Service Nginx : Non en cours d'exécution
 {% endif %}
 ```
-Dans ce modèle, nous avons ajouté une condition pour vérifier si le service Nginx est en cours d'exécution sur l'hôte. -->
 
-
+Dans ce modèle, nous avons ajouté une condition pour vérifier si le service Nginx est en cours d'exécution sur l'hôte.
 
 ### Afficher le template comme page d'accueil Nginx
 

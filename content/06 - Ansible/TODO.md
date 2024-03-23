@@ -75,10 +75,13 @@ A integrer :
         La directive delegate permet de déléguer l'exécution d'une tâche à une autre machine. Cela est utile dans les scénarios où une tâche doit être exécutée sur un hôte spécifique.
 
     Collections dans Ansible:
-        Les collections sont des ensembles de contenus, tels que des rôles, des modules et des plugins, qui peuvent être distribués et installés de manière indépendante dans Ansible. Elles permettent une meilleure organisation et gestion des ressources.
+        Les collections sont des ensembles de contenus, tels que des rôles, des modules et des plugins, qui peuvent être distribués et installés de manière indépendante dans Ansible. 
 
     Débogage Ansible:
-        Le débogage Ansible est une compétence essentielle pour résoudre les problèmes et comprendre le comportement des playbooks. Il existe plusieurs techniques et outils disponibles, y compris le debugger intégré à Ansible et des outils tiers.
+     Il existe plusieurs techniques et outils disponibles, y compris le debugger intégré à Ansible et des outils tiers.
 
     Directives comme changed_when, ignore_errors, check_mode:
         Ces directives offrent un contrôle plus précis sur le comportement des tâches Ansible. changed_when permet de définir les conditions dans lesquelles une tâche est considérée comme ayant modifié l'état du système, ignore_errors permet d'ignorer les erreurs lors de l'exécution des tâches, et check_mode permet de simuler l'exécution des tâches sans effectuer de modifications réelles sur le système.
+
+
+TODO: ajouter liens vers pages de docs
