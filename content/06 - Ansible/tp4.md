@@ -37,5 +37,3 @@ Pour configurer notre infrastructure:
 - Rechargez la page: vous constatez que c'est l'autre backend qui a pris le relais.
 
 - Nous allons maintenant mettre à jour
-
-

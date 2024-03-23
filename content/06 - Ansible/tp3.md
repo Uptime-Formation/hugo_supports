@@ -234,7 +234,7 @@ Essayez différents exemples de projets de Geerlingguy accessibles sur github à
 
 Pour des rôles fiables il est conseillé d'utiliser l'outil de testing molecule dès la création d'un nouveau rôle pour effectuer des tests unitaire dessus dans un environnement virtuel comme Docker.
 
-<!-- On peut créer des scénarios. -->
+On peut créer des scénarios :
 
 <!-- Et du coup ça fait du tdd des le début -->
 
@@ -244,16 +244,16 @@ Et il faut commencer par la -->
 <!-- Plein de drivers pas fonctionnels sauf docker -->
 <!-- Pour des cas compliqués genre wireguard ou ynh ça marche pas du coup driver hcloud est le meilleur driver vps -->
 
-<!-- - `check.yml`
+- `check.yml`
 - `converge.yml`
 - `idempotent.yml`
-- `verify.yml` -->
+- `verify.yml`
 
-<!-- -  tu peux l'écrire avec ansible qui vérifie tout tâche par tâche écrite originalement
-- Ou alors avec testinfra la lib python spécialisée en collecte de facts os -->
+- on peux écrire ces tests avec ansible qui vérifie tout tâche par tâche écrite originalement
+- Ou alors avec testinfra la lib python spécialisée en collecte de facts os
 
 
 - Documentation : <https://molecule.readthedocs.io/en/latest/>
 
 - Suivre le tutoriel *Getting started* : <https://molecule.readthedocs.io/en/latest/getting-started.html>
-<!-- - Tutoriel : https://www.adictosaltrabajo.com/2020/05/08/ansible-testing-using-molecule-with-ansible-as-verifier/ -->
+- Tutoriel bonus : https://www.adictosaltrabajo.com/2020/05/08/ansible-testing-using-molecule-with-ansible-as-verifier/
