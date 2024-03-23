@@ -188,9 +188,9 @@ lxc launch ubuntu_ansible ubu1
 lxc launch centos_ansible centos1
 ```
 
-- Pour se connecter en SSH nous allons donc utiliser une clé SSH appelée `id_stagiaire` qui devrait être présente dans votre dossier `~/.ssh/`. Vérifiez cela en lançant `ls -l /home/stagiaire/.ssh`.
+- Pour se connecter en SSH nous allons donc utiliser une clé SSH appelée `id_ed25519` qui devrait être présente dans votre dossier `~/.ssh/`. Vérifiez cela en lançant `ls -l /home/stagiaire/.ssh`.
 
-- Déverrouillez cette clé ssh avec `ssh-add ~/.ssh/id_stagiaire` et le mot de passe `devops101` (le ssh-agent doit être démarré dans le shell pour que cette commande fonctionne si ce n'est pas le cas `eval $(ssh-agent)`).
+<!-- - Déverrouillez cette clé ssh avec `ssh-add ~/.ssh/id_ed25519` et le mot de passe `devops101` (le ssh-agent doit être démarré dans le shell pour que cette commande fonctionne si ce n'est pas le cas `eval $(ssh-agent)`). -->
 
 - Essayez de vous connecter à `ubu1` et `centos1` en ssh pour vérifier que la clé ssh est bien configurée et vérifiez dans chaque machine que le sudo est configuré sans mot de passe avec `sudo -i`.
 
