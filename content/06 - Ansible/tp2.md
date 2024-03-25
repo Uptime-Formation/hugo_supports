@@ -570,8 +570,12 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 
 - Pour la solution : activez la branche `tp2_correction` avec `git checkout tp2_correction`.
 
+## Bonus 3 : modifier le `/etc/hosts` via le playbook
 
-## Bonus 3 : pour pratiquer
+A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
+
+
+## Bonus 4 : pour pratiquer
 
 Essayez de déployer une version plus complexe d'application flask avec une base de donnée mysql : [https://github.com/miguelgrinberg/microblog/tree/v0.17](https://github.com/miguelgrinberg/microblog/tree/v0.17)
 
