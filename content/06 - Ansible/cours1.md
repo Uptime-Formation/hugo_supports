@@ -161,13 +161,13 @@ Peut être utilisé pour des **opérations ponctuelles** comme le **déploiement
 Les cas d'usages d'Ansible vont de ...:
 
 - petit:
-  - ... un petit playbook (~script) fournit avec le code d'un logiciel pour déployer en mode test.
+  - ... un petit playbook (~script) fourni avec le code d'un logiciel pour déployer en mode test.
   - ... la configuration d'une machine de travail personnelle.
   - etc.
 
 - moyen:
   - ... faire un lab avec quelques machines.
-  - ... déployer une application avec du code, une runtime (php/jav etc) et une base de données à migrer.
+  - ... déployer une application avec du code, une runtime (php/java, etc.) et une base de données à migrer.
   - etc.
   
 - grand:
@@ -188,7 +188,7 @@ Les cas d'usages d'Ansible vont de ...:
 Ansible est très complémentaire à docker:
 
 - Il permet de provisionner des machines avec docker ou kubernetes installé pour ensuite déployer des conteneurs.
-- Il permet une orchestration simple des conteneur avec le module `docker_container`.
+- Il permet une orchestration simple des conteneurs avec le module `docker_container`.
 
 {{% notice note %}}
 Maintenant un peu abandonné, `Ansible Container` rend possible de construire et déployer des conteneurs docker avec du code ansible. Concrètement le langage Ansible remplace le langage Dockerfile pour la construction des images Docker.
@@ -209,7 +209,7 @@ Pour l'installation plusieurs options sont possibles:
   - commande d'upgrade spécifique `sudo pip3 install ansible --upgrade`
   - possibilité d'installer facilement une version de développement pour tester de nouvelles fonctionnalité ou anticiper les migrations.
 
-Pour voir l'ensemble des fichier installé par un paquet `pip3` :
+Pour voir l'ensemble des fichiers installés par un paquet `pip3` :
 
 `pip3 show -f ansible | less`
 

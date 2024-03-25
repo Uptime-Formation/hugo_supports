@@ -90,7 +90,6 @@ Le code (très minimal) de cette application se trouve sur github à l'adresse: 
 
 {{% expand "Si vous avez créé une app3 sur CentOS :" %}}
 Pour faire varier les tasks que l'on exécute, il faudrait jouer sur la variable `ansible_os_family` avec la ligne `when: ansible_os_family == "RedHat"` (ou `Debian`) (au niveau du nom du module dans la task).
-Ou on peut simplement utiliser `package`.
 Il faudra aussi trouver les bons noms de packages et installer `epel-release`
 
 {{% /expand %}}
@@ -136,6 +135,10 @@ En utilisant une `loop` (et en accédant aux différentes valeurs qu'elle prend 
           - "www-data"
 ```
 
+{{% expand "Si vous avez créé une app3 sur CentOS :" %}}
+Ici, le fonctionnement le plus concis serait d'utiliser les conditions Jinja2 (et non le mot-clé `when:`) avec une section de playbook appelée `vars:` et quelque chose comme `nginx_user: "{{ 'www-data' if ansible_os_family == "RedHat" else 'www-data'`
+{{% /expand %}}
+
 N'hésitez pas à tester l'option `--diff -v` avec vos commandes pour voir l'avant-après.
 
 ## Récupérer le code de l'application
@@ -144,9 +147,9 @@ N'hésitez pas à tester l'option `--diff -v` avec vos commandes pour voir l'ava
   - Télécharger le code dans notre projet et le copier sur chaque serveur avec le module `sync` qui fait une copie rsync.
   - Utiliser le module `git`.
 
-- Nous allons utiliser la deuxième option (`git`) qui est plus cohérente pour le déploiement et la gestion des versions logicielles. Allez voir la documentation comment utiliser ce module.
+- Nous allons utiliser la deuxième option (`git`) qui est plus cohérente pour le déploiement et la gestion des versions logicielles. Allez voir la documentation pour voir comment utiliser ce module.
   
-- Utilisez-le pour télécharger le code source de l'application (branche `master`) dans le dossier `/home/flask/hello` mais en désactivant la mise à jour (au cas ou le code change).
+- Utilisez-le pour télécharger le code source de l'application (branche `master`) dans le dossier `/home/flask/hello` mais en désactivant la mise à jour (au cas où le code change).
 
 ```yaml
     - name: Git clone/update python hello webapp in user home
@@ -493,7 +496,7 @@ Vous pouvez consultez la solution également directement sur le site de github.
 
 Pour ceux ou celles qui sont allés vite, vous pouvez tenter de créer une nouvelle version de votre playbook portable entre centos et ubuntu. Pour cela utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
 
-
+Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'www-data' if ansible_os_family == "RedHat" else 'www-data'`
 ## Bonus 2 : Rendre le playbook dynamique avec une boucle
 
 Plutôt qu'une variable `app` unique on voudrait fournir au playbook une liste d'application à installer (liste potentiellement définie durant l'exécution).

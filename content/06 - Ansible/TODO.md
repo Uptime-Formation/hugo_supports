@@ -95,3 +95,5 @@ TODO: conds j2, conds tasks pour ansible_family
 TODO: rescue
 
 TODO: faire des when: - AND - et expliquer
+
+TODO: my_var: "{{ 'foo' if my_condition else '' }}"
