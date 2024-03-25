@@ -91,6 +91,8 @@ Le code (très minimal) de cette application se trouve sur github à l'adresse: 
 {{% expand "Si vous avez créé une app3 sur CentOS :" %}}
 Pour faire varier les tasks que l'on exécute, il faudrait jouer sur la variable `ansible_os_family` avec la ligne `when: ansible_os_family == "RedHat"` (ou `Debian`) (au niveau du nom du module dans la task).
 Ou on peut simplement utiliser `package`.
+Il faudra aussi trouver les bons noms de packages et installer `epel-release`
+
 {{% /expand %}}
 
 - Avec le module `apt` installez les applications: `python3-dev`, `python3-pip`, `python3-virtualenv`, `virtualenv`, `nginx`, `git`. Donnez à cette tache le nom: `ensure basic dependencies are present`. ajoutez pour cela la directive `become: yes` au début du playbook.
@@ -111,11 +113,7 @@ En utilisant une `loop` (et en accédant aux différentes valeurs qu'elle prend 
         - git
 ```
 
-{{% expand "Si vous avez créé une app3 sur CentOS :" %}}
-Il faudra trouver les bons noms de packages et installer `epel-release`
-{{% /expand %}}
-
-- Relancez bien votre playbook à chaque t^che : comme Ansible est idempotent il n'est pas grave en situation de développement d'interrompre l'exécution du playbook et de reprendre l'exécution après un échec.
+- Relancez bien votre playbook à chaque tâche : comme Ansible est idempotent il n'est pas grave en situation de développement d'interrompre l'exécution du playbook et de reprendre l'exécution après un échec.
 
 - Ajoutez une tâche `systemd` pour s'assurer que le service `nginx` est démarré.
 
