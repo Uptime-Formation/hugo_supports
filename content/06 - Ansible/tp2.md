@@ -26,13 +26,13 @@ incus launch ubuntu_ansible app2
 - Créez l'inventaire statique `inventory.cfg`.
 
 ```
-$ lxc list # pour récupérer l'adresse ip puis
+$ incus list # pour récupérer l'adresse ip puis
 ```
 
 ```
 
 [all:vars]
-ansible_user=<user>
+ansible_user=stagiaire
 
 [appservers]
 app1 ansible_host=10.x.y.z

@@ -111,10 +111,10 @@ python --version || python3 --version
 sed -i 's@\(%wheel.*\)ALL@\1 NOPASSWD: ALL@' /etc/sudoers
 
 # Créer votre utilisateur de connexion
-useradd -m -s /bin/bash -G wheel stagiaire
+useradd -m -s /bin/bash -G wheel votreprenom
 
 # Définission du mot de passe
-passwd stagiaire
+passwd votreprenom
 
 exit
 ```
@@ -133,10 +133,10 @@ python --version || python3 --version
 sed -i 's@\(%sudo.*\)ALL@\1 NOPASSWD: ALL@' /etc/sudoers
 
 # Créer votre utilisateur de connexion
-useradd -m -s /bin/bash -G sudo stagiaire
+useradd -m -s /bin/bash -G sudo votreprenom
 
 # Définission du mot de passe
-passwd stagiaire
+passwd votreprenom
 
 exit
 ```
@@ -252,7 +252,7 @@ Créez et complétez le fichier `inventory.cfg` d'après ce modèle:
 ubu1 ansible_host=<ip>
 
 [all:vars]
-ansible_user=<votre_user>
+ansible_user=stagiaire
 ```
 
 ## Contacter nos nouvelles machines
@@ -269,7 +269,7 @@ Ansible cherche la configuration locale dans le dossier courant. Conséquence: o
 
 ```ini
 [all:vars]
-ansible_user=<votre_user>
+ansible_user=stagiaire
 
 [adhoc_lab]
 ubu1 ansible_host=<ip>
@@ -296,7 +296,7 @@ En précisant les paramètres de connexion dans le playbook il et aussi possible
 
 ```ini
 [all:vars]
-ansible_user=<votre_user>
+ansible_user=stagiaire
 
 [ubuntu_hosts]
 ubu1 ansible_host=<ip>
