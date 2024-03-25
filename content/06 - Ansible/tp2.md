@@ -436,7 +436,7 @@ app:
   version: master
 ```
 
-(remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public)
+(remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public, sinon il faudra modifier votre fichier `/etc/hosts` pour faire pointer le domaine `hello.test` vers l'IP de votre conteneur)
 
 {{% /expand %}}
 
@@ -497,6 +497,8 @@ Vous pouvez consultez la solution également directement sur le site de github.
 Pour ceux ou celles qui sont allés vite, vous pouvez tenter de créer une nouvelle version de votre playbook portable entre centos et ubuntu. Pour cela utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
 
 Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+
+Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
 
 ## Bonus 2 : Rendre le playbook dynamique avec une boucle
 
