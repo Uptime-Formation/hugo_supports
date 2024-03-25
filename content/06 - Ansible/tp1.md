@@ -184,8 +184,8 @@ lxc delete centos1 centos2 centos3 --force
 Créons à partir des images du remotes un conteneur ubuntu et un autre centos:
 
 ```bash
-lxc launch ubuntu_ansible ubu1
-lxc launch centos_ansible centos1
+incus launch ubuntu_ansible ubu1
+incus launch centos_ansible centos1
 ```
 
 - Pour se connecter en SSH nous allons donc utiliser une clé SSH appelée `id_ed25519` qui devrait être présente dans votre dossier `~/.ssh/`. Vérifiez cela en lançant `ls -l /home/stagiaire/.ssh`.

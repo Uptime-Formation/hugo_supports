@@ -19,8 +19,8 @@ host_key_checking = false
 - Créez deux machines ubuntu `app1` et `app2`.
 
 ```
-lxc launch ubuntu_ansible app1
-lxc launch ubuntu_ansible app2
+incus launch ubuntu_ansible app1
+incus launch ubuntu_ansible app2
 ```
 
 - Créez l'inventaire statique `inventory.cfg`.
