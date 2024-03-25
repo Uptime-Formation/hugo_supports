@@ -88,10 +88,10 @@ Le code (très minimal) de cette application se trouve sur github à l'adresse: 
 
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'options que le module `package`.
 
-{% expand "Avec CentOS :" %}
+{{% expand "Si vous avez créé une app3 sur CentOS :" %}}
 Pour faire varier les tasks que l'on exécute, il faudrait jouer sur la variable `ansible_os_family` avec la ligne `when: ansible_os_family == "RedHat"` (au niveau du nom du module dans la task).
-
-{% /expand %}
+Ou on peut simplement utiliser `package`.
+{{% /expand %}}
 
 - Avec le module `apt` installez les applications: `python3-dev`, `python3-pip`, `python3-virtualenv`, `virtualenv`, `nginx`, `git`. Donnez à cette tache le nom: `ensure basic dependencies are present`. ajoutez pour cela la directive `become: yes` au début du playbook.
 
