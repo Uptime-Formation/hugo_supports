@@ -73,15 +73,15 @@ Incus est le successeur de LXD, abandonné par ses devs à cause des choix de Ca
 
 (Pour initialiser à la main on peut utiliser la commande `lxd init` mais utilisez plutôt ici la configuration avec le script précédent) -->
 
-- Affichez la liste des conteneurs avec `lxc list`. Aucun conteneur ne tourne.
-- Maintenant lançons notre premier conteneur `centos` avec `lxc launch images:centos/7/amd64 centos1`.
+- Affichez la liste des conteneurs avec `incus list`. Aucun conteneur ne tourne.
+- Maintenant lançons notre premier conteneur `centos` avec `incus launch images:centos/7/amd64 centos1`.
 - Listez à nouveau les conteneurs lxc.
-- Ce conteneur est un centos minimal et n'a donc pas de serveur SSH pour se connecter. Pour lancez des commandes dans le conteneur on utilise une commande LXC pour s'y connecter `lxc exec <non_conteneur> -- <commande>`. Dans notre cas nous voulons lancer bash pour ouvrir un shell dans le conteneur : `lxc exec centos1 -- bash`.
+- Ce conteneur est un centos minimal et n'a donc pas de serveur SSH pour se connecter. Pour lancez des commandes dans le conteneur on utilise une commande LXC pour s'y connecter `incus exec <non_conteneur> -- <commande>`. Dans notre cas nous voulons lancer bash pour ouvrir un shell dans le conteneur : `incus exec centos1 -- bash`.
 - Nous pouvons installer des logiciels dans le conteneur comme dans une VM. Pour sortir du conteneur on peut simplement utiliser `exit`.
 
-- Un peu comme avec Docker, LXC utilise des images modèles pour créer des conteneurs. Affichez la liste des images avec `lxc image list`. Trois images sont disponibles l'image centos vide téléchargée et utilisée pour créer centos1 et deux autres images préconfigurée `ubuntu_ansible` et `centos_ansible`. Ces images contiennent déjà la configuration nécessaire pour être utilisée avec ansible (SSH + Python + Un utilisateur + une clé SSH).
+- Un peu comme avec Docker, LXC utilise des images modèles pour créer des conteneurs. Affichez la liste des images avec `incus image list`. Trois images sont disponibles l'image centos vide téléchargée et utilisée pour créer centos1 et deux autres images préconfigurée `ubuntu_ansible` et `centos_ansible`. Ces images contiennent déjà la configuration nécessaire pour être utilisée avec ansible (SSH + Python + Un utilisateur + une clé SSH).
 
-- Supprimez la machine centos1 avec `lxc stop centos1 && lxc delete centos1` -->
+- Supprimez la machine centos1 avec `incus stop centos1 && incus delete centos1` -->
 
 ## Configurer des images prêtes pour Ansible
 
@@ -93,7 +93,7 @@ Nous avons besoin d'images Linux configurées avec SSH, Python et un utilisateur
 
 Si vous devez refaire les travaux pratiques from scratch (sans la VM de TP actuelle et le script de génération lxd.sh), vous pouvez générer les images LXD pour la suite avec les instructions suivantes:
 
-- Connectez vous dans le conteneur avec la commande `lxc exec` précédente. Une fois dans le conteneur  lancez les commandes suivantes:
+- Connectez vous dans le conteneur avec la commande `incus exec` précédente. Une fois dans le conteneur  lancez les commandes suivantes:
 
 ##### Pour centos
 
@@ -148,7 +148,7 @@ Maintenant nous devons configurer une identité (ou clé) ssh pour pouvoir nous 
 - On copie notre clé dans le conteneur en se connectant en SSH avec `ssh_copy_id`:
 
 ```bash
-lxc list # permet de trouver l'ip du conteneur
+incus list # permet de trouver l'ip du conteneur
 ssh-copy-id -i ~/.ssh/id_ed25519 stagiaire@<ip_conteneur>
 ssh stagiaire@<ip_conteneur>
 ```
@@ -160,21 +160,21 @@ LXD permet de gérer aisément des snapshots de nos conteneurs sous forme d'imag
 Nous allons maintenant créer snapshots opérationnels de base qui vont nous permettre de construire notre lab d'infrastructure en local.
 
 ```bash
-lxc stop centos1
-lxc publish --alias centos_ansible_ready centos1
-lxc image list
+incus stop centos1
+incus publish --alias centos_ansible_ready centos1
+incus image list
 ```
 
 On peut ensuite lancer autant de conteneur que nécessaire avec la commande launch:
 
 ```bash
-lxc launch centos_ansible_ready centos2 centos3
+incus launch centos_ansible_ready centos2 centos3
 ```
 
 - Une fois l'image exportée faite supprimez les conteneurs.
 
 ```bash
-lxc delete centos1 centos2 centos3 --force
+incus delete centos1 centos2 centos3 --force
 ```
 
 {{% /expand %}}
@@ -239,7 +239,7 @@ bin_ansible_callbacks = True
 Il faut pour cela lister les conteneurs lxc lancés.
 
 ```
-lxc list # récupérer l'ip de la machine
+incus list # récupérer l'ip de la machine
 ```
 
 Générez une clé si elle n'existe pas avec `ssh-keygen`.
