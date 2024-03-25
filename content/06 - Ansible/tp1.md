@@ -468,8 +468,8 @@ Nous allons faire que la page d'accueil Nginx affiche des données extraites d'A
 - créons un fichier nommé `nginx_index.j2` avec le contenu suivant :
 
 ```jinja2
-Nom de l'hô?te Ansible : {{ ansible_hostname }}
-Systè?me d'exploitation : {{ ansible_distribution }} {{ ansible_distribution_version }}
+Nom de l'hôte Ansible : {{ ansible_hostname }}
+Système d'exploitation : {{ ansible_distribution }} {{ ansible_distribution_version }}
 Architecture CPU : {{ ansible_facts['architecture'] }}
 ```
 
