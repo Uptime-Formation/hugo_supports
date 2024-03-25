@@ -358,12 +358,12 @@ L'élévation de privilège est nécessaire lorsqu'on a besoin d'être `root` po
 C'est l'idempotence: ansible nous indique via les couleurs vertes ou jaunes si nginx était déjà présent sur le serveur.
 {{% /expand %}}
 
-<!-- 
+
 {{% expand "Réponse  :" %}}
 ```
 ansible adhoc_lab --become -m package -a "name=nginx state=present"
 ```
-{{% /expand %}} -->
+{{% /expand %}}
 
 <!-- - Pour résoudre le problème installez `epel-release` sur la  machine centos.
 
@@ -381,15 +381,15 @@ ansible adhoc_lab -m package -a name=nginx state=present
 ``` -->
 
 <!-- la machine centos a un retour changed jaune alors que la machine ubuntu a un retour ok vert. C'est l'idempotence: ansible nous indique que nginx était déjà présent sur le serveur ubuntu.
-{{% /expand %}} -->
-
+{{% /expand %}}
+-->
 - Utiliser le module `systemd` et l'option `--check` pour vérifier si le service `nginx` est démarré sur chacune des 2 machines. Normalement vous constatez que le service est déjà démarré (par défaut) sur la machine ubuntu et non démarré sur la machine centos.
 
-<!-- {{% expand "Réponse  :" %}}
+{{% expand "Réponse  :" %}}
 ```
 ansible adhoc_lab --become --check -m systemd -a "name=nginx state=started"
 ```
-{{% /expand %}} -->
+{{% /expand %}}
 
 - L'option `--check` sert à vérifier l'état des ressources sur les machines mais sans modifier la configuration`. Relancez la commande précédente pour le vérifier. Normalement le retour de la commande est le même (l'ordre peut varier).
 
