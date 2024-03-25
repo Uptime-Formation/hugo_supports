@@ -85,3 +85,11 @@ A integrer :
 
 
 TODO: ajouter liens vers pages de docs
+
+TODO: register
+
+TODO: FIXME: passer infra en ubuntu 22 pouyr ansible-lint
+
+TODO: conds j2, conds tasks pour ansible_family
+
+TODO: rescue
