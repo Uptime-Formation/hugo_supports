@@ -135,7 +135,7 @@ En utilisant une `loop` (et en accédant aux différentes valeurs qu'elle prend 
           - "www-data"
 ```
 
-{{% expand "Si vous avez créé une app3 sur CentOS :" %}}
+{{% expand "Si vous avez créé une app3 sur CentOS (facultatif), cliquez ici" %}}
 Ici, le fonctionnement le plus concis serait d'utiliser les conditions Jinja2 (et non le mot-clé `when:`) avec une section de playbook appelée `vars:` et quelque chose comme `nginx_user: "{{ 'www-data' if ansible_os_family == "RedHat" else 'www-data'`
 {{% /expand %}}
 
