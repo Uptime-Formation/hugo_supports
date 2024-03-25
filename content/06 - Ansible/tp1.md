@@ -328,7 +328,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 
 ## Commandes ad-hoc
 
-- Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
+<!-- - Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
 
 ```yaml
 - hosts: hotes_cible
@@ -338,7 +338,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
       ping:
 ```
 
-- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`.
+- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`. -->
 
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
@@ -427,10 +427,10 @@ Il existe trois façon de lancer des commandes unix avec ansible:
 - Relancez la commande. Le retour est toujours `changed` car ces modules ne sont pas idempotents.
 
 - Relancer l'un des modules `shell` ou `command` avec `touch` et l'option `creates` pour rendre l'opération idempotente. Ansible détecte alors que le fichier témoin existe et n'exécute pas la commande.
-<!-- 
+
 ```
 ansible adhoc_lab --become -m "command touch /tmp/file" -a "creates=/tmp/file"
-``` -->
+```
 
 ## Les variables en Ansible, les Ansible Facts et les templates Jinja2
 
