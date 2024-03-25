@@ -1,5 +1,5 @@
 ---
-title: "TP1 - Mise en place d'Ansible et premier playbook"
+title: "TP1 - Mise en place d'Ansible, commandes Ad Hoc et premier playbook"
 draft: false
 weight: 11
 ---
@@ -328,18 +328,6 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 
 ## Commandes ad-hoc
 
-<!-- - Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
-
-```yaml
-- hosts: hotes_cible
-  
-  tasks:
-    - name: ping
-      ping:
-```
-
-- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`. -->
-
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
 - Créons un playbook rudimentaire pour installer `nginx`.
@@ -455,15 +443,31 @@ Vous pouvez aussi exporter les "facts" d'un hôte en JSON pour plus de lisibilit
 
 Puis les lire avec `cat ./ansible_facts_export/votremachine.json | jq` (il faut que jq soit installé, sinon tout ouvrir dans VSCode avec `code ./ansible_facts_export`).
 
-- utilisez `jq` pour extraire et visualiser des informations spécifiques à partir du fichier JSON. Par exemple, pour voir l'état du service Nginx :
+- utilisez `jq` pour extraire et visualiser des informations spécifiques à partir du fichier JSON. Par exemple, pour voir le type de virtualisation détecté :
 
 ```bash
-cat /tmp/ansible_facts/<nom_hôte_ou_IP>.json | jq '.ansible_facts.ansible_services.nginx'
+cat /tmp/ansible_facts/<nom_hôte_ou_IP>.json | jq '.ansible_facts.ansible_virtualization_type'
 ```
 
-### Créer un template Jinja2
+### Créer un playbook et utiliser un template Jinja2
 
 Nous allons faire que la page d'accueil Nginx affiche des données extraites d'Ansible.
+
+
+
+- Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
+
+```yaml
+- hosts: ubu1
+  
+  tasks:
+    - name: ping
+      ping:
+```
+
+- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`.
+
+- Ajoutez une task utilisant le module `systemd:`, en ajoutant bien un nom (`name:`) à cette task, pour s'assurer que le service Nginx est bien lancé.
 
 - créons un fichier nommé `nginx_index.j2` avec le contenu suivant :
 
@@ -473,7 +477,11 @@ Système d'exploitation : {{ ansible_distribution }} {{ ansible_distribution_ver
 Architecture CPU : {{ ansible_facts['architecture'] }}
 ```
 
-<!-- - Ajoutez à ce modèle Jinja l'affichage d'une nouvelle variable à partir de l'exercice précédent.
+Ces variables sont des variables issues de l'étape de collecte de *facts* Ansible (si on ne les collecte pas, la task échouera).
+
+<!--
+FIXME: faire plutôt une condition sur ansible_family
+ - Ajoutez à ce modèle Jinja l'affichage d'une nouvelle variable à partir de l'exercice précédent.
 
 ```
 {% if 'nginx' in ansible_facts['ansible_services'] %}
@@ -483,10 +491,15 @@ Fichier de configuration Nginx : {{ ansible_facts['ansible_services']['nginx']['
 {% else %}
 Service Nginx : Non en cours d'exécution
 {% endif %}
-``` -->
-
+``` 
 Dans ce modèle, nous avons ajouté une condition pour vérifier si le service Nginx est en cours d'exécution sur l'hôte.
+
+-->
+
 
 ### Afficher le template comme page d'accueil Nginx
 
-- Avec la documentation du module `template:`, copiez le fichier `nginx_index.j2` à l'emplacement de la configuration Nginx par défaut (probablement `/var/www/html/index.html`). Assurez-vous que ce fichier ait bien les bons droits de lecture par l'user `www-data`.
+- Avec la documentation du module `template:`, copiez le fichier `nginx_index.j2` à l'emplacement de la configuration Nginx par défaut (c'est `/var/www/html/index.html` pour Ubuntu).
+<!-- - Assurez-vous que ce fichier ait bien les bons droits de lecture par l'user `www-data`. -->
+
+- En modifiant le fichier de template et en réexécutant le playbook avec l'option `--diff` et `--check`, observez les changements qu'Ansible aurait fait au fichier.
