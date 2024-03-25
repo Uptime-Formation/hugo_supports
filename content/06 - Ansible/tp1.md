@@ -468,12 +468,12 @@ Nous allons faire que la page d'accueil Nginx affiche des données extraites d'A
 - créons un fichier nommé `nginx_index.j2` avec le contenu suivant :
 
 ```jinja2
-Nom de l'hôte Ansible : {{ ansible_facts['ansible_hostname'] }}
-Système d'exploitation : {{ ansible_facts['ansible_distribution'] }} {{ ansible_facts['ansible_distribution_version'] }}
-Architecture CPU : {{ ansible_facts['ansible_architecture'] }}
+Nom de l'hô?te Ansible : {{ ansible_hostname }}
+Systè?me d'exploitation : {{ ansible_distribution }} {{ ansible_distribution_version }}
+Architecture CPU : {{ ansible_facts['architecture'] }}
 ```
 
-- Ajoutez à ce modèle Jinja l'affichage d'une nouvelle variable à partir de l'exercice précédent.
+<!-- - Ajoutez à ce modèle Jinja l'affichage d'une nouvelle variable à partir de l'exercice précédent.
 
 ```
 {% if 'nginx' in ansible_facts['ansible_services'] %}
@@ -483,7 +483,7 @@ Fichier de configuration Nginx : {{ ansible_facts['ansible_services']['nginx']['
 {% else %}
 Service Nginx : Non en cours d'exécution
 {% endif %}
-```
+``` -->
 
 Dans ce modèle, nous avons ajouté une condition pour vérifier si le service Nginx est en cours d'exécution sur l'hôte.
 
