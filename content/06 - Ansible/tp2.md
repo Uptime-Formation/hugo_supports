@@ -89,7 +89,7 @@ Le code (très minimal) de cette application se trouve sur github à l'adresse: 
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'options que le module `package`.
 
 {% expand "Avec CentOS :" %}
-Pour faire varier les tasks que l'on exécute, il faudrait jouer sur la variable `ansible_os_family` avec l'instruction `when: ansible_os_family == "RedHat"` (au niveau du nom du module dans la task).
+Pour faire varier les tasks que l'on exécute, il faudrait jouer sur la variable `ansible_os_family` avec la ligne `when: ansible_os_family == "RedHat"` (au niveau du nom du module dans la task).
 
 {% /expand %}
 
