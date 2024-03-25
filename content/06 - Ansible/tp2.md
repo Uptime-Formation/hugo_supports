@@ -404,8 +404,9 @@ Ajoutons des variables pour gérer dynamiquement les paramètres de notre déplo
     user: flask
     domain: hello.test
 ```
-(remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public)
 
+(il faudra modifier votre fichier `/etc/hosts` pour faire pointer le domaine `hello.test` vers l'IP de votre conteneur)
+<!-- remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public,  -->
 - ajoutons une petite task dans la section `pre_tasks:` pour afficher cette variable au début du playbook, c'est le module `debug` :
 
 ```yaml
@@ -435,8 +436,6 @@ app:
   repository: https://github.com/e-lie/flask_hello_ansible.git
   version: master
 ```
-
-(remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public, sinon il faudra modifier votre fichier `/etc/hosts` pour faire pointer le domaine `hello.test` vers l'IP de votre conteneur)
 
 {{% /expand %}}
 
