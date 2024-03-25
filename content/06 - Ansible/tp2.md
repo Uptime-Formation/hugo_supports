@@ -504,7 +504,7 @@ Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variabl
 {% if ansible_os_family == "Debian" %}
 # ma config spécial Debian
 # ...
-{% %}
+{% endif %}
 ```
 
 ## Bonus 2 : Rendre le playbook dynamique avec une boucle
