@@ -416,9 +416,9 @@ Ajoutons des variables pour gérer dynamiquement les paramètres de notre déplo
 ```
 
 - Remplacez dans le playbook précédent et les deux fichiers de template:
-  - toutes les occurence de la chaine `hello` par `{{ app.name }}`
-  - toutes les occurence de la chaine `flask` par `{{ app.user }}`
-  - toutes les occurence de la chaine `hello.test` par `{{ app.domain }}`
+  - toutes les occurences de la chaine `hello` par `{{ app.name }}`
+  - toutes les occurences de la chaine `flask` par `{{ app.user }}`
+  - toutes les occurences de la chaine `hello.test` par `{{ app.domain }}`
 
 - Relancez le playbook : toutes les tâches devraient renvoyer `ok` à part les "restart" car les valeurs sont identiques.
 
@@ -491,13 +491,21 @@ Le dépôt contient également les corrigés du TP3 et TP4 dans d'autres branche
 
 Vous pouvez consultez la solution également directement sur le site de github.
 
-## Bonus 1 : faire varier le playbook selon les OS
+## Bonus 1 : les conditions : faire varier le playbook selon les OS
 
 Pour ceux ou celles qui sont allés vite, vous pouvez tenter de créer une nouvelle version de votre playbook portable entre centos et ubuntu. Pour cela utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
 
 Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
 
 Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
+
+Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variable, la syntaxe est la suivante :
+```jinja2
+{% if ansible_os_family == "Debian" %}
+# ma config spécial Debian
+# ...
+{% %}
+```
 
 ## Bonus 2 : Rendre le playbook dynamique avec une boucle
 
