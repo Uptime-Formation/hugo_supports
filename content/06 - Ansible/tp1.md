@@ -62,6 +62,12 @@ La commande échoue car ssh n'est pas configuré sur l'hote mais la machine est 
 
 - Ajoutez la ligne `hotelocal ansible_host=127.0.0.1 ansible_connection=local` dans l'inventaire par défaut (le chemin est indiqué dans). Et pinguer hotelocal.
 
+### Autocomplete
+```
+python3 -m pip install --user argcomplete
+activate-global-python-argcomplete --user
+```
+
 ## Explorer LXD / Incus
 
 LXD est une technologie de conteneurs actuellement promue par Canonical (ubuntu) qui permet de faire des conteneur linux orientés systèmes plutôt qu'application. Par exemple `systemd` est disponible à l'intérieur des conteneurs contrairement aux conteneurs Docker.
@@ -320,7 +326,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 - N'hésitez pas consulter extensivement la documentation des modules avec leur exemple ou d'utiliser la commande de documentation `ansible-doc <module>`
   - utilisez `become` pour devenir root avant d'exécuter la commande (cf élévation de privilège dans le cours2)
 
-## Premier playbook
+## Commandes ad-hoc
 
 - Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
 
