@@ -491,7 +491,7 @@ Le dépôt contient également les corrigés du TP3 et TP4 dans d'autres branche
 
 Vous pouvez consultez la solution également directement sur le site de github.
 
-## Les conditions : faire varier le playbook selon les OS
+## Amélioration 1 : Les conditions : faire varier le playbook selon les OS
 
 Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre centos et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
 
@@ -507,14 +507,16 @@ Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variabl
 {% endif %}
 ```
 
-## Bonus 2 : Rendre le playbook dynamique avec une boucle
+## Amélioration 2 : Rendre le playbook dynamique avec une boucle
+
+Nous allons nous préparer à transformer ce playbook en rôle, plus général.
 
 Plutôt qu'une variable `app` unique on voudrait fournir au playbook une liste d'application à installer (liste potentiellement définie durant l'exécution).
 
-- Identifiez dans le playbook précédent les tâches qui sont exactement communes aux deux installations.
+- Identifiez dans le playbook précédent les tâches qui sont exactement communes à l'installation des deux apps.
 {{% expand "Réponse  :" %}}
 
-> Il s'agit des tâches d'installation des dépendances apt et de vérification de l'état de nginx (démarré)
+> Il s'agit des tâches d'installation des dépendances `apt` et de vérification de l'état de nginx (démarré)
 
 {{% /expand %}}
 
@@ -528,7 +530,7 @@ Plutôt qu'une variable `app` unique on voudrait fournir au playbook une liste d
 
 Ce nouveau fichier n'est pas à proprement parler un `playbook` mais une **liste de tâches**.
 - Utilisez `include_tasks:` pour importer cette liste de tâches à l'endroit où vous les avez supprimées.
-- Vérifiez que le playbook fonctionne et est toujours idempotent. _Note: si vous avez récupéré une solution, il va falloir récupérer le fichier d'inventaire d'un autre projet et adapter la sections `hosts:` du playbook._
+- Vérifiez que le playbook fonctionne et est toujours idempotent. _Note: si vous avez récupéré une solution, il va falloir récupérer le fichier d'inventaire d'un autre projet et adapter la section `hosts:` du playbook._
 
 - Ajoutez une tâche `debug: msg={{ app }}` au début du playbook pour visualiser le contenu de la variable.
 
@@ -570,17 +572,17 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 
 - Pour la solution : activez la branche `tp2_correction` avec `git checkout tp2_correction`.
 
-## Bonus 3 : modifier le `/etc/hosts` via le playbook
+## Amélioration 3 : modifier le `/etc/hosts` via le playbook
 
 A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
 Idéalement, on utiliserait la regex `.* {{ app.domain }}$` pour gérer les variations d'adresse IP
 
-## Bonus 4 : faire fonctionner le playbook en check mode
+## Amélioration 4 : faire fonctionner le playbook en check mode
 Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
 Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
 Avec `failed_when:` et `{{ ansible_check_mode }}`, résolvons le problème.
 
-## Bonus 5 : pour pratiquer
+## Bonus : pour pratiquer
 
 Essayez de déployer une version plus complexe d'application flask avec une base de donnée mysql : [https://github.com/miguelgrinberg/microblog/tree/v0.17](https://github.com/miguelgrinberg/microblog/tree/v0.17)
 
