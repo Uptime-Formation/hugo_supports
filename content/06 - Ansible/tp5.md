@@ -1,5 +1,5 @@
 ---
-title: "TP5 Bonus - Automatisation du déploiement avec Gitlab CI" 
+title: "TP5 - Automatisation du déploiement avec Gitlab CI" 
 draft: false
 weight: 51
 ---

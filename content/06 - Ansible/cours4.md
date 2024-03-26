@@ -1,7 +1,7 @@
 ---
 title: 'Cours 4 - Organiser un projet'
 draft: false
-weight: 40
+weight: 31
 ---
 
 ## Organisation d'un dépôt de code Ansible

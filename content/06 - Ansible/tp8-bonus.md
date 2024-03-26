@@ -1,7 +1,7 @@
 ---
 title: "TP8 Bonus - Cloud via Incus et générer un inventaire dynamique" 
 draft: true
-weight: 53
+weight: 80
 ---
 ## Ajouter un provisionneur d'infra maison pour créer les machines automatiquement
 

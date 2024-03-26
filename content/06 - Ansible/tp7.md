@@ -1,5 +1,5 @@
 ---
-title: "TP7 Bonus - Cloud Terraform" 
+title: "TP7 - Cloud Terraform" 
 draft: false
 weight: 53
 ---
@@ -11,9 +11,8 @@ weight: 53
 - ouvrez le projet avec VSCode.
 - Activez la branche `tp4_correction` avec `git checkout tp4_correction`. 
 
-## Facultatif: Infrastructure dans le cloud avec Terraform et Ansible
+## Infrastructure dans le cloud avec Terraform et Ansible
 
-{{% expand "Facultatif  :" %}}
 
 ### Digitalocean token et clé SSH
 
@@ -32,7 +31,7 @@ weight: 53
 - Aller sur digital ocean dans la section `account` en haut à droite puis `security` et ajoutez un nouvelle clé ssh. Notez sa fingerprint dans le fichier précédent.
 
 
-### Installer terraform et le provider ansible
+### Installer Terraform et le provider ansible
 
 Terraform est un outil pour décrire une infrastructure de machines virtuelles et ressources IaaS (infrastructure as a service) et les créer (commander). Il s'intègre en particulier avec AWS, DigitalOcean mais peut également créer des machines dans un cluster VMWare en interne (on premise) pour créer par exemple un cloud mixte.
 
@@ -77,7 +76,7 @@ Maintenant que nous avons des machines dans le cloud nous devons fournir leurs I
 
 Une bonne intégration entre Ansible et Terraform permet de décrire précisément les liens entre resource terraform et hote ansible ainsi que les groupes de machines ansible. Pour cela notre binder propose de dupliquer les ressources dans `main.tf` pour créer explicitement les hotes ansible à partir des données dynamiques de terraform.
 
-- Ouvrons à nouveau le fichier `main.tf` pour étudier le mapping entre les ressources digitalocean et leur duplicat ansible.
+- Ouvrons à nouveau le fichier `main.tf` pour étudier le mapping entre les ressources digitalocean et leur équivalent Ansible.
 
 - Pour vérifier le fonctionnement de notre inventaire dynamique, allez à la racine du projet et lancez:
 
@@ -86,10 +85,8 @@ source .env
 ./inventory_terraform.py
 ```
 
-- La seconde appelle l'inventaire dynamique et vous renvoie un résultat en json décrivant les groupes, variables et adresses IP des machines crées avec terraform.
+- La seconde appelle l'inventaire dynamique et vous renvoie un résultat en JSON décrivant les groupes, variables et adresses IP des machines créées avec Terraform.
 
 - Complétez le `ansible.cfg` avec le chemin de l'inventaire dynamique: `./inventory_terraform.py`
 
-- Nous pouvons maintenant tester la connexion avec ansible directement: `ansible all -m ping`.
-
-{{% /expand %}}
+- Nous pouvons maintenant tester la connexion avec Ansible directement: `ansible all -m ping`.
