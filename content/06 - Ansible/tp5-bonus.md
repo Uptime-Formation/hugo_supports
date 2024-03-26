@@ -10,7 +10,7 @@ weight: 51
 - Affichez et copiez `cat ~/.ssh/id_ed25519.pub`.
 - Dans `(User) Settings > SSH Keys`, collez votre clé publique copiée dans la quesiton précédente.
 - Suivez les instructions pour pousser le code du projet Ansible sur ce dépôt.
-- Cliquez sur `Web IDE`, un bouton à droite dans l'interface de gitlab. Cet éditeur permet de développer directement dans le navigateur et commiter vos modification directement dans des branches sur le serveur.
+- Dans le menu à gauche sur la page de votre projet Gitlab, cliquez sur `Build > Pipeline Editor`. Cet éditeur permet d'éditer directement dans le navigateur le fichier `.gitlab-ci.yml` et de commiter vos modification directement dans des branches sur le serveur.
 
 - Ajoutez à la racine du projet un fichier `.gitlab-ci.yml` avec à l'intérieur:
 
@@ -31,20 +31,22 @@ deploy:
     - ansible --version
 ```
 
-En poussant du nouveau code dans master ou en mergant dans master le playbook est automatiquement lancé dans un pipeline: c'est le principe de la CI/CD Gitlab. `only: refs: master` sert justement à indiquer de limiter l'exécution des pipelines à la branche master.
+En poussant du nouveau code dans master ou en mergant dans master les jobs sont automatiquement lancés via une nouvelle pipeline : c'est le principe de la CI/CD Gitlab. `only: refs: master` sert justement à indiquer de limiter l'exécution des pipelines à la branche master.
 
 - Cliquez sur `commit` dans le web IDE et cochez `merge to master branch`. Une fois validé votre code déclenche donc directement une exécution du pipeline.
 
 - Vous pouvez retrouver tout l'historique de l'exécution des pipelines dans la Section `CI / CD > Jobs` rendez vous dans cette section pour observer le résultat de la dernière exécution.
 
-!!! Notre pipeline nous permet uniquement de vérifier la bonne disponibilité d'ansible.
+- Notre pipeline nous permet uniquement de vérifier la bonne disponibilité d'ansible.
 
-!!! Il est basé une image docker contenant Ansible pour ensuite executer notre projet d'IaC.
+- Elle est basée sur une (vieille) image docker contenant Ansible pour ensuite executer notre projet d'Iinfra as Code.
+
+## Alternative 1 : se connecter directement depuis le runner aux serveurs cible
 
 Nous allons maintenant configurer le pipeline pour qu'il puisse se connecter à nos serveurs de cloud. Pour cela nous avons principalement besoin de charger l'identité/clé SSH dans le contexte du pipeline et la déverrouiller.
 
 - Affichez le contenu de votre clé privée SSH
-- Visitez dans le projet dans la section `Settings> CI/CD > variables` et ajoutez une variable `ID_SSH_PRIVKEY` en mode `protected` (sans l'option `masked`).
+- Visitez dans le projet dans la section `Settings> Build > Variables` et ajoutez une variable `ID_SSH_PRIVKEY` en mode `protected` (sans l'option `masked`).
 
 - Pour charger l'identité dans le contexte du pipeline ajoutez la section `before_script` suivante entre `variables` et `deploy`:
 
@@ -63,29 +65,22 @@ before_script: # some steps to execute before the main pipeline stage
 ```
 
 - Remplacez `ansible --version` par un ping de toutes les machines.
-- Relancez le pipeline en commitant(et en poussant) vos modifications dans `master`.
+- Relancez le pipeline en committant (et en poussant) vos modifications dans `master`.
 
 - Allez observer le job en cours d'exécution.
 
 - Enfin lançons notre playbook principal en remplaçant la commande ansible précédente dans le pipeline et commitant
 
-- Ajoutez une plannification dans la section `CI / CD`.
+- Ajoutez une planification dans la section `CI / CD`.
 
-## Bonus : Créez une planification pour le rolling upgrade de notre application
-
-<!-- - Modifiez `only: refs:` pour ajouter la branche `rolling_upgrade`. -->
-<!-- - Modifier la commande ansible pour lancer le playbook d'upgrade. -->
-- Dans `CI / CD > Schedules` ajoutez un job planifié toute les 5 min (en production toutes les nuits serait plus adapté).
-- Observez le résultat.
-
-## Bonus : un déploiement léger et sécurisé avec `ansible-pull`
+## Alternative 2 : un déploiement léger et sécurisé avec `ansible-pull`
 
 <https://blog.octo.com/ansible-pull-killer-feature/>
 
 - En lisant cet article, mettre en place un déploiement "inversé" avec `ansible-pull`.
 - En mettant en place un `cron` (ou un `timer` systemd), lancez ce déploiement toutes les 5min, et observez dans les logs.
 
-## Bonus : un déploiement plus sécurisé avec un _webhook_
+## Alternative 3 : un déploiement plus sécurisé avec un _webhook_
 
 ### Création du script d'exécution et logs dans Ansible
 
@@ -113,6 +108,7 @@ Sur votre serveur de déploiement (celui avec le projet Ansible), installez le p
 ```bash
 sudo apt install webhook
 ```
+
 Ensuite, créons un fichier de configuration pour le webhook.
 
 - Avec `nano` ou `vi` par exemple, faites `sudo nano /etc/webhook.conf` pour créer le fichier puis modifions-le avec le contenu suivant **en adaptant la partie `/home/formateur/projet-ansible` avec le chemin de votre projet**, puis enregistrez et quittez le fichier (pour `nano`, en appuyant sur `Ctrl + X`, suivi de `Y`, puis appuyez sur `Entrée`) :
@@ -139,7 +135,7 @@ Lancez le webhook en utilisant la commande suivante dans un nouveau terminal (si
 Pour tester le webhook, ouvrez simplement un navigateur web et accédez à l'URL suivante, en remplaçant `localhost` par le nom de votre domaine ou l'adresse IP de votre serveur si nécessaire :
 <http://localhost:9999/hooks/redeploy-webhook>
 
-Le webhook exécutera le script `ansible-run.sh`, qui lancera votre playbook Ansible. 
+Le webhook exécutera le script `ansible-run.sh`, qui lancera votre playbook Ansible.
 
 **Le webhook attend que le playbook finisse, laissons la page se charger dans le navigateur**, ce qui peut prendre du temps. Ensuite, il affichera le retour de la sortie standard (ou une erreur).
 
@@ -150,3 +146,10 @@ Faites un `tail -f ansible_log.txt` pour suivre le playbook le temps qu'il se te
 Dans un fichier `.gitlab-ci.yml` vous n'avez plus qu'à appeler `curl http://votredomaine:9999/hooks/redeploy-webhook` pour déclencher l'exécution de votre playbook Ansible en réponse à une requête depuis les serveurs de Gitlab.
 
 Cette configuration est bien plus sécurisée, même si en production nous protégerions le webhook avec un mot de passe (token) pour éviter que le webhook soit déclenché abusivement si quelqu'un en découvrait l'URL.
+
+## Bonus : Créez une planification pour le rolling upgrade de notre application
+
+<!-- - Modifiez `only: refs:` pour ajouter la branche `rolling_upgrade`. -->
+<!-- - Modifier la commande ansible pour lancer le playbook d'upgrade. -->
+- Dans `CI / CD > Schedules` ajoutez un job planifié toute les 5 min (en production toutes les nuits serait plus adapté).
+- Observez le résultat.
