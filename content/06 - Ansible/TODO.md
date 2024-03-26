@@ -97,3 +97,11 @@ TODO: rescue
 TODO: faire des when: - AND - et expliquer
 
 TODO: my_var: "{{ 'foo' if my_condition else '' }}"
+
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_debugger.html
+https://blog.nicolas-le-borgne.fr/blog/2021/04/03/test-driven-infrastructure-avec-ansible-et-molecule/
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html
+https://gitlab.com/coopaname/odoo-infra/-/blob/main/roles/coopaname.awx/tasks/main.yml?ref_type=heads
+https://docs.ansible.com/ansible/2.9/user_guide/playbooks_prompts.html
+https://docs.ansible.com/ansible/2.9/user_guide/playbooks_lookups.html
+https://docs.ansible.com/ansible/2.9/user_guide/playbooks_startnstep.html

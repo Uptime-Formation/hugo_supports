@@ -1,17 +1,15 @@
 ---
 title: "TP7 Bonus - Cloud Terraform" 
-draft: true
+draft: false
 weight: 53
 ---
-
-<!-- 
 
 ## Cloner le projet modèle
 
 - Pour simplifier le démarrage, clonez le dépôt de base à l'adresse [https://github.com/e-lie/ansible_tp_corrections](https://github.com/e-lie/ansible_tp_corrections).
 - Renommez le clone en tp4.
 - ouvrez le projet avec VSCode.
-- Activez la branche `tp4_correction` avec `git checkout tp4_correction`. -->
+- Activez la branche `tp4_correction` avec `git checkout tp4_correction`. 
 
 ## Facultatif: Infrastructure dans le cloud avec Terraform et Ansible
 
@@ -22,21 +20,21 @@ weight: 53
 - Pour louer les machines dans le cloud pour ce TP vous aurez besoin d'un compte digitalocean : celui du formateur ici mais vous pouvez facilement utiliser le votre. Il faut récupérer les éléments suivant pour utiliser le compte de cloud du formateur:
     - un token d'API digitalocean fourni pour la formation. Cela permet de commander des machines auprès de ce provider.
 
-<!-- 
+
 - Récupérez sur git la paire clé ssh adaptée: [https://github.com/e-lie/id_ssh_shared.git](https://github.com/e-lie/id_ssh_shared.git). Utilisez "clone or download" > "Download as ZIP". Puis décompressez l'archive.
 - mettez la paire de clé `id_ssh_shared` et `id_ssh_shared.pub` dans le dossier `~/.ssh/`. La passphrase de cette clé est `trucmuch42`.
 - Rétablissez les droits `600` sur la clé privée : `chmod 600 ~/.ssh/id_ssh_shared`.
-- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller deux clés (l'ancienne avec votre passphrase et la nouvelle paire que vous venez d'ajouter) -->
+- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller deux clés (l'ancienne avec votre passphrase et la nouvelle paire que vous venez d'ajouter)
 
-<!-- - Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en crée allez dans API > Personal access tokens et créez un nouveau token. Copiez bien ce token et collez le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt`. (important détruisez ce token à la fin du TP par sécurité).
+- Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en crée allez dans API > Personal access tokens et créez un nouveau token. Copiez bien ce token et collez le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt`. (important détruisez ce token à la fin du TP par sécurité).
 
-- Copiez votre clé ssh (à créer sur nécessaire): `cat ~/.ssh/id_ed25519.pub`
-- Aller sur digital ocean dans la section `account` en haut à droite puis `security` et ajoutez un nouvelle clé ssh. Notez sa fingerprint dans le fichier précédent. -->
+- Copiez votre clé ssh (à créer si nécessaire): `cat ~/.ssh/id_ed25519.pub`
+- Aller sur digital ocean dans la section `account` en haut à droite puis `security` et ajoutez un nouvelle clé ssh. Notez sa fingerprint dans le fichier précédent.
 
 
 ### Installer terraform et le provider ansible
 
-Terraform est un outils pour décrire une infrastructure de machines virtuelles et ressources IaaS (infrastructure as a service) et les créer (commander). Il s'intègre en particulier avec AWS, DigitalOcean mais peut également créer des machines dans un cluster VMWare en interne (on premise) pour créer par exemple un cloud mixte.
+Terraform est un outil pour décrire une infrastructure de machines virtuelles et ressources IaaS (infrastructure as a service) et les créer (commander). Il s'intègre en particulier avec AWS, DigitalOcean mais peut également créer des machines dans un cluster VMWare en interne (on premise) pour créer par exemple un cloud mixte.
 
 Terraform est notamment à l'aide d'un dépôt ubuntu/debian. Pour l'installer lancez:
 
