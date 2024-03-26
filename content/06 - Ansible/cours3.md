@@ -8,7 +8,7 @@ weight: 30
 
 Ansible utilise en arrière plan un dictionnaire contenant de nombreuses variables.
 
-Pour s'en rendre compte on peut lancer : 
+Pour s'en rendre compte on peut lancer :
 `ansible <hote_ou_groupe> -m debug -a "msg={{ hostvars }}"`
 
 Ce dictionnaire contient en particulier:
@@ -42,7 +42,7 @@ En résumé la règle peut être exprimée comme suit: les variables de runtime 
 
 ### Variables spéciales
 
-https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html
+<https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html>
 
 Les plus utiles:
 
@@ -71,7 +71,7 @@ Les facts sont des valeurs de variables récupérées au début de l'exécution 
 
 Lors d'une **commande adhoc** ansible les **facts** ne sont pas récupérés : la variable `ansible_os_family` ne sera pas disponible.
 
-La liste des facts peut être trouvée dans la documentation et dépend des plugins utilisés pour les récupérés: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html
+La liste des facts peut être trouvée dans la documentation et dépend des plugins utilisés pour les récupérés: <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html>
 
 ## Structures de contrôle Ansible
 
@@ -132,13 +132,11 @@ On peut également contrôler cette boucle avec quelques paramètres:
     
 ```
 
-Cette fonctionnalité de boucle était anciennement accessible avec le mot clé `with_items:` qui est maintenant déprécié.
-
-
+Cette fonctionnalité de boucle était anciennement accessible avec le mot-clé `with_items:` qui est maintenant déprécié.
 
 ## Jinja2 et variables dans les playbooks et rôles (fichiers de code)
 
-La plupart des fichiers Ansible (sauf l'inventaire) sont traités avec le moteur de template python JinJa2.
+La plupart des fichiers Ansible (sauf l'inventaire) sont traités avec le moteur de template python Jinja2.
 
 Ce moteur permet de créer des valeurs dynamiques dans le code des playbooks, des roles, et des fichiers de configuration.
 
@@ -146,19 +144,17 @@ Ce moteur permet de créer des valeurs dynamiques dans le code des playbooks, de
 
 - Des filtres (fonctions de transformation) permettent de transformer la valeur des variables: exemple : `{{ hostname | default('localhost') }}` (Voir plus bas)
 
-
 ### Filtres Jinja
 
 Pour transformer la valeur des variables à la volée lors de leur appel on peut utiliser des filtres (jinja2) :
 
-- par exemple on peut fournir une valeur par défaut pour une variable avec filtre default: `{{ hostname | default('localhost') }}` 
+- par exemple on peut fournir une valeur par défaut pour une variable avec filtre default: `{{ hostname | default('localhost') }}`
 - Un autre usage courant des filtres est de reformater et filtrer des listes et dictionnaires de paramètre. Ces syntaxes sont peut intuitives. Vous pouvez vous entrainer en regardant ces tutoriels:
   - [https://www.tailored.cloud/devops/how-to-filter-and-map-lists-in-ansible/](https://www.tailored.cloud/devops/how-to-filter-and-map-lists-in-ansible/)
   - [https://www.tailored.cloud/devops/advanced-list-operations-ansible/](https://www.tailored.cloud/devops/advanced-list-operations-ansible/)
 
 La liste complète des filtres ansible se trouve ici : [https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html)
 <!-- TODO: ajout de liens vers jinja filter custom -->
-
 
 ### Jinja2 et les variables dans les fichiers de templates
 
@@ -167,7 +163,6 @@ Les fichiers de templates (.j2) utilisés avec le module template, généralemen
 - Des `if` : `{% if nginx_state == 'present' %}...{% endif %}`.
 - Des boucles `for` : `{% for host in groups['appserver'] %}...{% endfor %}`.
 - Des inclusions de templates `{% include 'autre_fichier_template.j2' %}`
-
 
 ## Imports et includes
 
@@ -178,9 +173,12 @@ Il est possible d'importer le contenu d'autres fichiers dans un playbook:
 
 Les deux instructions précédentes désignent un import **statique** qui est résolu avant l'exécution.
 
-Au contraire, `include_tasks` permet d'intégrer une liste de tâche **dynamiquement** pendant l'exécution
+**En général, on utilise `import_*` pour améliorer la lisibilité de notre dépôt.**
 
-Par exemple:
+Au contraire, `include_tasks` permet d'intégrer une liste de tâches **dynamiquement** pendant l'exécution.
+**En général, on utilise `include_*` pour décider quelles tâches, quelles variables ou quels rôles seront inclus au run d'un playbook.**
+
+Par exemple :
 
 ```yaml
 vars:
@@ -194,9 +192,13 @@ tasks:
     loop: "{{ apps }}"
 ```
 
-Ce code indique à Ansible d'executer une série de tâches pour chaque application de la liste. On pourrait remplacer cette liste par une liste dynamique. Comme le nombre d'import ne peut pas facilement être connu à l'avance on **doit** utiliser `include_tasks`.
+Ce code indique à Ansible d'exécuter une série de tâches pour chaque application de la liste. On pourrait remplacer cette liste par une liste dynamique. Comme le nombre d'imports ne peut pas facilement être connu à l'avance on **doit** utiliser `include_tasks`.
 
-
+Documentation additionnelle :
+- <https://docs.ansible.com/ansible/6/user_guide/playbooks_reuse.html#playbooks-reuse>
+- <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#conditionals-with-imports>
+- <https://www.ansiblejunky.com/blog/ansible-101-include-vs-import/>
+- <https://serverfault.com/questions/875247/whats-the-difference-between-include-tasks-and-import-tasks>
 
 ## Debugger un playbook
 
@@ -208,8 +210,7 @@ Avec Ansible on dispose d'au moins trois manières de debugger un playbook :
 
 - Utiliser la directive `debugger: always` ou `on_failed` à ajouter à la fin d'une tâche. L'exécution s'arrête alors après l'exécution de cette tâche et propose un interpreteur de debug.
 
-Les commandes et l'usage du debugger sont décris dans la documentation: https://docs.ansible.com/ansible/latest/user_guide/playbooks_debugger.html
-
+Les commandes et l'usage du debugger sont décrits dans la documentation: <https://docs.ansible.com/ansible/latest/user_guide/playbooks_debugger.html>
 
 <!-- TODO: laïus sur register a et a.stdout -->
 ### Les 7 commandes de debug dans Ansible
@@ -223,4 +224,3 @@ Les commandes et l'usage du debugger sont décris dans la documentation: https:/
 | redo                   | r        | Run the task again                        |
 | continue               | c        | Continue executing, starting with the next task |
 | quit                   | q        | Quit the debugger                         |
-

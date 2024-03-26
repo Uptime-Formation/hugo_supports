@@ -5,13 +5,54 @@ weight: 60
 ---
 ## Installer AWX, Rundeck ou Semaphore
 
-- AWX : sur Kubernetes avec k3s
+- AWX : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
+Sur Kubernetes avec minikube ou k3s
 
 - Rundeck : <https://docs.rundeck.com/docs/administration/install/>
 `docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1`
 
 - Semaphore : <https://github.com/ansible-semaphore/semaphore>
 `docker run -p 3000:3000 -d semaphoreui/semaphore`
+
+## Installer AWX
+
+- Installer minikube :
+```bash
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+minikube start --cpus=4 --memory=6g --addons=ingress
+alias kubectl="minikube kubectl --"
+```
+
+- Puis suivre : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
+
+```bash
+git clone git@github.com:ansible/awx-operator.git
+cd awx-operator
+git tag
+git checkout tags/2.7.2
+
+make deploy
+kubectl apply -k .
+```
+
+Créer un fichier `awx-demo.yml` :
+```yaml
+---
+apiVersion: awx.ansible.com/v1beta1
+kind: AWX
+metadata:
+  name: awx-demo
+spec:
+  service_type: nodeport
+```
+
+Puis :
+```
+kubectl apply -f awx-demo.yml
+minikube service awx-demo-service --url
+kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
+```
 
 ## Explorer AWX
 
