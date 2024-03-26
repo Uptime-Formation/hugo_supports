@@ -35,7 +35,7 @@ Pour configurer notre infrastructure:
   - notez également le playbook `exclude_backend.yml` qui permet de sortir un backend applicatif du pool. Il s'utilise avec des variables en ligne de commande.
 <!-- TODO: faire des vars_prompts ? -->
 
-- Désactivez le noeud qui vient de vous servir la page en utilisant le playbook `exclude_backend.yml` dans une tâche AWX avec `backend_name=<noeud à désactiver> backend_state=disabled` et `playbooks/exclude_backend.yml`.
+- Désactivez le noeud qui vient de vous servir la page en utilisant le playbook `exclude_backend.yml` avec `backend_name=<noeud à désactiver> backend_state=disabled` et `playbooks/exclude_backend.yml`.
 
 - Rechargez la page: vous constatez que c'est l'autre backend qui a pris le relai.
 

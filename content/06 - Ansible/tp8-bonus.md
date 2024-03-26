@@ -5,8 +5,7 @@ weight: 80
 ---
 ## Ajouter un provisionneur d'infra maison pour créer les machines automatiquement
 
-- Clonez la correction du TP2 (lien à la fin du TP2) et renommez là en `tp3_provisionner_roles`.
-- Chargez ce dossier dans VSCode (vous pouvez fermer le tp2).
+<!-- FIXME: verif https://github.com/ansible/ansible/issues/82546 -->
 
 Dans notre infra virtuelle, nous avons trois machines dans deux groupes. Quand notre lab d'infra grossit il devient laborieux de créer les machines et affecter les ip à la main. En particulier détruire le lab et le reconstruire est pénible. Nous allons pour cela introduire un playbook de provisionning qui va créer les conteneurs lxd en définissant leur ip à partir de l'inventaire.
 

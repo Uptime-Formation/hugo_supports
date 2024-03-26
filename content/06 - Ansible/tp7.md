@@ -7,7 +7,6 @@ weight: 60
 
 - AWX : sur Kubernetes avec k3s
 
-
 - Rundeck : <https://docs.rundeck.com/docs/administration/install/>
 `docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1`
 
@@ -40,3 +39,7 @@ weight: 60
 - Voyons ensemble comment configurer un vault Ansible, d'abord dans notre projet Ansible normal en chiffrant le mot de passe utilisé pour le rôle MySQL. Il est d'usage de préfixer ces variables par `secret_`.
 
 - Voyons comment déverrouiller ce Vault pour l'utiliser dans AWX en ajoutant des *Credentials*.
+
+## Bonus : réimplémentons le load balancing du TP5 via AWX
+
+Dans un template de tâche ou un workflow AWX, manipulez `playbooks/exclude_backend.yml` et/ou d'autres playbooks pour réimplementer le scénario du TP5 dans AWX.
