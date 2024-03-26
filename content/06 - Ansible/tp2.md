@@ -553,7 +553,7 @@ flask_apps:
 
 Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observons le contenu de cette variable.
 
-- A la task `debug:`, ajoutez la directive `loop: "{{ flask_apps }}` (elle se situe à la hauteur du nom de la task et du module) et remplacez le `msg={{ flask_apps }}` par `msg={{ item }}`. Que se passe-t-il ?
+- A la task `debug:`, ajoutez la directive `loop: "{{ flask_apps }}` (elle se situe à la hauteur du nom de la task et du module) et remplacez le `msg={{ flask_apps }}` par `msg={{ item }}`. Que se passe-t-il ? *note: il est normal que le playbook échoue désormais à l'étape `include_tasks`*
 
 - Utilisez la directive `loop` et `loop_control`+`loop_var` sur la tâche `include_tasks` pour inclure les tâches pour chacune des deux applications, en complétant comme suit :
 
