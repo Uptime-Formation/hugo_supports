@@ -36,7 +36,6 @@ weight: 32
 
 - Dans votre playbook `dbservers.yml` et en lisant le mode d'emploi du rôle (ou bien le fichier `defaults/main.yml`), écrasez certaines variables par défaut du rôle par des variables personnalisés. Relancez votre playbook avec `--diff` (et éventuellement `--check`) pour observer les différences.
 
-
 ## Transformer notre playbook en role
 
 - Si ce n'est pas fait, créez à la racine du projet le dossier `roles` dans lequel seront rangés tous les roles (c'est une convention ansible à respecter).
@@ -71,6 +70,7 @@ flask_apps:
     version: master
     user: defaultflask
 ```
+
 - **Sinon :**
   - Mettez à l'intérieur des valeurs par défaut pour la variable `app` :
 
@@ -91,6 +91,7 @@ Occupons-nous maintenant de la liste de tâches de notre rôle.
 Une règle simple : **il n'y a jamais de playbooks dans un rôle** : il n'y a que des listes de tâches.
 
 L'idée est la suivante :
+
 - on veut avoir un playbook final qui n'aie que des variables (section `vars:`), un groupe de `hosts:` et l'invocation de notre rôle
 
 - dans le rôle dans le dossier `tasks` on veut avoir deux fichiers :
@@ -117,7 +118,7 @@ L'idée est la suivante :
 - Ajouter une app dans la variable `flask_apps` et lancer le playbook avec `--check`. Que se passe-t-il ? Pourquoi ?
 - ajoutez une instruction `ignore_errors: {{ ansible_check_mode }}` au bon endroit. Re-testons.
 
-## Facultatif: Ajouter un paramètre d'exécution à notre rôle pour mettre à jour l'application.
+## Facultatif: Ajouter un paramètre d'exécution à notre rôle pour mettre à jour l'application
 
 {{% expand "Facultatif  :" %}}
 
@@ -141,31 +142,24 @@ Vous noterez que son nom commence par `flask_` car elle fait partie du role `fla
 
 ## Solution
 
-- Pour la correction clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/ansible-tp-solutions>.
-- Renommez le clone en tp3.
-- ouvrez le projet avec VSCode.
-- Activez la branche `tp3_correction` avec `git checkout tp3_correction`.
+- Pour la solution, clonons le dépôt via cette commande :
 
-Il contient également les corrigés du TP2 et TP4 dans d'autre branches.
+```bash
+cd # Pour revenir dans notre dossier home
+git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp3_correction tp3_correction
+```
 
-## Bonus 
+Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp3_correction>
 
-Essayez différents exemples de projets de Geerlingguy accessibles sur github à l'adresse [https://github.com/geerlingguy/ansible-for-devops](https://github.com/geerlingguy/ansible-for-devops).
+## Bonus 1
 
+Essayez différents exemples de projets de Jeff Geerling accessibles sur Github à l'adresse <https://github.com/geerlingguy/ansible-for-devops>.
 
-## Bonus 2 - Unit testing de role avec Molecule
+## Bonus 2 - Unit testing de rôle avec Molecule
 
-Pour des rôles fiables il est conseillé d'utiliser l'outil de testing molecule dès la création d'un nouveau rôle pour effectuer des tests unitaire dessus dans un environnement virtuel comme Docker.
+Pour des rôles fiables il est conseillé d'utiliser l'outil de testing molecule dès la création d'un nouveau rôle pour effectuer des tests unitaires dessus dans un environnement virtuel comme Docker.
 
 On peut créer des scénarios :
-
-<!-- Et du coup ça fait du tdd des le début -->
-
-<!-- Y a un template
-Et il faut commencer par la -->
-
-<!-- Plein de drivers pas fonctionnels sauf docker -->
-<!-- Pour des cas compliqués genre wireguard ou ynh ça marche pas du coup driver hcloud est le meilleur driver vps -->
 
 - `check.yml`
 - `converge.yml`
@@ -173,10 +167,12 @@ Et il faut commencer par la -->
 - `verify.yml`
 
 - on peux écrire ces tests avec ansible qui vérifie tout tâche par tâche écrite originalement
-- Ou alors avec testinfra la lib python spécialisée en collecte de facts os
+- ou alors avec `testinfra` la lib python spécialisée en collecte de facts os
 
+- Il y a plein de drivers pas fonctionnels sauf Docker
+- Pour des cas compliqués, le driver Hetzner Cloud est le meilleur driver VPS
 
-- Documentation : <https://molecule.readthedocs.io/en/latest/>
+Documentation : <https://molecule.readthedocs.io/en/latest/>
 
 - Suivre le tutoriel *Getting started* : <https://molecule.readthedocs.io/en/latest/getting-started.html>
-- Tutoriel bonus : https://www.adictosaltrabajo.com/2020/05/08/ansible-testing-using-molecule-with-ansible-as-verifier/
+- Tutoriel bonus : <https://www.adictosaltrabajo.com/2020/05/08/ansible-testing-using-molecule-with-ansible-as-verifier/>

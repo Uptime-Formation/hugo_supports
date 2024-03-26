@@ -6,15 +6,18 @@ weight: 50
 
 ## Infrastructure multi-tier avec load balancer
 
+### Cloner le projet modèle
+
+- Pour simplifier le démarrage, clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/exo-ansible-cloud>
+- ouvrez le projet avec VSCode.
+
 Pour configurer notre infrastructure:
 
 - Installez les roles avec `ansible-galaxy install -r roles/requirements.yml -p roles`.
 
-- Si vous n'avez pas fait la partie Terraform :
-{{% expand "Facultatif  :" %}}
 
-  - complétez l'inventaire statique (`inventory.cfg`)
-  - changer dans `ansible.cfg` l'inventaire en `./inventory.cfg` comme pour les TP précédents
+- complétez l'inventaire statique (`inventory.cfg`)
+- changer dans `ansible.cfg` l'inventaire en `./inventory.cfg`
 
 - Lancez le playbook global `site.yml`
 

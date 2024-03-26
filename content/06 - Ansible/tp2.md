@@ -443,14 +443,13 @@ app:
 
 {{% /expand %}}
 
-- Pour la solution clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/ansible-tp-solutions>
-- Renommez le clone en tp2_before_handlers.
-- ouvrez le projet avec VSCode.
-- Activez la branche `tp2_before_handlers_correction` avec `git checkout tp2_before_handlers_correction`.
+- Pour la solution intermédiaire, clonons le dépôt via cette commande :
+```bash
+cd # Pour revenir dans notre dossier home
+git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_before_handlers_correction tp2_before_handlers
+```
 
-Le dépôt contient également les corrigés du TP3 et TP4 dans d'autre branches.
-
-Vous pouvez consultez la solution également directement sur le site de github.
+Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_before_handlers_correction>
 
 ## Ajouter un handler pour nginx et le service
 
@@ -486,14 +485,13 @@ Ajoutez une section `handlers:` à la suite
 
 ## Solution
 
-- Pour la solution clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/ansible-tp-solutions>
-- Renommez le clone en tp2.
-- ouvrez le projet avec VSCode.
-- Activez la branche `tp2_before_handlers_correction` avec `git checkout tp2_before_handlers_correction`.
+- Pour la solution complète, clonons le dépôt via cette commande :
+```bash
+cd # Pour revenir dans notre dossier home
+git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correction tp2_before_handlers
+```
 
-Le dépôt contient également les corrigés du TP3 et TP4 dans d'autres branches.
-
-Vous pouvez consultez la solution également directement sur le site de github.
+Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_correction>
 
 ## Amélioration 1 : Les conditions : faire varier le playbook selon les OS
 
