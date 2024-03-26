@@ -256,7 +256,7 @@ server {
 }
 ```
 
-- Remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public
+<!-- - Remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public -->
 
 - Utilisez `file` pour créer un lien symbolique de ce fichier dans `/etc/nginx/sites-enabled` (avec l'option `force: yes` pour écraser le cas échéant).
 
@@ -264,7 +264,7 @@ server {
 
 - Ajouter une tâche de redémarrage de nginx.
 
-- Si vous n'avez pas remplacé `hello.test` par un nom de domaine public (comme `hello.test.votrenom.formation.doxx.fr`), ajoutez `hello.test` dans votre fichier `/etc/hosts` pointant sur l'ip d'un des serveur d'application.
+- Ajoutez `hello.test` dans votre fichier `/etc/hosts` pointant sur l'ip d'un des serveur d'application.
 
 - Visitez l'application dans un navigateur et debugger le cas échéant.
 
@@ -369,7 +369,7 @@ server {
 - Renommez votre fichier `flask_deploy.yml` en `flask_deploy_precorrection.yml`.
 - Copiez la solution dans un nouveau fichier `flask_deploy.yml`.
 - Lancez le playbook de solution `ansible-playbook flask_deploy.yml`.
-- Si vous n'avez pas remplacé `hello.test` par un nom de domaine public (comme `hello.test.votrenom.formation.doxx.fr`), ajoutez `hello.test` dans votre fichier `/etc/hosts`
+- Ajoutez `hello.test` dans votre fichier `/etc/hosts`
 - enfin, testez votre application en visitant la page `hello.test`. 
 {{% /expand %}}
 
@@ -573,9 +573,14 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 ## Bonus 3 : modifier le `/etc/hosts` via le playbook
 
 A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
+Idéalement, on utiliserait la regex `.* {{ app.domain }}$` pour gérer les variations d'adresse IP
 
+## Bonus 4 : faire fonctionner le playbook en check mode
+Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
+Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
+Avec `failed_when:` et `{{ ansible_check_mode }}`, résolvons le problème.
 
-## Bonus 4 : pour pratiquer
+## Bonus 5 : pour pratiquer
 
 Essayez de déployer une version plus complexe d'application flask avec une base de donnée mysql : [https://github.com/miguelgrinberg/microblog/tree/v0.17](https://github.com/miguelgrinberg/microblog/tree/v0.17)
 

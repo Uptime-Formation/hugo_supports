@@ -88,7 +88,7 @@ TODO: ajouter liens vers pages de docs
 
 TODO: register
 
-TODO: FIXME: passer infra en ubuntu 22 pouyr ansible-lint
+TODO: FIXME: passer infra en ubuntu 22 pouyr ansible-lint + webhookd
 
 TODO: conds j2, conds tasks pour ansible_family
 
@@ -105,3 +105,5 @@ https://gitlab.com/coopaname/odoo-infra/-/blob/main/roles/coopaname.awx/tasks/ma
 https://docs.ansible.com/ansible/2.9/user_guide/playbooks_prompts.html
 https://docs.ansible.com/ansible/2.9/user_guide/playbooks_lookups.html
 https://docs.ansible.com/ansible/2.9/user_guide/playbooks_startnstep.html
+
+TODO: jouer sur la redéfinition des vars à 1000 endroits
