@@ -529,7 +529,7 @@ Plutôt qu'une variable `app` unique on voudrait fournir au playbook une liste d
 {{% /expand %}}
 
 Ce nouveau fichier n'est pas à proprement parler un `playbook` mais une **liste de tâches**.
-- Utilisez `include_tasks:` pour importer cette liste de tâches à l'endroit où vous les avez supprimées.
+- Utilisez `include_tasks:` (cela se configure comme une task un peu spéciale) pour importer cette liste de tâches à l'endroit où vous les avez supprimées.
 - Vérifiez que le playbook fonctionne et est toujours idempotent. _Note: si vous avez récupéré une solution, il va falloir récupérer le fichier d'inventaire d'un autre projet et adapter la section `hosts:` du playbook._
 
 - Ajoutez une tâche `debug: msg={{ app }}` au début du playbook pour visualiser le contenu de la variable.
@@ -553,7 +553,7 @@ flask_apps:
 
 Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observons le contenu de cette variable.
 
-- A la task `debug:`, ajoutez la directive `loop: "{{ flask_apps }}` et remplacez le `msg={{ flask_apps }}` par `msg={{ item }}`. Que se passe-t-il ?
+- A la task `debug:`, ajoutez la directive `loop: "{{ flask_apps }}` (elle se situe à la hauteur du nom de la task et du module) et remplacez le `msg={{ flask_apps }}` par `msg={{ item }}`. Que se passe-t-il ?
 
 - Utilisez la directive `loop` et `loop_control`+`loop_var` sur la tâche `include_tasks` pour inclure les tâches pour chacune des deux applications, en complétant comme suit :
 
