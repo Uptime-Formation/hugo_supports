@@ -532,7 +532,12 @@ Ce nouveau fichier n'est pas à proprement parler un `playbook` mais une **liste
 - Utilisez `include_tasks:` (cela se configure comme une task un peu spéciale) pour importer cette liste de tâches à l'endroit où vous les avez supprimées.
 - Vérifiez que le playbook fonctionne et est toujours idempotent. _Note: si vous avez récupéré une solution, il va falloir récupérer le fichier d'inventaire d'un autre projet et adapter la section `hosts:` du playbook._
 
-- Ajoutez une tâche `debug: msg={{ app }}` au début du playbook pour visualiser le contenu de la variable.
+- Ajoutez une tâche `debug: msg={{ app }}` (c'est une syntaxe abrégée appelée *free-form* ) au début du playbook pour visualiser le contenu de la variable.
+*Note :* La version non-*free-form* (version longue) de cette tâche est :
+```yaml
+debug:
+  msg: {{ app }}
+```
 
 - Ensuite remplacez la variable `app` par une liste `flask_apps` de deux dictionnaires (avec `name`, `domain`, `user` différents les deux dictionnaires et `repository` et `version` identiques).
 
