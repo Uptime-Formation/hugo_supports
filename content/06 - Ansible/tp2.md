@@ -244,6 +244,9 @@ Pour gérer les fichier de configuration on utilise généralement le module `te
 `nginx.conf.j2`
 
 ```
+# {{ ansible_managed }}
+# La variable du dessus indique qu'il ne faut pas modifier ce fichier directement
+
 server {
     listen 80;
 
