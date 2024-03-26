@@ -48,19 +48,19 @@ Jusqu'ici nous avons créé un inventaire statique, c'est-à-dire un fichier qui
 
 ### Terraform avec DigitalOcean
 
-- Le fichier qui décrit les VPS et ressources à créer avec terraform est `provisioner/terraform/main.tf`. Nous allons commenter ensemble ce fichier:
+- Le fichier qui décrit les VPS et ressources à créer avec Terraform est `provisioner/terraform/main.tf`. Nous allons commenter ensemble ce fichier.
 
-!! La documentation pour utiliser terraform avec digitalocean se trouve ici [https://www.terraform.io/docs/providers/do/index.html](https://www.terraform.io/docs/providers/do/index.html)
+- La documentation pour utiliser Terraform avec DigitalOcean se trouve ici : <https://www.terraform.io/docs/providers/do/index.html>
 
-Pour terraform puisse s'identifier auprès de digitalocean nous devons renseigner le token et la fingerprint de clé ssh. Pour cela:
+Pour que Terraform puisse s'identifier auprès de DigitalOcean nous devons renseigner le token et la fingerprint de clé SSH. Pour cela :
 
-- copiez le fichier `terraform.tfvars.dist` et renommez le en enlevant le `.dist`
+- copiez le fichier `terraform.tfvars.dist` et renommez-le en enlevant le `.dist`
 - collez le token récupéré précédemment dans le fichier de variables `terraform.tfvars`
-- normalement la clé ssh `id_stagiaire` est déjà configuré au niveau de DigitalOcean et précisé dans ce fichier. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
+- normalement la clé SSH `id_stagiaire` est déjà configurée au niveau de DigitalOcean et précisée dans ce fichier. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
 
-- Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS:
-  - `terraform init` permet à terraform de télécharger les "driver" nécessaire pour s'interfacer avec notre provider. Cette commande crée un dossier .terraform
-  - `terraform plan` est facultative et permet de calculer et récapituler les créations modifications de ressources à partir de la description de `main.tf`
+- Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS :
+  - `terraform init` permet à Terraform de télécharger les "drivers" nécessaires pour s'interfacer avec notre provider. Cette commande crée un dossier `.terraform`
+  - `terraform plan` est facultative et permet de calculer et récapituler les créations et modifications de ressources à partir de la description de `main.tf`
   - `terraform apply` permet de déclencher la création des ressources.
 
 - La création prend environ 1 minute.

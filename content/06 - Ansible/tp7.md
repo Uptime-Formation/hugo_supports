@@ -1,5 +1,5 @@
 ---
-title: "TP7 - Serveur de contrôle AWX et Ansible Vault" 
+title: "TP7 - Serveur de contrôle AWX + Ansible Vault" 
 draft: false
 weight: 60
 ---

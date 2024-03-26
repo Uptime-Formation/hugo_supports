@@ -6,6 +6,8 @@ weight: 50
 
 ## Infrastructure multi-tier avec load balancer
 
+<!-- TODO: s'inspirer aussi de https://github.com/geerlingguy/ansible-for-devops/tree/master/deployments-rolling -->
+
 ### Cloner le projet modèle
 
 - Pour simplifier le démarrage, clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/exo-ansible-cloud>
@@ -15,15 +17,14 @@ Pour configurer notre infrastructure:
 
 - Installez les roles avec `ansible-galaxy install -r roles/requirements.yml -p roles`.
 
-
 - complétez l'inventaire statique (`inventory.cfg`)
 - changer dans `ansible.cfg` l'inventaire en `./inventory.cfg`
 
 - Lancez le playbook global `site.yml`
 
 - Utilisez la commande `ansible-inventory --graph` pour afficher l'arbre des groupes et machines de votre inventaire
-- Utilisez la de même pour récupérer l'ip du `balancer0` (ou `balancer1`) avec : `ansible-inventory --host=balancer0`
-- Ajoutez `hello.test` et `hello2.test` dans `/etc/hosts` pointant vers l'ip de `balancer0`.
+- Utilisez-la de même pour récupérer l'IP du `balancer0` (ou `balancer1`) avec : `ansible-inventory --host=balancer0`
+- Ajoutez `hello.test` et `hello2.test` dans `/etc/hosts` en pointant vers l'ip de `balancer0`.
 
 - Chargez les pages `hello.test` et `hello2.test`.
 
