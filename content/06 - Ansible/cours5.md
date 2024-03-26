@@ -217,15 +217,15 @@ Voir TP.
 
 - AWX/Tower
   - Serveur officiel RedHat et sa version open source
-  - assez lourd et installable uniquement dans kubernetes/openshift
+  - assez lourd et installable uniquement dans Kubernetes
   - très puissant
   - plein de plugins d'intégration
   - logging des exécutions assez optimal
 
 - Jenkins
   - Un peu vieux mais très versatile
-  - un bon plugin ansible
-  - gestion de ansible-vault et des credentials
+  - un bon plugin Ansible
+  - gestion de `ansible-vault` et des credentials
 
 - Rundeck
   - une alternative à AWX/Ansible Tower assez populaire et plus légère

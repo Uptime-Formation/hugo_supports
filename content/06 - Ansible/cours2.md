@@ -329,8 +329,7 @@ Les roles ne sont pas des tâches à proprement parler mais un ensemble de tâch
 ### Bonnes pratiques de syntaxe
 
 - Indentation de deux espaces.
-- Toujours mettre un `name:` qui décrit lors de l'execution la tâche en court : un des principes de l'IaC est l'intelligibilité des opérations.
+- Toujours mettre un `name:` qui décrit lors de l'exécution de la tâche en cours : un des principes de l'IaC est l'intelligibilité des opérations.
 - Utiliser les arguments au format yaml (sur plusieurs lignes) pour la lisibilité, sauf s'il y a peu d'arguments
 
-Pour valider la syntaxe il est possible d'installer et utiliser `ansible-linter` sur les fichiers YAML.
-
+Pour valider la syntaxe il est possible d'installer et utiliser `ansible-lint` sur les fichiers YAML.

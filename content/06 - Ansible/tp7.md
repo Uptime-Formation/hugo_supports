@@ -1,92 +1,42 @@
 ---
-title: "TP7 - Cloud Terraform" 
+title: "TP7 - Serveur de contrôle AWX et Ansible Vault" 
 draft: false
-weight: 53
+weight: 60
 ---
+## Installer AWX, Rundeck ou Semaphore
 
-## Cloner le projet modèle
-
-- Pour simplifier le démarrage, clonez le dépôt de base à l'adresse [https://github.com/e-lie/ansible_tp_corrections](https://github.com/e-lie/ansible_tp_corrections).
-- Renommez le clone en tp4.
-- ouvrez le projet avec VSCode.
-- Activez la branche `tp4_correction` avec `git checkout tp4_correction`. 
-
-## Infrastructure dans le cloud avec Terraform et Ansible
+- AWX : sur Kubernetes avec k3s
 
 
-### Digitalocean token et clé SSH
+- Rundeck : <https://docs.rundeck.com/docs/administration/install/>
+`docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1`
 
-- Pour louer les machines dans le cloud pour ce TP vous aurez besoin d'un compte digitalocean : celui du formateur ici mais vous pouvez facilement utiliser le votre. Il faut récupérer les éléments suivant pour utiliser le compte de cloud du formateur:
-    - un token d'API digitalocean fourni pour la formation. Cela permet de commander des machines auprès de ce provider.
+- Semaphore : <https://github.com/ansible-semaphore/semaphore>
+`docker run -p 3000:3000 -d semaphoreui/semaphore`
 
+## Explorer AWX
 
-- Récupérez sur git la paire clé ssh adaptée: [https://github.com/e-lie/id_ssh_shared.git](https://github.com/e-lie/id_ssh_shared.git). Utilisez "clone or download" > "Download as ZIP". Puis décompressez l'archive.
-- mettez la paire de clé `id_ssh_shared` et `id_ssh_shared.pub` dans le dossier `~/.ssh/`. La passphrase de cette clé est `trucmuch42`.
-- Rétablissez les droits `600` sur la clé privée : `chmod 600 ~/.ssh/id_ssh_shared`.
-- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller deux clés (l'ancienne avec votre passphrase et la nouvelle paire que vous venez d'ajouter)
+- Identifiez vous sur awx avec le login `admin` et le mot de passe précédemment configuré.
 
-- Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en crée allez dans API > Personal access tokens et créez un nouveau token. Copiez bien ce token et collez le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt`. (important détruisez ce token à la fin du TP par sécurité).
+- Dans la section Modèle de projet, importez votre projet. Un job d'import se lance. Si vous avez mis le fichier `requirements.yml` dans  `roles` les roles devraient être automatiquement installés.
 
-- Copiez votre clé ssh (à créer si nécessaire): `cat ~/.ssh/id_ed25519.pub`
-- Aller sur digital ocean dans la section `account` en haut à droite puis `security` et ajoutez un nouvelle clé ssh. Notez sa fingerprint dans le fichier précédent.
+- Dans la section credentials, créez un credential de type machine. Dans la section clé privée copiez le contenu du fichier `~/.ssh/id_ssh_tp` que nous avons configuré comme clé SSH de nos machines. Ajoutez également la passphrase que vous avez configuré au moment de la création de cette clé.
 
+- Créez une ressource inventaire. Créez simplement l'inventaire avec un nom au départ. Une fois créé vous pouvez aller dans la section `source` et choisir de l'importer depuis le `projet`, sélectionnez `inventory.cfg` que nous avons configuré précédemment.
+<!-- Bien que nous utilisions AWX les ip n'ont pas changé car AWX est en local et peut donc se connecter au reste de notre infrastructure LXD. -->
 
-### Installer Terraform et le provider ansible
+- Pour tester tout cela vous pouvez lancez une tâche ad-hoc `ping` depuis la section inventaire en sélectionnant une machine et en cliquant sur le bouton `executer`.
 
-Terraform est un outil pour décrire une infrastructure de machines virtuelles et ressources IaaS (infrastructure as a service) et les créer (commander). Il s'intègre en particulier avec AWS, DigitalOcean mais peut également créer des machines dans un cluster VMWare en interne (on premise) pour créer par exemple un cloud mixte.
+- Allez dans la section modèle de job et créez un job en sélectionnant le playbook `site.yml`.
 
-Terraform est notamment à l'aide d'un dépôt ubuntu/debian. Pour l'installer lancez:
+- Exécutez ensuite le job en cliquant sur la fusée. Vous vous retrouvez sur la page de job de AWX. La sortie ressemble à celle de la commande mais vous pouvez en plus explorer les taches exécutées en cliquant dessus.
 
-```bash
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt install terraform
-```
+- Modifiez votre job, dans la section `Planifier` configurer l'exécution du playbook `site.yml` toutes les 5 minutes.
 
-- Testez l'installation avec `terraform --version`
+- Allez dans la section planification. Puis visitez l'historique des Jobs.
 
-Pour pouvoir se connecter à nos VPS, ansible doit connaître les adresses IP et le mode de connexion ssh de chaque VPS. Il a donc besoin d'un inventaire.
+- Créons maintenant un workflow qui lance d'abord les playbooks `dbservers.yml` et `appservers.yml` puis en cas de réussite le playbook `upgrade_apps.yml`
 
-Jusqu'ici nous avons créé un inventaire statique c'est à dire un fichier qui contenait la liste des machines. Nous allons maintenant utiliser un inventaire dynamique c'est à dire un programme qui permet de récupérer dynamiquement la liste des machines et leurs adresses en contactant une API.
+- Voyons ensemble comment configurer un vault Ansible, d'abord dans notre projet Ansible normal en chiffrant le mot de passe utilisé pour le rôle MySQL. Il est d'usage de préfixer ces variables par `secret_`.
 
-- L'inventaire dynamique pour terraform est [https://github.com/nbering/terraform-inventory/](https://github.com/nbering/terraform-inventory/). Normalement il est déjà installé avec la correction du TP4.
-
-### Terraform avec DigitalOcean
-
-- Le fichier qui décrit les VPS et ressources à créer avec terraform est `provisionner/terraform/main.tf`. Nous allons commenter ensemble ce fichier:
-
-!! La documentation pour utiliser terraform avec digitalocean se trouve ici [https://www.terraform.io/docs/providers/do/index.html](https://www.terraform.io/docs/providers/do/index.html)
-
-Pour terraform puisse s'identifier auprès de digitalocean nous devons renseigner le token et la fingerprint de clé ssh. Pour cela:
-
-- copiez le fichier `terraform.tfvars.dist` et renommez le en enlevant le `.dist`
-- collez le token récupéré précédemment dans le fichier de variables `terraform.tfvars`
-- normalement la clé ssh `id_stagiaire` est déjà configuré au niveau de DigitalOcean et précisé dans ce fichier. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
-
-- Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS:
-  - `terraform init` permet à terraform de télécharger les "driver" nécessaire pour s'interfacer avec notre provider. Cette commande crée un dossier .terraform
-  - `terraform plan` est facultative et permet de calculer et récapituler les créations modifications de ressources à partir de la description de `main.tf`
-  - `terraform apply` permet de déclencher la création des ressources.
-
-- La création prend environ 1 minute.
-
-Maintenant que nous avons des machines dans le cloud nous devons fournir leurs IP à Ansible pour pouvoir les configurer. Pour cela nous allons utiliser un inventaire dynamique.
-
-### Terraform dynamic inventory
-
-Une bonne intégration entre Ansible et Terraform permet de décrire précisément les liens entre resource terraform et hote ansible ainsi que les groupes de machines ansible. Pour cela notre binder propose de dupliquer les ressources dans `main.tf` pour créer explicitement les hotes ansible à partir des données dynamiques de terraform.
-
-- Ouvrons à nouveau le fichier `main.tf` pour étudier le mapping entre les ressources digitalocean et leur équivalent Ansible.
-
-- Pour vérifier le fonctionnement de notre inventaire dynamique, allez à la racine du projet et lancez:
-
-```
-source .env
-./inventory_terraform.py
-```
-
-- La seconde appelle l'inventaire dynamique et vous renvoie un résultat en JSON décrivant les groupes, variables et adresses IP des machines créées avec Terraform.
-
-- Complétez le `ansible.cfg` avec le chemin de l'inventaire dynamique: `./inventory_terraform.py`
-
-- Nous pouvons maintenant tester la connexion avec Ansible directement: `ansible all -m ping`.
+- Voyons comment déverrouiller ce Vault pour l'utiliser dans AWX en ajoutant des *Credentials*.
