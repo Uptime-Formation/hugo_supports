@@ -575,12 +575,17 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 ## Amélioration 3 : modifier le `/etc/hosts` via le playbook
 
 A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
-Idéalement, on utiliserait la regex `.* {{ app.domain }}$` pour gérer les variations d'adresse IP
+Idéalement, on utiliserait la regex `.* {{ app.domain }}` pour gérer les variations d'adresse IP
 
 ## Amélioration 4 : faire fonctionner le playbook en check mode
 Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
 Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
 Avec `failed_when:` et `{{ ansible_check_mode }}`, résolvons le problème.
+
+## Amélioration 5 : un handler en deux parties en testant la config de Nginx avant de reload
+On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
+Avec `nginx -t`, testons la config de Nginx dans le handler avant de reload.
+Documentation : <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#naming-handlers>
 
 ## Bonus : pour pratiquer
 
