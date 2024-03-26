@@ -44,7 +44,7 @@ Pour pouvoir se connecter à nos VPS, Ansible doit connaître les adresses IP et
 
 Jusqu'ici nous avons créé un inventaire statique, c'est-à-dire un fichier qui contenait la liste des machines. Nous allons maintenant utiliser un inventaire dynamique : un programme qui permet de récupérer dynamiquement la liste des machines et leurs adresses en contactant une API.
 
-- L'inventaire dynamique pour Tterraform est [https://github.com/nbering/terraform-inventory/](https://github.com/nbering/terraform-inventory/).
+- L'inventaire dynamique pour Terraform est [https://github.com/nbering/terraform-inventory/](https://github.com/nbering/terraform-inventory/).
 
 ### Terraform avec DigitalOcean
 
