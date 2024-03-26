@@ -42,7 +42,7 @@ Le mode de connexion par défaut de Ansible est SSH, cependant il est possible d
 Le principal risque de sécurité lié à Ansible comme avec Docker et l'IaC en général consiste à laisser traîner des secrets (mots de passe, identité de clients, tokens d'API, secrets de chiffrement, etc.) dans le dépôt de code, ou sur les serveurs (moins problématique).
 
 Attention : les dépôts Git peuvent cacher des secrets dans leur historique.
-Pour chercher et nettoyer un secret dans un dépôt l'outil le plus courant est BFG : https://rtyley.github.io/bfg-repo-cleaner/
+Pour chercher et nettoyer un secret dans un dépôt l'outil le plus courant est BFG : <https://rtyley.github.io/bfg-repo-cleaner/>
 Il existe aussi des produits open source de scan de secrets comme Gitleaks : <https://github.com/gitleaks/gitleaks>
 
 ## Ansible Vault
@@ -146,7 +146,7 @@ On peut ensuite appeler `ansible-playbook` en utilisant ce programme plutôt qu'
 
 Bonne pratique : Normalement l'information de configuration Ansible doit provenir au maximum de l'inventaire. Ceci est conforme à l'orientation plutôt déclarative d'Ansible et à son exécution descendante (master -> nodes). La méthode à privilégier pour intégrer Ansible à des sources d'information existantes est donc d'utiliser ou développer un **plugin d'inventaire**.
 
-[https://docs.ansible.com/ansible/latest/plugins/inventory.html](https://docs.ansible.com/ansible/latest/plugins/inventory.html)
+<https://docs.ansible.com/ansible/latest/plugins/inventory.html>
 
 La liste : `ansible-doc -t inventory -l`
 
@@ -178,14 +178,16 @@ ansible-inventory --inventory <inventory> --graph
 
 ### Principaux types de plugins possibles pour étendre Ansible
 
-[https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html](https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html)
-
-- modules
-- inventory plugins
-- connection plugins
+- développer des modules : <https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_general.html>
+  - [Should you develop a module?](https://docs.ansible.com/ansible/latest/dev_guide/developing_modules.html)
+- inventory plugins : <https://docs.ansible.com/ansible/latest/plugins/inventory.html>
+- connection plugins : <https://docs.ansible.com/ansible/latest/collections/index_connection.html>
 - callback plugins : <https://docs.ansible.com/ansible/latest/collections/index_callback.html>
 - lookup plugins : <https://docs.ansible.com/ansible/latest/collections/index_lookup.html> et <https://docs.ansible.com/ansible/latest/plugins/lookup.html>
-- filter plugins : <https://docs.ansible.com/ansible/latest/collections/index_filter.html>
+- filter plugins : <https://docs.ansible.com/ansible/latest/collections/index_filter.html> (voir [*Using filters to manipulate data*](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html))
+- autres plugins : <https://docs.ansible.com/ansible/latest/collections/all_plugins.html>
+  - développer ses propres plugins : <https://docs.ansible.com/ansible/latest/dev_guide/developing_plugins.html>
+
 
 <!-- ### Intégration Ansible et AWS
 
