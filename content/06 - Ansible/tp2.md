@@ -16,11 +16,11 @@ roles_path = ./roles
 host_key_checking = false
 ```
 
-- Créez deux machines ubuntu `app1` et `app2`.
+- Créez deux machines ubuntu `ubu1` et `ubu2`.
 
 ```
-incus launch ubuntu_ansible app1
-incus launch ubuntu_ansible app2
+incus launch ubuntu_ansible ubu1
+incus launch ubuntu_ansible ubu2
 ```
 
 - Créez l'inventaire statique `inventory.cfg`.
@@ -35,8 +35,8 @@ $ incus list # pour récupérer l'adresse ip puis
 ansible_user=stagiaire
 
 [appservers]
-app1 ansible_host=10.x.y.z
-app2 ansible_host=10.x.y.z
+ubu1 ansible_host=10.x.y.z
+ubu2 ansible_host=10.x.y.z
 ```
 
 - Ajoutez à l'intérieur les deux machines dans un groupe `appservers`.
@@ -545,7 +545,7 @@ debug:
 flask_apps:
   - name: hello
     domain: "hello.test"
-    user: "flask1"
+    user: "flask"
     version: master
     repository: https://github.com/e-lie/flask_hello_ansible.git
 
@@ -560,16 +560,16 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 
 - A la task `debug:`, ajoutez la directive `loop: "{{ flask_apps }}` (elle se situe à la hauteur du nom de la task et du module) et remplacez le `msg={{ flask_apps }}` par `msg={{ item }}`. Que se passe-t-il ? *note: il est normal que le playbook échoue désormais à l'étape `include_tasks`*
 
+La directive `loop_var` permet de renommer la variable sur laquelle on boucle par un nom de variable de notre choix. A quoi sert-elle ? Rappelons-nous : sans elle, on accéderait à chaque item de notre liste `flask_apps` avec la variable `item`. **Cela nous permet donc de ne pas modifier toutes nos tasks utilisant la variable `app` et de ne pas avoir à utiliser `item` à la place.**
+
 - Utilisez la directive `loop` et `loop_control`+`loop_var` sur la tâche `include_tasks` pour inclure les tâches pour chacune des deux applications, en complétant comme suit :
 
 ```yaml
 - include_tasks: deploy_app_tasks.yml
-  loop: "{{ __A_COMPLETER__ }}"
+  loop: "{{ A_COMPLETER }}"
   loop_control:
-    loop_var: __A_COMPLETER__
+    loop_var: A_COMPLETER
 ```
-
- La directive `loop_var` permet de renommer la variable sur laquelle on boucle par un nom de variable de notre choix.
 
 - Créez le dossier `group_vars` et déplacez le dictionnaire `flask_apps` dans un fichier `group_vars/appservers.yml`. Comme son nom l'indique ce dossier permet de définir les variables pour un groupe de serveurs dans un fichier externe.
 
@@ -582,6 +582,10 @@ Il faudra modifier la tâche de debug par `debug: msg={{ flask_apps }}`. Observo
 A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
 Idéalement, on utiliserait la regex `.* {{ app.domain }}` pour gérer les variations d'adresse IP
 
+Dans le cas de plusieurs hosts hébergeant nos apps, on pourrait même ajouter une autre entrée DNS pour préciser à quelle instance de notre app nous voulons accéder. Sans cela, nous sommes en train de faire une sorte de loadbalancing via le DNS.
+
+Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que l'on a donné à une machine dans l'inventaire.
+
 ## Amélioration 4 : faire fonctionner le playbook en check mode
 Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
 Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
@@ -591,6 +595,7 @@ Avec `failed_when:` et `{{ ansible_check_mode }}`, résolvons le problème.
 On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
 Avec `nginx -t`, testons la config de Nginx dans le handler avant de reload.
 Documentation : <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#naming-handlers>
+
 
 ## Bonus : pour pratiquer
 
