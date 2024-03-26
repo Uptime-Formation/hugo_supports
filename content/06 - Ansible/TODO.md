@@ -106,4 +106,4 @@ https://docs.ansible.com/ansible/2.9/user_guide/playbooks_prompts.html
 https://docs.ansible.com/ansible/2.9/user_guide/playbooks_lookups.html
 https://docs.ansible.com/ansible/2.9/user_guide/playbooks_startnstep.html
 
-TODO: jouer sur la redéfinition des vars à 1000 endroits
+TODO: jouer sur la redéfinition des vars à 1000 endroits ET VRAI TP IMPORT VS INCLUDE

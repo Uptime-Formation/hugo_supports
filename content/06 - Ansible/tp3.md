@@ -30,7 +30,7 @@ weight: 41
         - <nom_role>
 ```
 
-- Faire un playbook principal `main.yml` qui importe juste les deux playbooks `flaskapp_deploy.yml` et `dbservers.yml` avec `import_playbook`.
+- Faire un playbook principal `site.yml` (le playbook principal par convention) qui importe juste les deux playbooks `appservers.yml` et `dbservers.yml` avec `import_playbook`.
 
 - Lancer la configuration de toute l'infra avec ce playbook.
 
@@ -97,7 +97,7 @@ L'idée est la suivante :
   - un `main.yml` qui sert à invoquer une "boucle principale" (avec `include_tasks:` et `loop:`)
   - ...et la liste de tasks à lancer pour chaque item de la liste `flask_apps`
 
-- Copiez les tâches (juste la liste de tirets sans l'intitulé de section `tasks:`) contenues dans le playbook `appservers` dans le fichier `tasks/main.yml`.
+- Copiez les tâches (juste la liste de tirets sans l'intitulé de section `tasks:`) contenues dans le playbook `flask_deploy.yml` dans le fichier `tasks/main.yml`.
 
 - De la même façon copiez le handler dans `handlers/main.yml` sans l'intitulé `handlers:`.
 - Copiez également le fichier `deploy_flask_tasks.yml` dans le dossier `tasks`.
@@ -123,7 +123,7 @@ L'idée est la suivante :
 
 Notre rôle `flaskapp` est jusqu'ici concu pour être un rôle de configuration, idéalement lancé régulièrement à l'aide d'un cron ou de AWX. En particulier, nous avons mis les paramètres `update` à `yes` mais `force` à `false` au niveau de notre tâche qui clone le code avec git. Ces paramètres indiquent si la tâche doit récupérer systématiquement la dernière version. Dans notre cas il pourrait être dangereux de mettre à jour l'application à chaque fois donc nous avons mis `false` pour éviter d'écraser l'application existante avec une version récente.
 
-Nous aimerions maintenant créer un playbook `upgrade_apps.yml` qui contrairement à `configuration.yml` devrait être lancé ponctuellement pour mettre à jour l'application. Il serait bête de ne pas réutiliser notre role pour cette tâche : nous allons rajouter un paramère `flask_upgrade_apps`.
+Nous aimerions maintenant créer un playbook `upgrade_apps.yml` qui contrairement à `appservers.yml` devrait être lancé ponctuellement pour mettre à jour l'application. Il serait bête de ne pas réutiliser notre role pour cette tâche : nous allons rajouter un paramère `flask_upgrade_apps`.
 
 - Remplacez dans la tâche `git` la valeur `false` des paramètres `update` et `force` par cette variable.
 
@@ -139,7 +139,7 @@ Vous noterez que son nom commence par `flask_` car elle fait partie du role `fla
 
 {{% /expand %}}
 
-## Correction
+## Solution
 
 - Pour la correction clonez le dépôt de base à l'adresse <https://github.com/Uptime-Formation/ansible-tp-solutions>.
 - Renommez le clone en tp3.

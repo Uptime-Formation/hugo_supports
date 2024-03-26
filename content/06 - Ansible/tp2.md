@@ -187,6 +187,7 @@ Avec ces informations et la documentation du module `pip` installez les dépenda
         requirements: /home/flask/hello/requirements.txt
         virtualenv: /home/flask/hello/venv
         virtualenv_python: python3
+        state: present
 ```
 
 {{% /expand %}}
@@ -245,7 +246,7 @@ Pour gérer les fichier de configuration on utilise généralement le module `te
 
 ```
 # {{ ansible_managed }}
-# La variable du dessus indique qu'il ne faut pas modifier ce fichier directement
+# La variable du dessus indique qu'il ne faut pas modifier ce fichier directement, on peut l'écraser dans notre config Ansible pour écrire un message plus explicite à ses collègues
 
 server {
     listen 80;
@@ -592,7 +593,7 @@ Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que 
 ## Amélioration 4 : faire fonctionner le playbook en check mode
 Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
 Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
-Avec `failed_when:` et `{{ ansible_check_mode }}`, résolvons le problème.
+Avec `ignore_errors:` et `{{ ansible_check_mode }}`, résolvons le problème.
 
 ## Amélioration 5 : un handler en deux parties en testant la config de Nginx avant de reload
 On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
