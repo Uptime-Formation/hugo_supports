@@ -19,12 +19,13 @@ weight: 53
 - Récupérez sur git la paire de clés SSH adaptée : [https://github.com/e-lie/id_ssh_shared.git](https://github.com/e-lie/id_ssh_shared.git). Utilisez "Clone or download" > "Download as ZIP". Puis décompressez l'archive.
 - mettez la paire de clés `id_ssh_shared` et `id_ssh_shared.pub` dans le dossier `~/.ssh/`. La passphrase de cette clé est `trucmuch42`.
 - Rétablissez les droits `600` sur la clé privée : `chmod 600 ~/.ssh/id_ssh_shared`.
-- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller deux clés (l'ancienne avec votre passphrase et la nouvelle paire que vous venez d'ajouter)
+- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller la clé
 
-- Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en créer, allez dans *API > Personal access tokens* et créez un nouveau token. Copiez bien ce token et collez-le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt` (important : détruisez ce token à la fin du TP par sécurité).
+### Si vous utilisez votre propre compte
+Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en créer, allez dans *API > Personal access tokens* et créez un nouveau token. Copiez bien ce token et collez-le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt` (important : détruisez ce token à la fin du TP par sécurité).
 
-- Copiez votre clé ssh (à créer si nécessaire): `cat ~/.ssh/id_ed25519.pub`
-- Aller sur digital ocean dans la section `account` en haut à droite puis `security` et ajoutez un nouvelle clé ssh. Notez sa fingerprint dans le fichier précédent.
+- Copiez votre clé SSH (à créer si nécessaire): `cat ~/.ssh/id_ed25519.pub`
+- Aller sur DigitalOcean dans la section `Account` de la sidebar puis `Security` et ajoutez un nouvelle clé SSH. Notez sa fingerprint dans le fichier précédent.
 
 ### Installer Terraform et le provider Ansible
 
@@ -59,6 +60,7 @@ Pour que Terraform puisse s'identifier auprès de DigitalOcean nous devons rense
 - normalement la clé SSH `id_stagiaire` est déjà configurée au niveau de DigitalOcean et précisée dans ce fichier. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
 
 - Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS :
+  - faisons `cd provisioner/terraform`
   - `terraform init` permet à Terraform de télécharger les "drivers" nécessaires pour s'interfacer avec notre provider. Cette commande crée un dossier `.terraform`
   - `terraform plan` est facultative et permet de calculer et récapituler les créations et modifications de ressources à partir de la description de `main.tf`
   - `terraform apply` permet de déclencher la création des ressources.
@@ -83,5 +85,7 @@ source .env
 - La seconde commande appelle l'inventaire dynamique et vous renvoie un résultat en JSON décrivant les groupes, variables et adresses IP des machines créées avec Terraform.
 
 - Complétez le `ansible.cfg` avec le chemin de l'inventaire dynamique : `./inventory_terraform.py`
+
+- Utilisez la commande `ansible-inventory --graph` pour afficher l'arbre des groupes et machines de votre inventaire
 
 - Nous pouvons maintenant tester la connexion avec Ansible directement : `ansible all -m ping`.
