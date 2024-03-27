@@ -12,7 +12,11 @@ Sur Kubernetes avec minikube ou k3s
 `docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1`
 
 - Semaphore : <https://github.com/ansible-semaphore/semaphore>
-`docker run -p 3000:3000 -d semaphoreui/semaphore`
+```bash
+sudo snap install semaphore
+sudo semaphore user add --admin --name "Your Name" --login your_login --email your-email@examaple.com --password your_password
+```
+puis se connecter sur le port 3000
 
 ## Installer Docker
 Nécessaire pour Minikube, Semaphore ou Rundeck.
@@ -51,7 +55,7 @@ spec:
 Puis :
 ```
 kubectl apply -f awx-demo.yml
-minikube service awx-demo-service --url
+
 kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
 ```
 
