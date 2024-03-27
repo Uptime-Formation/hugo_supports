@@ -1,6 +1,6 @@
 ---
 title: "TP8 Bonus - Cloud via Incus et générer un inventaire dynamique" 
-draft: true
+draft: false
 weight: 80
 ---
 ## Ajouter un provisionneur d'infra maison pour créer les machines automatiquement
@@ -39,18 +39,18 @@ db1 ansible_host=10.x.y.131 container_image=ubuntu_ansible node_state=started
         source:
           type: image
           alias: "{{ hostvars[item]['container_image'] }}"
-        # profiles: ["default"]
-        # config:
-        #   security.nesting: 'true' 
-        #   security.privileged: 'false' 
-        # devices:
-        #   # configure network interface
-        #   eth0:
-        #     type: nic
-        #     nictype: bridged
-        #     parent: lxdbr0
-        #     # get ip address from inventory
-        #     ipv4.address: "{{ hostvars[item].ansible_host }}"
+        profiles: ["default"]
+        config:
+          security.nesting: 'true' 
+          security.privileged: 'false' 
+        devices:
+          # configure network interface
+          eth0:
+            type: nic
+            nictype: bridged
+            parent: lxdbr0
+            # get ip address from inventory
+            ipv4.address: "{{ hostvars[item].ansible_host }}"
 
         # Comment following line if you installed lxd using apt
         # url: unix:/var/snap/lxd/common/lxd/unix.socket
@@ -64,14 +64,14 @@ db1 ansible_host=10.x.y.131 container_image=ubuntu_ansible node_state=started
     # Uncomment following if you want to populate hosts file pour container local hostnames
     # AND launch playbook with --ask-become-pass option
 
-    # - name: Config /etc/hosts file accordingly
-    #   become: yes
-    #   lineinfile:
-    #     path: /etc/hosts
-    #     regexp: ".*{{ item }}$"
-    #     line: "{{ hostvars[item].ansible_host }}    {{ item }}"
-    #     state: "present"
-    #   loop: "{{ groups['all'] }}"
+    - name: Config /etc/hosts file accordingly
+      become: yes
+      lineinfile:
+        path: /etc/hosts
+        regexp: ".*{{ item }}$"
+        line: "{{ hostvars[item].ansible_host }}    {{ item }}"
+        state: "present"
+      loop: "{{ groups['all'] }}"
 ```
 
 - Etudions le playbook (explication démo).
