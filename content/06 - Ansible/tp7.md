@@ -32,11 +32,9 @@ alias kubectl="sudo k3s kubectl"
 ```bash
 git clone https://github.com/ansible/awx-operator.git
 cd awx-operator
-git tag
 git checkout tags/2.7.2
 
-make deploy
-kubectl apply -k .
+sudo make deploy
 ```
 
 Créer un fichier `awx-demo.yml` :
