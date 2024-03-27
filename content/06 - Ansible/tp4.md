@@ -43,7 +43,7 @@ En poussant du nouveau code dans master ou en mergant dans master les jobs sont 
 
 ## Alternative 1 : se connecter directement depuis le runner aux serveurs cible
 
-Nous allons maintenant configurer le pipeline pour qu'il puisse se connecter à nos serveurs de cloud. Pour cela nous avons principalement besoin de charger l'identité/clé SSH dans le contexte du pipeline et la déverrouiller.
+<!-- Nous allons maintenant configurer le pipeline pour qu'il puisse se connecter à nos serveurs de cloud. Pour cela nous avons principalement besoin de charger l'identité/clé SSH dans le contexte du pipeline et la déverrouiller.
 
 - Affichez le contenu de votre clé privée SSH
 - Visitez dans le projet dans la section `Settings> Build > Variables` et ajoutez une variable `ID_SSH_PRIVKEY` en mode `protected` (sans l'option `masked`).
@@ -62,22 +62,26 @@ before_script: # some steps to execute before the main pipeline stage
   - mkdir -p /root/.ssh # create an ssh configuration folder
   - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > /root/.ssh/config # configure ssh not to bother of server identity (slightly unsecure mode for the workshop)
 
-```
+``` -->
+
+- Créons un runner Gitlab de type `shell` et installons-le dans notre lab.
+
+- Faisons en sorte que c'est ce runner qui se chargera de l'exécution des jobs grâce aux tags.
 
 - Remplacez `ansible --version` par un ping de toutes les machines.
-- Relancez le pipeline en committant (et en poussant) vos modifications dans `master`.
+- Relancez la pipeline en committant (et en poussant) vos modifications dans `master`.
 
 - Allez observer le job en cours d'exécution.
 
-- Enfin lançons notre playbook principal en remplaçant la commande ansible précédente dans le pipeline et commitant
+- Enfin lançons notre playbook principal en remplaçant la commande ansible précédente dans la pipeline et committant
 
-- Ajoutez une planification dans la section `CI / CD`.
+<!-- - Ajoutez une planification dans la section `Build`. -->
 
 ## Alternative 2 : un déploiement léger et sécurisé avec `ansible-pull`
 
 <https://blog.octo.com/ansible-pull-killer-feature/>
 
-- En lisant cet article, mettre en place un déploiement "inversé" avec `ansible-pull`.
+- Avec l'aide de cet article et de l'option `--url`, mettre en place un déploiement "inversé" avec `ansible-pull`. **Il va falloir exécuter un playbook qui s'applique sur *localhost* ou sur notre *hostname* (`vnc-votreprenom`)** 
 - En mettant en place un `cron` (ou un `timer` systemd), lancez ce déploiement toutes les 5min, et observez dans les logs.
 
 ## Alternative 3 : un déploiement plus sécurisé avec un _webhook_
@@ -102,6 +106,8 @@ log_path=./ansible_log.txt
 - dans un terminal, faites `./ansible-run.sh` et observez les logs pour tester votre script de déploiement.
 
 ### Installation et configuration du Webhook
+
+<!-- FIXME: utiliser webhookd -->
 
 Sur votre serveur de déploiement (celui avec le projet Ansible), installez le paquet `webhook` en utilisant la commande suivante :
 
