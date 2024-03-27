@@ -14,6 +14,11 @@ Sur Kubernetes avec minikube ou k3s
 - Semaphore : <https://github.com/ansible-semaphore/semaphore>
 `docker run -p 3000:3000 -d semaphoreui/semaphore`
 
+## Installer Docker
+Nécessaire pour Minikube, Semaphore ou Rundeck.
+
+`curl https://get.docker.com | sh`
+
 ## Installer AWX
 
 - Installer minikube :
