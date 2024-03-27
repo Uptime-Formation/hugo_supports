@@ -3,13 +3,13 @@ title: "TP7 - Serveur de contrôle AWX + Ansible Vault"
 draft: false
 weight: 60
 ---
-## Installer AWX, Rundeck ou Semaphore
+## Installer AWX ou Semaphore
 
 - AWX : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
 Sur Kubernetes avec minikube ou k3s
 
-- Rundeck : <https://docs.rundeck.com/docs/administration/install/>
-`docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1`
+<!-- - Rundeck : <https://docs.rundeck.com/docs/administration/install/>
+`docker run -it -p 4440:4440 rundeckpro/enterprise:5.1.1` -->
 
 - Semaphore : <https://github.com/ansible-semaphore/semaphore>
 ```bash
