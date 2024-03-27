@@ -145,7 +145,19 @@ Faites un `tail -f ansible_log.txt` pour suivre le playbook le temps qu'il se te
 
 Dans un fichier `.gitlab-ci.yml` vous n'avez plus qu'à appeler `curl http://votredomaine:9999/hooks/redeploy-webhook` pour déclencher l'exécution de votre playbook Ansible en réponse à une requête depuis les serveurs de Gitlab.
 
+```yml
+deploy:
+  # The 3 lines after this are used activate the pipeline only when the master branch changes
+  only:
+    refs:
+      - master
+  script:
+    - curl http://hadrien.lab.doxx.fr:9999/hooks/redeploy-webhook
+```
+
 Cette configuration est bien plus sécurisée, même si en production nous protégerions le webhook avec un mot de passe (token) pour éviter que le webhook soit déclenché abusivement si quelqu'un en découvrait l'URL.
+
+On pourrait aussi variabiliser le webhook pour faire passer des paramètres à notre script `ansible-run.sh`.
 
 ## Bonus : Créez une planification pour le rolling upgrade de notre application
 
