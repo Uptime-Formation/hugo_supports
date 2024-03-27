@@ -88,7 +88,7 @@ before_script: # some steps to execute before the main pipeline stage
 
 ```bash
 #!/bin/bash
-ansible-playbook deploy.yml --diff -v
+ansible-playbook site.yml --diff
 ```
 
 - rendez le script exécutable avec `chmod +x ansible-run.sh`
@@ -163,5 +163,6 @@ On pourrait aussi variabiliser le webhook pour faire passer des paramètres à n
 
 <!-- - Modifiez `only: refs:` pour ajouter la branche `rolling_upgrade`. -->
 <!-- - Modifier la commande ansible pour lancer le playbook d'upgrade. -->
-- Dans `CI / CD > Schedules` ajoutez un job planifié toute les 5 min (en production toutes les nuits serait plus adapté).
+- Dans `Build > Pipeline schedules` ajoutez un job planifié toutes les heures (fréquence maximum sur gitlab.com) (en production toutes les nuits serait plus adapté) : `* * * * * *`
 - Observez le résultat.
+- Supprimez le job
