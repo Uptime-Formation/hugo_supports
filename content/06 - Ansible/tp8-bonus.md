@@ -25,7 +25,7 @@ db1 ansible_host=10.x.y.131 container_image=ubuntu_ansible node_state=started
 
 - Remplacez `x` et `y` dans l'adresse IP par celle fournies par votre réseau virtuel lxd (faites `incus list` et copier simple les deux chiffre du milieu des adresses IP)
 
-- Ajoutez un playbook `provision_lxd_infra.yml` dans un dossier `provisioners` contenant:
+- Ajoutez un playbook `lxd.yml` dans un dossier `provisioners/lxd` contenant:
 
 ```yaml
 - hosts: localhost
@@ -39,21 +39,21 @@ db1 ansible_host=10.x.y.131 container_image=ubuntu_ansible node_state=started
         source:
           type: image
           alias: "{{ hostvars[item]['container_image'] }}"
-        profiles: ["default"]
-        config:
-          security.nesting: 'true' 
-          security.privileged: 'false' 
-        devices:
-          # configure network interface
-          eth0:
-            type: nic
-            nictype: bridged
-            parent: lxdbr0
-            # get ip address from inventory
-            ipv4.address: "{{ hostvars[item].ansible_host }}"
+        # profiles: ["default"]
+        # config:
+        #   security.nesting: 'true' 
+        #   security.privileged: 'false' 
+        # devices:
+        #   # configure network interface
+        #   eth0:
+        #     type: nic
+        #     nictype: bridged
+        #     parent: lxdbr0
+        #     # get ip address from inventory
+        #     ipv4.address: "{{ hostvars[item].ansible_host }}"
 
         # Comment following line if you installed lxd using apt
-        url: unix:/var/snap/lxd/common/lxd/unix.socket
+        # url: unix:/var/snap/lxd/common/lxd/unix.socket
         wait_for_ipv4_addresses: true
         timeout: 600
 
@@ -76,6 +76,6 @@ db1 ansible_host=10.x.y.131 container_image=ubuntu_ansible node_state=started
 
 - Etudions le playbook (explication démo).
 
-- Lancez le playbook avec `sudo` car `incus` se contrôle en root sur localhost: `sudo ansible-playbook provision_incus_infra` (c'est le seul cas exceptionnel ou ansible-playbook doit être lancé avec sudo, pour les autre playbooks ce n'est pas le cas)
+<!-- - Lancez le playbook avec `sudo` car `incus` se contrôle en root sur localhost: `sudo ansible-playbook provision_incus_infra` (c'est le seul cas exceptionnel ou ansible-playbook doit être lancé avec sudo, pour les autre playbooks ce n'est pas le cas) -->
 
 - Lancez `incus list` pour afficher les nouvelles machines de notre infra et vérifier que le serveur de base de données a bien été créé.

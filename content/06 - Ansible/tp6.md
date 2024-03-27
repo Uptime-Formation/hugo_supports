@@ -16,10 +16,14 @@ weight: 53
 - Pour louer les machines dans le cloud pour ce TP vous aurez besoin d'un compte DigitalOcean : celui du formateur ici mais vous pouvez facilement utiliser le votre. Il faut récupérer les éléments suivant pour utiliser le compte de cloud du formateur:
   - un token d'API DigitalOcean fourni pour la formation. Cela permet de commander des machines auprès de ce provider.
 
-- Récupérez sur git la paire de clés SSH adaptée : [https://github.com/e-lie/id_ssh_shared.git](https://github.com/e-lie/id_ssh_shared.git). Utilisez "Clone or download" > "Download as ZIP". Puis décompressez l'archive.
-- mettez la paire de clés `id_ssh_shared` et `id_ssh_shared.pub` dans le dossier `~/.ssh/`. La passphrase de cette clé est `trucmuch42`.
-- Rétablissez les droits `600` sur la clé privée : `chmod 600 ~/.ssh/id_ssh_shared`.
-- faites `ssh-add ~/.ssh/id_ssh_shared` pour vérifier que vous pouvez déverrouiller la clé
+- Récupérez sur git la paire de clés SSH adaptée : 
+```bash
+cd
+git clone https://github.com/e-lie/id_ssh_shared.git
+chmod 600 id_ssh_shared/id_ssh_shared
+```
+
+- faites `ssh-add ~/.ssh/id_ssh_shared` pour déverrouiller la clé, **le mot de passe est `trucmuch42`**
 
 ### Si vous utilisez votre propre compte
 Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en créer, allez dans *API > Personal access tokens* et créez un nouveau token. Copiez bien ce token et collez-le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt` (important : détruisez ce token à la fin du TP par sécurité).

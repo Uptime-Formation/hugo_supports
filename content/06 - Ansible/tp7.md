@@ -83,4 +83,4 @@ kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base
 
 ## Bonus : réimplémentons le load balancing du TP5 via AWX
 
-Dans un template de tâche ou un workflow AWX, manipulez `playbooks/exclude_backend.yml` et/ou d'autres playbooks pour réimplementer le scénario du TP5 dans AWX.
+Dans un template de tâche ou un workflow AWX, manipulez `playbooks/manually_exclude_backend.yml` et/ou d'autres playbooks pour réimplementer le scénario du TP5 dans AWX.
