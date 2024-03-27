@@ -21,12 +21,10 @@ Nécessaire pour Minikube, Semaphore ou Rundeck.
 
 ## Installer AWX
 
-- Installer minikube :
+- Installer k3s :
 ```bash
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-minikube start --cpus=4 --memory=6g --addons=ingress
-alias kubectl="minikube kubectl --"
+curl -sfL https://get.k3s.io | sh
+alias kubectl="sudo k3s kubectl"
 ```
 
 - Puis suivre : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
