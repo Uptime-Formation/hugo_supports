@@ -36,7 +36,7 @@ Pour configurer notre infrastructure:
 -
   - notez également le playbook `manually_exclude_backend.yml` qui permet de sortir un backend applicatif du pool. Il s'utilise avec des *vars prompts* (questionnaire) et/ou des variables en ligne de commande.
 
-- Désactivez le noeud qui vient de vous servir la page en utilisant le playbook `manually_exclude_backend.yml` en remplissant le *prompt*. Vous pouvez le réactiver avec `-e backend_name=<noeud à désactiver> -e backend_state=enabled`.
+- Désactivez le noeud qui vient de vous servir la page en utilisant le playbook `manually_exclude_backend.yml` en remplissant le *prompt*. Vous pouvez le réactiver avec `-e backend_name=<noeud à réactiver> -e backend_state=enabled`.
 
 - Rechargez la page : vous constatez que c'est l'autre backend qui a pris le relai.
 
