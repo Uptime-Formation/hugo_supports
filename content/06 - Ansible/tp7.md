@@ -30,7 +30,7 @@ alias kubectl="sudo k3s kubectl"
 - Puis suivre : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
 
 ```bash
-git clone git@github.com:ansible/awx-operator.git
+git clone https://github.com/ansible/awx-operator.git
 cd awx-operator
 git tag
 git checkout tags/2.7.2
