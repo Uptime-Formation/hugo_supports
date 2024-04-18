@@ -111,3 +111,10 @@ de ces services dans ELK. -->
 ### *Facultatif :* du monitoring avec *cAdvisor* et *Prometheus*
 
 Suivre ce tutoriel pour du monitoring des conteneurs Docker : <https://prometheus.io/docs/guides/cadvisor/>
+
+Une alternative est Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_ : <https://learn.netdata.cloud/docs/netdata-agent/installation/docker>
+
+<!-- Ressources utiles : -->
+<!-- https://github.com/stefanprodan/dockprom
+https://github.com/vegasbrianc/docker-monitoring
+https://grafana.com/grafana/dashboards/179-docker-prometheus-monitoring/ -->

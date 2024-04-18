@@ -1,5 +1,5 @@
 ---
-title: "TP 6 - Renforcement de la sécurité avec Docker"
+title: "6 - Considérations de sécurité dans Docker"
 draft: false
 weight: 1046
 ---
@@ -8,6 +8,9 @@ weight: 1046
 
 - **un conteneur privilégié est _root_ sur la machine !**
   - et l'usage des capabilities Linux dès que possible pour éviter d'utiliser `--privileged`
+  - on peut utiliser [`bane`](https://github.com/genuinetools/bane), un générateur de profil AppArmor pour Docker
+  - AppArmor est plus haut niveau que SELinux, très (trop) complexe à utiliser
+  - dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
 
 - des _cgroups_ corrects par défaut dans la config Docker : `ulimit -a` et `docker stats`
 
@@ -34,3 +37,9 @@ weight: 1046
 <!-- - différence en sécurité des VM c'est qu'on s'appuie pour les VM sur un sandboxing au niveau matériel (failles dans IOMMU/VT-X/instrctions x84) (si l'on oublie qu'un soft comme virtualbox a une surface d'attaque plus grade, par exemple exploit sur driver carte réseau) et dans l'autre faille de kernel -->
 
 <!-- - Exemple avec option profil seccomp -->
+
+- intégration des événements suspects à un SIEM avec Falco :
+https://github.com/falcosecurity/falco
+
+## Les registries privés
+Un registry avancé, par exemple avec [Harbor](https://goharbor.io/docs/2.10.0/install-config/demo-server/), permet d'activer le scanning d'images, de gérer les droits d'usage d'images, et de potentiellement restreindre les images utilisables dans des contextes d'organisation sécurisés.

@@ -78,12 +78,28 @@ CetusGuard - CetusGuard is a tool that protects the Docker daemon socket by filt
 
 En production, on peut utiliser [Watchtower](https://github.com/containrrr/watchtower) : un conteneur ayant pour mission de périodiquement récupérer des images et recréer les conteneurs pour qu'ils utilisent la dernière image Docker
 
+### Un registry avancé avec Harbor
 
-## Le renforcement de sécurité
+Un registry avancé, par exemple avec Harbor, permet d'activer le scanning d'images, de gérer les droits d'usage d'images, et de potentiellement restreindre les images utilisables dans des contextes d'organisation sécurisés.
 
-On peut utiliser `bane`, un générateur de profil AppArmor pour Docker :
+Voir la démo : https://goharbor.io/docs/2.10.0/install-config/demo-server/
+
+Installer : 
+
+## Le renforcement de sécurité : les profils AppArmor
+
+- On peut utiliser `bane`, un générateur de profil AppArmor pour Docker, en suivant l'exemple d'un profil Nginx :
 <https://github.com/genuinetools/bane>
 
+AppArmor est plus haut niveau que SELinux.
+
+Dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
+
+<!-- capabilities -->
+
+<!-- wtf is seccomp -->
+
+<!-- selinux enabled:  -->
 
 <!-- Clair https://github.com/quay/clair -->
 
