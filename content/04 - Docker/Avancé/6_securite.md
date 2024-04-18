@@ -9,8 +9,9 @@ weight: 1046
 - **un conteneur privilégié est _root_ sur la machine !**
   - et l'usage des capabilities Linux dès que possible pour éviter d'utiliser `--privileged`
   - on peut utiliser [`bane`](https://github.com/genuinetools/bane), un générateur de profil AppArmor pour Docker
-  - AppArmor est plus haut niveau que SELinux, très (trop) complexe à utiliser
   - dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
+
+- SELinux peut s'activer sur les systèmes RedHat : plusieurs règles liées à la conteneurisation sont ajoutées au système hôte pour rendre plus difficile une exploitation via un conteneur. Cela s'active dans les options du daemon Docker : <https://www.arhea.net/posts/2020-04-28-selinux-for-containers/>
 
 - des _cgroups_ corrects par défaut dans la config Docker : `ulimit -a` et `docker stats`
 
