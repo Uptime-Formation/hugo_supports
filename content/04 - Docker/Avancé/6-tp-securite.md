@@ -91,9 +91,12 @@ Installer :
 - On peut utiliser `bane`, un générateur de profil AppArmor pour Docker, en suivant l'exemple d'un profil Nginx :
 <https://github.com/genuinetools/bane>
 
-AppArmor est plus haut niveau que SELinux.
+AppArmor est plus haut niveau que SELinux (qui s'active dans `daemon.json` mais que sur les systèmes RedHat).
 
-Dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
+- Dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
+
+<!-- - SELinux peut s'activer sur les systèmes RedHat : plusieurs règles liées à la conteneurisation sont ajoutées au système hôte pour rendre plus difficile une exploitation via un conteneur. Cela s'active dans les options du daemon Docker : <https://www.arhea.net/posts/2020-04-28-selinux-for-containers/> -->
+<!-- - les profils *seccomp* ont une logique similaire : ils désactivent certains appels kernel (syscall) pour rendre plus difficile une exploitation (voir https://docs.docker.com/engine/security/seccomp/). En général on utilise un profil par défaut. -->
 
 <!-- capabilities -->
 
