@@ -65,6 +65,14 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 <!-- --publish mode=host,target=80,published=8080 -->
 
 
+## Gérer les données sensibles dans Swarm avec les secrets Docker
+
+- créer un secret avec : `echo "This is a secret" | docker secret create my_secret_data`
+
+- permettre l'accès au secret via : `docker service create --name monservice --secret my_secret_data redis:alpine`
+
+- lire le contenu secret dans : `/var/run/my_secret_data`
+
 ## Clustering entre collègues
 
 ### Avec un service

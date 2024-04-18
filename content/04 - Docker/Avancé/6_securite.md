@@ -18,7 +18,9 @@ weight: 1046
 
 - La sécurité de Docker c'est aussi celle de la chaîne de dépendance, des images, des packages installés dans celles-ci : on fait confiance à trop de petites briques dont on ne vérifie pas la provenance ou la mise à jour
 
-  - [Clair](https://github.com/quay/clair) : l'analyse statique d'images Docker
+  - Docker Scout, Clair ou Trivy : l'analyse statique d'images Docker grâce aux bases de données de CVEs
+
+  - [Watchtower](https://github.com/containrrr/watchtower) : un conteneur ayant pour mission de périodiquement recréer les conteneurs pour qu'ils utilisent la dernière image Docker
 
 - [docker-socket-proxy](https://github.com/Tecnativa/docker-socket-proxy) : protéger la _socket_ Docker quand on a besoin de la partager à des conteneurs comme Traefik ou Portainer
 

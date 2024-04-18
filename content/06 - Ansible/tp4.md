@@ -14,6 +14,7 @@ weight: 41
 
 - Ajoutez à la racine du projet un fichier `.gitlab-ci.yml` avec à l'intérieur:
 
+<!-- FIXME: https://hub.docker.com/r/peco602/ansible-linux-docker -->
 ```yaml
 image:
   # This linux container (docker) we will be used for our pipeline : ubuntu bionic with ansible preinstalled in it

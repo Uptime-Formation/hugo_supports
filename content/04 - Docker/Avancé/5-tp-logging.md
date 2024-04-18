@@ -11,10 +11,13 @@ Son inconvénient majeur est que les logs avec ce driver sont supprimés dès qu
 
 ### Utiliser le driver `journald`
 
-[A l'aide de la documentation](https://docs.docker.com/config/containers/logging/journald/), changeons le driver dans `/etc/docker/daemon.json` pour utiliser le driver `journald`. 
-Consultez les logs d'un conteneur grâce à `journalctl -f` et le bon label.
+- [A l'aide de la documentation](https://docs.docker.com/config/containers/logging/journald/), changeons le driver dans `/etc/docker/daemon.json` pour utiliser le driver `journald`. 
+- Relancez le service `docker.service`
+- Consultez les logs d'un conteneur grâce à `journalctl -f` et le bon label.
 
 Ce driver est utile car les logs sont désormais archivés dès leur création, tout en permettant d'utiliser les features de filtrage et de rotation de `journald`.
+
+- Remettez le driver par défaut (`json-file` ou supprimez le fichier `/etc/docker/daemon.json`), et restartez le service `docker.service` pour ne pas interférer avec la seconde moitié de l'exercice : la config Elastic de l'exercice suivant fonctionne avec le driver `json-file`.
 
 ## Une stack Elastic
 
