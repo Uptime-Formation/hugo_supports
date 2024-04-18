@@ -7,8 +7,9 @@ weight: 1046
 ### Sécurité / durcissement
 
 - **un conteneur privilégié est _root_ sur la machine !**
+  - et l'usage des capabilities Linux dès que possible pour éviter d'utiliser `--privileged`
 
-- des _cgroups_ correct : `ulimit -a`
+- des _cgroups_ corrects par défaut dans la config Docker : `ulimit -a` et `docker stats`
 
 - par défaut les _user namespaces_ ne sont pas utilisés !
   - exemple de faille : <https://medium.com/@mccode/processes-in-containers-should-not-run-as-root-2feae3f0df3b>
