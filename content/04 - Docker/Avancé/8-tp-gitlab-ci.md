@@ -1,5 +1,5 @@
 ---
-title: TP 6 (bonus) - Intégration continue avec Gitlab
+title: TP 8 - Intégration continue avec Gitlab
 draft: false
 weight: 1065
 ---

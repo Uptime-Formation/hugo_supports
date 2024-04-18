@@ -1,5 +1,5 @@
 ---
-title: TP 3bis - Volumes
+title: TP 3b - Volumes
 weight: 1032
 ---
 
