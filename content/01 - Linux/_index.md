@@ -1,8 +1,9 @@
 ---
-title: "Linux - Intro, Admin, Réseau et scripting"
+title: "Linux"
+# title: "Linux - Intro, Admin, Réseau et scripting"
 weight: 90
 # pre: "<i class='fab fa-git'></i> - "
-pre: "01 - <i class='fab fa-linux'></i> "
+pre: "<i class='fab fa-linux'></i> "
 chapter: true
 draft: false
 ---

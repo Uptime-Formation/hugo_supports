@@ -2,7 +2,7 @@
 title: "Git et Gitlab"
 weight: 100
 # pre: "<i class='fab fa-git'></i> - "
-pre: "02 - <i class='fas fa-code-branch'></i> "
+pre: "<i class='fas fa-code-branch'></i> "
 chapter: true
 draft: false
 ---

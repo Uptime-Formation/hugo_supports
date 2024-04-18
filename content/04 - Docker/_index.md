@@ -1,6 +1,6 @@
 ---
 title: "Docker"
-pre: "04 - <i class='fab fa-docker'></i> "
+pre: "<i class='fab fa-docker'></i> "
 weight: 203
 chapter: true
 ---

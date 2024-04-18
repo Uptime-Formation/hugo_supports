@@ -1,7 +1,7 @@
 ---
 title: Ansible
 weight: 205
-pre: "06 - <i class='fab fa-adn'></i> "
+pre: "<i class='fab fa-adn'></i> "
 chapter: true
 ---
 

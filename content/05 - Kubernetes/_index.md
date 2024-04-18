@@ -2,7 +2,7 @@
 title: 'Kubernetes'
 draft: false
 weight: 204
-pre: "05 - <i class='fas fa-dharmachakra'></i> "
+pre: "<i class='fas fa-dharmachakra'></i> "
 chapter: true
 ---
 

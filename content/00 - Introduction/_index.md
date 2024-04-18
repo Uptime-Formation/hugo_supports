@@ -1,7 +1,7 @@
 ---
 title: Introduction
 weight: 1
-pre: "<i class='fas fa-rocket'></i> - "
+pre: "<i class='fas fa-rocket'></i> "
 chapter: true
 ---
 

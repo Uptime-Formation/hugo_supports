@@ -1,7 +1,7 @@
 ---
 title: Python 
 weight: 101
-pre: "03 - <i class='fab fa-python'></i> "
+pre: "<i class='fab fa-python'></i> "
 ---
 
 # Bienvenue !
