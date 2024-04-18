@@ -1,3 +1,5 @@
+update ubuntu pour podman https://www.how2shout.com/linux/how-to-install-podman-on-ubuntu-20-04-lts-focal-fossa/#2_Add_Podman_Repository
+
 mettre intertitres dans debut tp2
 rendre instructions guac optionnelles
 devcontainers
