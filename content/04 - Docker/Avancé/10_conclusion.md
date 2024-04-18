@@ -25,6 +25,8 @@ weight: 1080
 
 Avec Elasticsearch, Filebeat et Kibana… grâce aux labels sur les conteneurs Docker
 
+Ou en utilisant des drivers de logs adéquats : <https://docs.docker.com/config/containers/logging/configure/#supported-logging-drivers>
+
 ## Gérer le reverse proxy
 
 Avec Traefik, aussi grâce aux labels sur les conteneurs Docker
@@ -40,7 +42,7 @@ Ou avec Nginx, avec deux projets :
 
 - Avec Prometheus et cAdvisor pour Docker et Docker Swarm, voir ce tutoriel : <https://prometheus.io/docs/guides/cadvisor/>
 
-- Ou bien Netdata, un peu plus joli et configuré pour monitorer des conteneurs _out-of-the-box_
+- Ou bien Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_
 
 <!-- ## Tests sur des conteneurs
 

@@ -1,7 +1,7 @@
 ---
 title: "TP 6 - Renforcement de la sécurité avec Docker"
 draft: false
-weight: 1045
+weight: 1046
 ---
 
 ### Sécurité / durcissement
@@ -13,18 +13,6 @@ weight: 1045
 - par défaut les _user namespaces_ ne sont pas utilisés !
   - exemple de faille : <https://medium.com/@mccode/processes-in-containers-should-not-run-as-root-2feae3f0df3b>
   - exemple de durcissement conseillé : <https://docs.docker.com/engine/security/userns-remap/>
-
-<!-- Exemple de renforcement :
-```bash
-vim /etc/docker/daemon.json
-adduser docker-userns -s /bin/false
-service docker restart
-cat /etc/subuid
-cat /etc/passwd
-docker run -d -it alpine sh
-docker ps
-htop
-``` -->
 
 - le benchmark Docker CIS : <https://github.com/docker/docker-bench-security/>
 
