@@ -10,8 +10,8 @@ weight: 1046
   - et l'usage des capabilities Linux dès que possible pour éviter d'utiliser `--privileged`
   - on peut utiliser [`bane`](https://github.com/genuinetools/bane), un générateur de profil AppArmor pour Docker
   - dans l'écrasante majorité des cas, on peut se concentrer sur les *capabilities* (pour des conteneurs non privilégiés) pour avoir un cluster Docker déjà très sécurisé.
-
-- SELinux peut s'activer sur les systèmes RedHat : plusieurs règles liées à la conteneurisation sont ajoutées au système hôte pour rendre plus difficile une exploitation via un conteneur. Cela s'active dans les options du daemon Docker : <https://www.arhea.net/posts/2020-04-28-selinux-for-containers/>
+  - SELinux peut s'activer sur les systèmes RedHat : plusieurs règles liées à la conteneurisation sont ajoutées au système hôte pour rendre plus difficile une exploitation via un conteneur. Cela s'active dans les options du daemon Docker : <https://www.arhea.net/posts/2020-04-28-selinux-for-containers/>
+  - les profils *seccomp* ont une logique similaire : ils désactivent certains appels kernel (syscall) pour rendre plus difficile une exploitation (voir https://docs.docker.com/engine/security/seccomp/). En général on utilise un profil par défaut.
 
 - des _cgroups_ corrects par défaut dans la config Docker : `ulimit -a` et `docker stats`
 
