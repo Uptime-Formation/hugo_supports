@@ -392,7 +392,7 @@ Créons un nouveau Dockerfile qui permet de faire dire des choses à une vache g
 Le but est de faire fonctionner notre programme dans un conteneur à partir de commandes de type :
 
 - `docker run --rm cowsay Coucou !`
-- `docker run --rm cowsay # Affiche une vache qui dit "Hello"`
+- `docker run --rm cowsay` doit afficher une vache qui dit "Hello"
 - `docker run --rm cowsay -f stegosaurus Yo!`
 - `docker run --rm cowsay -f elephant-in-snake Un éléphant dans un boa.`
 
@@ -406,6 +406,7 @@ Le but est de faire fonctionner notre programme dans un conteneur à partir de c
 FROM ubuntu
 RUN apt-get update && apt-get install -y cowsay
 ENTRYPOINT ["/usr/games/cowsay"]
+CMD ["Hello"]
 # les crochets sont nécessaires, car ce n'est pas tout à fait la même instruction qui est exécutée sans
 ```
 
