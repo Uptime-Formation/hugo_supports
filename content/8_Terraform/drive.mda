@@ -1,0 +1,93 @@
+
+Todo
+* [ ] Faire la grille d'évaluation
+
+Recette K8S
+* https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
+
+
+Documentation
+* Terragrunt 
+  * Analyse https://www.nearform.com/blog/terraform-tools-terragrunt-terraspace/
+  * Code exemple 
+    * Officiel
+      * https://github.com/zaremba-tomasz/terragrunt-terraform-comparison
+      * https://github.com/gruntwork-io/terragrunt-infrastructure-modules-example
+    * https://github.com/gruntwork-io/terragrunt-infrastructure-live-example
+  * install https://terragrunt.gruntwork.io/docs/getting-started/install/
+* Terraform
+  * Doc : https://www.terraform.io/docs 
+  * install https://developer.hashicorp.com/terraform/
+* Ressources pédagogiques
+  * https://github.com/brikis98/terraform-up-and-running-code
+  * https://github.com/terraform-in-action
+  * https://developer.hashicorp.com/terraform/tutorials
+
+
+
+
+
+---
+
+## Comparaison des ouvrages
+
+A Terraform in [A]ction
+C [C]ookbook
+U Terraform [U]p and Running
+
+Bootstrap::HelloWorld A(:3)
+Bootstrap::Providers/Plan A(1)
+Bootstrap::LifeCycle A(2)
+Bootstrap::Variables A(3)
+Configuration C(1.1)
+CI/CD A(7)
+Dependabot (C2.5)
+Deploy vs Conf C(2.3)
+Diagrams::General A(:i)
+Drift A(2.7)
+Filters A(2)
+Filters::Case C(1.7)
+Filters::Chomp C(1.2)
+Filters::Replace C(1.6)
+Filters::Regex C(1.5)
+Filters::Sort C(1.8)
+Filters::Trim C(1.4,1.3)
+HCL U(2)
+Instances A(4) U(2)
+Language::Functional A(3)
+Layout U(3)
+Loops U(5)
+Loops::for_each A(7.4)
+Modules A(4) U(4)
+Modules::Architecture A(5)
+Modules::Creating A(6.3)
+Modules::Flat vs Nested A(6)
+Modules::Production U(8)
+Multicloud A(8) U(7)
+NET::Subnets C(1.9)
+Provider::Custom (11)
+Provisioners A(7.4
+Refactoring A(10) U(5)
+Registry A(4)
+Security A(13)
+Secrets U(6)
+Serverless A(5)
+State::Basics A(1)
+State::Backends A(6)
+Teamwork U(10)
+Testing U(9)
+Testing::Linting C(2.4)
+Terraform Cloud  C(3) A(12)
+tfenv U(8)
+tfstate U(3)
+tfstate::lock U(3)
+tfstate::read-only U(3)
+tfvars A(4)
+validation
+versioning U(8)
+VCS C(2.3+)
+VPC C(2.2)
+Why Terraform U(1)
+Workspaces A(6) U(3)
+Zero Downtime A(9) U(5)
+
