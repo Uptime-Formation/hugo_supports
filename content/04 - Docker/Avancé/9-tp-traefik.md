@@ -11,6 +11,32 @@ Nous allons nous baser sur le guide d'introduction [Traefik - Getting started](h
 
 - Avec l'aide de la documentation Traefik, ajoutez une section pour le reverse proxy Traefik pour dans un fichier Docker Compose de votre choix.
 
+Exemple de Docker Compose :
+```yml
+services:
+  identidock:
+    image: amouat/identidock
+    ports:
+      - "5000:5000"
+      - "9191:9191" # port pour les stats
+    networks:
+      - identinet
+
+  dnmonster:
+    image: amouat/dnmonster:1.0
+    networks:
+      - identinet
+
+  redis:
+    image: redis
+    networks:
+      - identinet
+
+networks:
+  identinet:
+    driver: bridge
+```
+
 {{% expand "Solution :" %}}
  <!-- {linenos=table,hl_lines=[8,"15-17"],linenostart=199} -->
 

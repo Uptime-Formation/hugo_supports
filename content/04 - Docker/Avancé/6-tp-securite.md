@@ -88,7 +88,7 @@ La sécurité de Docker c'est aussi celle de la chaîne de dépendance, des imag
 - mode d'emploi : <https://docs.docker.com/scout/quickstart/> -->
 
 - Avec `docker run --rm aquasec/trivy image monimage:latest`, scannons une image de notre choix
-
+https://aquasecurity.github.io/trivy/v0.50/docs/coverage/language/
 <!-- 
 - [docker-socket-proxy](https://github.com/Tecnativa/docker-socket-proxy) : protéger la _socket_ Docker quand on a besoin de la partager à des conteneurs comme Traefik ou Portainer 
 
