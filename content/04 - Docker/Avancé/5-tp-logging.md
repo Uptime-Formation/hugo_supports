@@ -119,7 +119,7 @@ On peut aussi regarder du côté de Signoz (logging, monitoring et alerting) : h
 Ou bien Loki : https://grafana.com/docs/loki/latest/setup/install/docker/
 
 
-<!-- Ressources utiles : -->
-<!-- https://github.com/stefanprodan/dockprom
-https://github.com/vegasbrianc/docker-monitoring
-https://grafana.com/grafana/dashboards/179-docker-prometheus-monitoring/ -->
+Ressources utiles :
+- https://github.com/stefanprodan/dockprom
+- https://github.com/vegasbrianc/docker-monitoring
+- https://grafana.com/grafana/dashboards/179-docker-prometheus-monitoring/
