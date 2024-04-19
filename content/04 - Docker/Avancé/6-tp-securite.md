@@ -4,8 +4,21 @@ draft: false
 weight: 1047
 ---
 
+## Découverte de Podman
+
+Avec l'aide du mode d'emploi rootless de Podman, découvrons ensemble les choix d'architecture de Podman et son mode rootless par défaut : 
+<https://podman.io/docs/installation>
+
+Note : il est aussi possible d'utiliser docker-compose avec Podman grâce à l'activation de son API.
+
+Ressources pour le debugging si nécessaire :
+- <https://github.com/containers/podman/blob/main/troubleshooting.md>
+- <https://wiki.archlinux.org/title/Podman>
+- <https://github.com/containers/podman/blob/main/rootless.md>
+
 ## Les options de `dockerd` : le fichier `daemon.json`
 
+Revenons à Docker.
 On peut spécifier des options plus sécurisées, soit en modifiant le service `docker.service`, soit en modifiant le fichier `/etc/docker/daemon.json` (plus recommandé).
 
 - par exemple, on peut choisir certaines valeurs plus restrictives pour les cgroups, pour éviter qu'un conteneur trop gourmand bloque le host (se référer à la documentation).
@@ -51,9 +64,17 @@ docker run -it -v /:/dossier-racine-hote ubuntu /bin/bash
 
 - à l'aide du projet Github suivant, lancez le benchmark Docker CIS : <https://github.com/docker/docker-bench-security/>
 
-- commentons-le ensemble
+- commentons-le ensemble à l'aide du guide suivant : [CIS_Docker_Benchmark_V1.6.0.PDF](../../../pdfs/CIS_Docker_Benchmark_V1.6.0.PDF)
 
-Le guide le plus récent est disponible en téléchargement ici : https://www.cisecurity.org/benchmark/docker
+<!-- Le guide le plus récent est disponible en téléchargement ici : https://www.cisecurity.org/benchmark/docker -->
+<!-- 
+### Facultatif : SELinux
+
+Activez SELinux dans le fichier `daemon.json` et relancez l'audit. -->
+
+### Facultatif : inter-container communication on default network
+Désactivez l'options `icc` dans le fichier `daemon.json` et relancez l'audit.
+Tentez de pinger un conteneur depuis un autre (voir TP3 sur le réseau pour un exemple).
 
 ## Le contenu des images Docker
 
@@ -83,8 +104,6 @@ En production, on peut utiliser [Watchtower](https://github.com/containrrr/watch
 Un registry avancé, par exemple avec Harbor, permet d'activer le scanning d'images, de gérer les droits d'usage d'images, et de potentiellement restreindre les images utilisables dans des contextes d'organisation sécurisés.
 
 Voir la démo : https://goharbor.io/docs/2.10.0/install-config/demo-server/
-
-Installer : 
 
 ## Le renforcement de sécurité : les profils AppArmor
 
