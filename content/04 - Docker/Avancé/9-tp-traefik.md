@@ -18,7 +18,6 @@ services:
     image: uptimeformation/monstericon
     ports:
       - "5000:5000"
-      - "9191:9191" # port pour les stats
     networks:
       - identinet
 
@@ -84,6 +83,7 @@ whoami:
 
 ## Exercice 1b - un certificat Let's Encrypt (ou autosigné)
 
+Utilisons le nom de domaine public de votre VM, normalement communiqué par le formateur.
 
 - Avec l'aide de la [documentation Traefik sur Let's Encrypt et Docker Compose](https://doc.traefik.io/traefik/user-guides/docker-compose/acme-http/), configurez Traefik pour qu'il crée un certificat Let's Encrypt pour votre container.
 <!-- - Si vous avez une IP publique mais pas de domaine, vous pouvez utiliser le service gratuit [netlib.re] qui vous fournira un domaine en `*.netlib.re`. -->
@@ -104,14 +104,26 @@ reverse-proxy:
     - "--providers.docker=true"
     - "--entrypoints.web.address=:80"
     - "--entrypoints.web-securise.address=:443"
+
+    #  Pour faire un test d'abord, utiliser le serveur Let's Encrypt de staging :
+    #- "--certificatesresolvers.letsencrypt-staging.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    # - "--certificatesresolvers.letsencrypt-staging.acme.httpchallenge=true"
+    # - "--certificatesresolvers.letsencrypt-staging.acme.httpchallenge.entrypoint=web"
+    # - "--certificatesresolvers.letsencrypt-staging.acme.email=postmaster@example.com"
+    # - "--certificatesresolvers.letsencrypt-staging.acme.storage=/letsencrypt/acme.json"
     - "--certificatesresolvers.letsencrypt-certifgratuit.acme.httpchallenge=true"
     - "--certificatesresolvers.letsencrypt-certifgratuit.acme.httpchallenge.entrypoint=web"
-    #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
     - "--certificatesresolvers.letsencrypt-certifgratuit.acme.email=postmaster@example.com"
     - "--certificatesresolvers.letsencrypt-certifgratuit.acme.storage=/letsencrypt/acme.json"
+
+    # Ces deux lignes permettent de désactiver le HTTP et de rediriger vers du HTTPS
+    - "--entrypoints.web.http.redirections.entryPoint.to=web-securise"
+    - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
   ports:
     - "80:80"
     - "443:443"
+    # On devrait changer pour ne pas exposer le dashboard à l'extérieur
+    # - "127.0.0.1:8080:8080"
     - "8080:8080"
   volumes:
     - "./letsencrypt:/letsencrypt"
@@ -120,7 +132,7 @@ reverse-proxy:
 
 (il faut remplacer l'e-mail `postmaster@example.com` par un autre ne terminant pas par `example.com`).
 
-Ensuite, en remplaçant le nom de domaine `example.com` (utilisez votre nom de domaine principal si vous ne voulez pas vous soucier du DNS et des limitations de Let's Encrypt, voir plus haut), ajoutez des labels à vos containers ainsi :
+Ensuite, en remplaçant le nom de domaine `example.com`<!-- (utilisez votre nom de domaine principal si vous ne voulez pas vous soucier du DNS et des limitations de Let's Encrypt, voir plus haut)-->, ajoutez des labels à vos containers ainsi :
 ```yaml
   whoami:
     image: "traefik/whoami"
@@ -147,10 +159,10 @@ Attention : il faudra bien faire attention aux réseaux dans lesquels se trouven
 {{% /expand %}}
 
 {{% expand "Indice 2 :" %}}
-Il va falloir utiliser le mot-clé `external` dans `networks:`
+Il va falloir utiliser le mot-clé `external` dans `networks:` (il y a aussi le mot-clé `name` qui peut être utile ici)
 {{% /expand %}}
 
-**Attention :** il y a un problème avec Traefik qui n'est pas explicite ! Cette page vous aidera à le résoudre (à rajouter dans le paramètre `command:` du conteneur Traefik) : https://community.traefik.io/t/docker-provider-how-does-traefik-choose-which-service-ip-address-to-proxy-to-when-container-is-on-multiple-networks/16852/2
+**Attention :** il y a un problème assez difficile à comprendre et à résoudre avec Traefik, il n'est pas explicite ! Cette page vous aidera à le résoudre (à rajouter dans le paramètre `command:` du conteneur Traefik) : https://community.traefik.io/t/docker-provider-how-does-traefik-choose-which-service-ip-address-to-proxy-to-when-container-is-on-multiple-networks/16852/2
 
 ## Exercice 3 - Swarm avec Traefik
 
@@ -226,5 +238,7 @@ Ensuite, en adaptant le nom de domaine, ajoutez des labels  **à la section `dep
 
 {{% /expand %}}
 
-<!-- - Si vous avez une IP publique mais pas de domaine, vous pouvez utiliser le service gratuit [netlib.re] qui vous fournira un domaine en `*.netlib.re`.
+
+<!-- Note pour le DNS :
+- Si vous avez une IP publique mais pas de domaine, vous pouvez utiliser le service gratuit [netlib.re] qui vous fournira un domaine en `*.netlib.re`.
 - Vous aurez aussi besoin de configurer des DNS via `netlib.re` si vous voulez vérifier des sous-domaines (et non votre domaine principal) auprès de Let's Encrypt (de plus, si vous voulez un certificat avec *wildcard* pour tous vos sous-domaines, il faudra [résoudre le `dnsChallenge` de Let's Encrypt de manière manuelle](https://doc.traefik.io/traefik/https/acme/#dnschallenge)). -->
