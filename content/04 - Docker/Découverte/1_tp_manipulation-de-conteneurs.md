@@ -65,7 +65,7 @@ docker ps -a # affiche  également les conteneurs arrêtés
 - **Documentation `docker run` :** <https://docs.docker.com/engine/reference/run/>
 
 Mentalité :
-![](../../images/changingThings.jpg)
+![](../../../images/changingThings.jpg)
 Il faut aussi prendre l'habitude de bien lire ce que la console indique après avoir passé vos commandes.
 
 Avec l'aide du support et de `--help`, et en notant sur une feuille ou dans un fichier texte les commandes utilisées :

@@ -5,7 +5,7 @@ weight: 1010
 
 ## _Modularisez et maîtrisez vos applications_
 
-![](../../images/Moby-logo.png)
+![](../../../images/Moby-logo.png)
 
 ---
 
@@ -21,9 +21,9 @@ weight: 1010
 On compare souvent les conteneurs aux machines virtuelles. Mais ce sont de grosses simplifications parce qu'on en a un usage similaire : isoler des programmes dans des "contextes".
 Une chose essentielle à retenir sur la différence technique : **les conteneurs utilisent les mécanismes internes du \_kernel de l'OS **Linux**\_ tandis que les VM tentent de communiquer avec l'OS (quel qu'il soit) pour directement avoir accès au matériel de l'ordinateur.**
 
-<!-- ![](../../images/hyperv-vs-containers.png) -->
+<!-- ![](../../../images/hyperv-vs-containers.png) -->
 
-![](../../images/vm_vs_containers.png)
+![](../../../images/vm_vs_containers.png)
 
 - **VM** : une abstraction complète pour simuler des machines
 

@@ -18,8 +18,8 @@ weight: 1080
 - Les tests à l'intérieur des conteneurs peuvent aussi être faits de façon plus poussée, avec par exemple Ansible comme source de healthcheck ou comme suite pour les tests.
 - Dans une autre catégorie, Gitpod base son workflow sur des images Docker permettant de configurer un environnement de développement
 
-![](../../images/devops/gitlab_workflow_example.png)
-![](../../images/devops/pipeline_status.png)
+![](../../../images/devops/gitlab_workflow_example.png)
+![](../../../images/devops/pipeline_status.png)
 
 ## Gérer les logs des conteneurs
 
@@ -31,7 +31,7 @@ Ou en utilisant des drivers de logs adéquats : <https://docs.docker.com/config/
 
 Avec Traefik, aussi grâce aux labels sur les conteneurs Docker
 
-![](../../images/docker/traefik-architecture.png)
+![](../../../images/docker/traefik-architecture.png)
 
 Ou avec Nginx, avec deux projets :
 
@@ -95,7 +95,7 @@ Présentation d'un workflow Docker, du développement à la production -->
 - les ressources présentes dans la [bibliographie](../../bibliographie)
 - la liste de [Awesome Docker](https://github.com/veggiemonk/awesome-docker)
 
-![](../../images/dockercraft.gif)
+![](../../../images/dockercraft.gif)
 _[Dockercraft](https://github.com/docker/dockercraft) : administrez vos containers dans Minecraft_
 
 ## Retours

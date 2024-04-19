@@ -22,7 +22,7 @@ Autres concepts primordiaux :
 
 ## Daemon - Client - images - registry
 
-![](../../images/archi1.png)
+![](../../../images/archi1.png)
 
 ---
 
@@ -138,7 +138,7 @@ Pas de virtualisation nécessaire car Docker (le Docker Engine) utilise le noyau
 
 ## Les images
 
-![](../../images/docker-cycle.jpg)
+![](../../../images/docker-cycle.jpg)
 **Docker** possède à la fois un module pour lancer les applications (runtime) et un **outil de build** d'application.
 
 - Une image est le **résultat** d'un build :
@@ -182,7 +182,7 @@ docker ps -a # affiche  également les conteneurs arrêtés
 
 ### Créer et lancer un conteneur
 
-![](../../images/ops-basics-isolation.svg)
+![](../../../images/ops-basics-isolation.svg)
 
 - Un conteneur est une instance en cours de fonctionnement ("vivante") d'une image.
 
@@ -299,6 +299,6 @@ On peut également y créer un compte gratuit pour pousser et distribuer ses pro
 
 # En résumé
 
-![](../../images/docker-architecture.png)
+![](../../../images/docker-architecture.png)
 
-<!-- ![](../../images/docker-components.png) -->
+<!-- ![](../../../images/docker-components.png) -->

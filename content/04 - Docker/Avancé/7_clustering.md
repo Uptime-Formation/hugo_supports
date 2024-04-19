@@ -43,7 +43,7 @@ L'orchestration consiste à automatiser la création et la répartition des cont
 
 
 <br />
-![](../../images/swarm/ops-swarm-arch.svg)]
+![](../../../images/swarm/ops-swarm-arch.svg)
 
 - Un ensemble de nœuds de contrôle pour gérer les conteneurs
 - Un ensemble de nœuds worker pour faire tourner les conteneurs
@@ -54,7 +54,7 @@ L'orchestration consiste à automatiser la création et la répartition des cont
 ## Consensus entre managers Swarm
 
 - L'algorithme Raft : http://thesecretlivesofdata.com/raft/
-  ![](../../images/raft-algorithm.gif)
+  ![](../../../images/raft-algorithm.gif)
 
 - Pas d'_intelligent balancing_ dans Swarm
   - l'algorithme de choix est "spread", c'est-à-dire qu'il répartit au maximum en remplissant tous les nœuds qui répondent aux contraintes données.
@@ -259,7 +259,7 @@ Pour basculer `eval $(docker env hote-digitalocean);`
 
 # Présentation de Kubernetes
 
-![](../../images/kubernetes/k8s_archi1.png)
+![](../../../images/kubernetes/k8s_archi1.png)
 
 - Les **pods** Kubernetes servent à grouper des conteneurs en unités d'application (microservices ou non) fortement couplées (un peu comme les *stacks* Swarm)
 
