@@ -21,11 +21,22 @@ weight: 1080
 ![](../../../images/devops/gitlab_workflow_example.png)
 ![](../../../images/devops/pipeline_status.png)
 
-## Gérer les logs des conteneurs
+## Gérer les logs et monitorer des conteneurs
 
+### Logging
 Avec Elasticsearch, Filebeat et Kibana… grâce aux labels sur les conteneurs Docker
 
 Ou en utilisant des drivers de logs adéquats : <https://docs.docker.com/config/containers/logging/configure/#supported-logging-drivers>
+
+### Monitoring
+
+- Avec Prometheus et cAdvisor pour Docker et Docker Swarm, voir ce tutoriel : <https://prometheus.io/docs/guides/cadvisor/>
+
+- Ou bien Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_
+
+- Ou bien Loki, qui s'installe facilement avec Docker Compose et est très complet : https://grafana.com/docs/loki/latest/setup/install/docker/
+
+- On peut aussi regarder du côté de Signoz (logging, monitoring et alerting) : https://github.com/SigNoz/signoz
 
 ## Gérer le reverse proxy
 
@@ -37,12 +48,6 @@ Ou avec Nginx, avec deux projets :
 
 - https://github.com/nginx-proxy/nginx-proxy
 - https://github.com/nginx-proxy/acme-companion
-
-## Monitorer des conteneurs
-
-- Avec Prometheus et cAdvisor pour Docker et Docker Swarm, voir ce tutoriel : <https://prometheus.io/docs/guides/cadvisor/>
-
-- Ou bien Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_
 
 <!-- ## Tests sur des conteneurs
 

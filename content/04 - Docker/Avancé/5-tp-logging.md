@@ -114,6 +114,11 @@ Suivre ce tutoriel pour du monitoring des conteneurs Docker : <https://prometheu
 
 Une alternative est Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_ : <https://learn.netdata.cloud/docs/netdata-agent/installation/docker>
 
+On peut aussi regarder du côté de Signoz (logging, monitoring et alerting) : https://github.com/SigNoz/signoz
+
+Ou bien Loki : https://grafana.com/docs/loki/latest/setup/install/docker/
+
+
 <!-- Ressources utiles : -->
 <!-- https://github.com/stefanprodan/dockprom
 https://github.com/vegasbrianc/docker-monitoring
