@@ -152,7 +152,7 @@ Si l'on souhaite que notre container lance le même exécutable à chaque fois, 
 `HEALTHCHECK` permet de vérifier si l'app contenue dans un conteneur est en bonne santé.
 
 ```bash
-HEALTHCHECK CMD curl --fail http://localhost:5000/health || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:5000/health
 ```
 
 ---
