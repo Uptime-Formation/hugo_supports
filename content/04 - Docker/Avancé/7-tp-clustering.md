@@ -147,3 +147,7 @@ Vous pouvez désormais faire [l'exercice 2 du TP 7](../7-tp-traefik) pour config
 <!-- ### *Facultatif :* du monitoring de cluster Docker Swarm avec *Prometheus*
 
 Suivre ce tutoriel pour du monitoring d'un cluster Docker Swarm : <https://prometheus.io/docs/guides/dockerswarm> -->
+
+<!-- ### Facultatif : stratégies de déploiement et Swarm -->
+<!-- ### Facultatif : cluster Postgres haute dispo et Swarm -->
+<!-- https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm -->
