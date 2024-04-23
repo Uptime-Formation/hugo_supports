@@ -11,7 +11,7 @@ weight: 1045
 
 <!-- - Si Docker n'est pas déjà installé, installez Docker par la méthode officielle accélérée et moins sécurisée (un _one-liner™_) avec `curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh`. Que fait cette commande ? Pourquoi est-ce moins sécurisé ? -->
 <!-- - Installez VSCode avec la commande `sudo snap install --classic code` -->
-{{% expand  Si Docker Compose est pas installé %}}
+{{% expand "Si Docker Compose est pas installé" %}}
 
 - Installez le plugin `docker compose` avec `sudo apt install docker-compose-plugin`.
 - Si ça ne marche pas, il faudra ajouter le repo officiel de Docker :

@@ -4,7 +4,7 @@ weight: 1015
 ---
 
 # Premier TD : on installe Docker et on joue avec
-{{% expand Installer Docker sur la VM Ubuntu dans Guacamole %}}
+{{% expand "Installer Docker sur la VM Ubuntu dans Guacamole" %}}
 
 
 - Accédez à votre VM via l'interface Guacamole

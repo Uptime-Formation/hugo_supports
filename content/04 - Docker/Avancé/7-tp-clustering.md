@@ -7,9 +7,21 @@ weight: 1055
 
 # Introduction à Swarm
 
-Initialisez Swarm avec `docker swarm init`.
+
+- Se grouper par 2 ou 3 pour créer un cluster à partir de vos VM respectives (il faut utiliser une commande Swarm pour récupérer les instructions nécessaires : `docker swarm init` devrait vous orienter).
+
+- Si grouper plusieurs des VM n'est pas possible, vous pouvez faire un cluster à un seul noeud, ou bien créer un cluster multi-nodes très simplement avec l'interface du site [Play With Docker](https://labs.play-with-docker.com/), il faut s'y connecter avec vos identifiants Docker Hub. Vous pouvez vous connecter à ces VM en SSH.
+
+- Vous pouvez faire `docker swarm --help` pour obtenir des infos manquantes, ou faire `docker swarm leave --force` pour réinitialiser votre configuration Docker Swarm si besoin.
+
+- N'hésitez pas à regarder dans les logs avec `systemctl status docker` comment se passe l'élection du nœud *leader*, à partir du moment où vous avez plus d'un manager.
+
 
 ## Créer un service
+
+Afin de visualiser votre installation Swarm, utilisons : <https://github.com/dockersamples/docker-swarm-visualizer>
+
+`docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock dockersamples/visualizer`
 
 ### En ligne de commande
 
@@ -35,7 +47,7 @@ services:
 
 {{% /expand %}}
 
-Accédez à votre service et actualisez plusieurs fois la page. Les informations affichées changent. Pourquoi ?
+Accédez à votre service depuis un node et actualisez plusieurs fois la page (Ctrl+Maj+R sinon le cache du navigateur vous embêtera). Les informations affichées changent. Pourquoi ?
 
 - Lancez une commande `service scale` pour changer le nombre de *replicas* de votre service et observez le changement avec `docker service ps hello`
 
@@ -43,11 +55,10 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 
 - Cloner l'application `example-voting-app` ici : [https://github.com/dockersamples/example-voting-app](https://github.com/dockersamples/example-voting-app)
 
-- Lire le schéma d'architecture de l'app `example-voting-app` sur Github. A noter que des services possèdent des images pour conteneurs Windows et pour conteneurs Linux. Ces versions peuvent être déployées de manière interchangeable et ne modifient pas le fonctionnement de l'application multi-conteneur. C'est une démonstration de l'utilité du paradigme de la conteneurisation et de l'architecture dite _"micro-service"_.
+- Lire le schéma d'architecture de l'app `example-voting-app` sur Github.
 
-- Lire attentivement les fichiers `docker-compose.yml`, `docker-compose-simple.yml`, `docker-stack-simple.yml` et `docker-stack.yml`. Ce sont tous des fichiers Docker Compose classiques avec différentes options liées à un déploiement via Swarm. Quelles options semblent spécifiques à Docker Swarm ? Ces options permettent de configurer des fonctionnalités d'**orchestration**.
+- Lire attentivement le fichier `docker-stack.yml`. Ce sont des fichiers Docker Compose classiques avec différentes options liées à un déploiement via Swarm. Quelles options semblent spécifiques à Docker Swarm ? Ces options permettent de configurer des fonctionnalités d'**orchestration**.
 
-- Dessiner rapidement le schéma d'architecture associé au fichier `docker-compose-simple.yml`, puis celui associé à `docker-stack.yml` en indiquant bien à quel réseau quel service appartient.
 <!-- - En suivant le [guide Docker de découverte de Swarm à partir de la partie 4](https://docs.docker.com/get-started/part4/), créez un fichier docker-compose qui package l'application exemple avec un container `redis` joignable via le hostname `redis` et le port 6379. -->
 
 - Avec `docker swarm init`, transformer son installation Docker en une installation Docker compatible avec Swarm. Lisez attentivement le message qui vous est renvoyé.
@@ -64,39 +75,11 @@ Accédez à votre service et actualisez plusieurs fois la page. Les informations
 
 <!-- --publish mode=host,target=80,published=8080 -->
 
-
-## Gérer les données sensibles dans Swarm avec les secrets Docker
-
-- créer un secret avec : `echo "This is a secret" | docker secret create my_secret_data`
-
-- permettre l'accès au secret via : `docker service create --name monservice --secret my_secret_data redis:alpine`
-
-- lire le contenu secret dans : `/var/run/my_secret_data`
-
-## Clustering entre collègues
-
-### Avec un service
-
-- Se grouper par 2 ou 3 pour créer un cluster à partir de vos VM respectives (il faut utiliser une commande Swarm pour récupérer les instructions nécessaires).
-- Si grouper plusieurs des VM n'est pas possible, vous pouvez créer un cluster multi-nodes très simplement avec l'interface du site [Play With Docker](https://labs.play-with-docker.com/), il faut s'y connecter avec vos identifiants Docker Hub. Vous pouvez vous connecter à ces VM en SSH.
-- Vous pouvez faire `docker swarm --help` pour obtenir des infos manquantes, ou faire `docker swarm leave --force` pour réinitialiser votre configuration Docker Swarm si besoin.
-
-- N'hésitez pas à regarder dans les logs avec `systemctl status docker` comment se passe l'élection du nœud *leader*, à partir du moment où vous avez plus d'un manager.
-
-- Lancez le service suivant : 
-`docker service create --name whoami --replicas 5 --publish published=80,target=80 traefik/whoami`
-
-- Accédez au service depuis un node, et depuis l'autre. Actualisez plusieurs fois la page. Les informations affichées changent. Lesquelles, et pourquoi ?
-
-### Avec la stack `example-voting-app`
-
-- Si besoin, cloner de nouveau le dépôt de l'application `example-voting-app`avec `git clone https://github.com/dockersamples/example-voting-app` puis déployez la stack de votre choix.
-
-- Ajouter dans le Compose file des instructions pour scaler différemment deux services (3 *replicas* pour le service _front_ par exemple). N'oubliez pas de redéployer votre Compose file.
-
 - puis spécifier quelques options d'orchestration exclusives à Docker Swarm : que fait `mode: global` ?  N'oubliez pas de redéployer votre Compose file.
 
-- Avec Portainer ou avec [docker-swarm-visualizer](https://github.com/dockersamples/docker-swarm-visualizer), explorer le cluster ainsi créé (le fichier `docker-stack.yml` de l'app `example-voting-app` contient déjà un exemplaire de `docker-swarm-visualizer`).
+- Avec Portainer ou avec [docker-swarm-visualizer](https://github.com/dockersamples/docker-swarm-visualizer), explorer le cluster ainsi créé.
+
+### Opérer sur le cluster
 
 - Trouver la commande pour déchoir et promouvoir l'un de vos nœuds de `manager` à `worker` et vice-versa.
 
@@ -114,6 +97,14 @@ Tenter :
 
 Le fichier `kube-deployment.yml` de l'app [`example-voting-app`](https://github.com/dockersamples/example-voting-app) décrit la même app pour un déploiement dans Kubernetes plutôt que dans Docker Compose ou Docker Swarm. Tentez de retrouver quelques équivalences entre Docker Compose / Swarm et Kubernetes en lisant attentivement ce fichier qui décrit un déploiement Kubernetes.
 
+
+## Gérer les données sensibles dans Swarm avec les secrets Docker
+
+- créer un secret avec : `echo "This is a secret" | docker secret create my_secret_data`
+
+- permettre l'accès au secret via : `docker service create --name monservice --secret my_secret_data redis:alpine`
+
+- lire le contenu secret dans : `/var/run/my_secret_data`
 
 <!--
 ## Installons Portainer
@@ -139,6 +130,26 @@ docker service create \
 - [https://github.com/docker/dockercloud-haproxy/tree/master](https://github.com/docker/dockercloud-haproxy/tree/master) -->
 
 
+
+### Facultatif : stratégies de déploiement et Swarm
+
+A partir d'une commande Curl, observez les changements de version d'un conteneur.
+- Vous pouvez vous servir de cette image qui lit la variable d'environnement `VERSION` :
+`docker run -e VERSION=v2.0.0 -p 8080:8080 containersol/k8s-deployment-strategies`
+
+- Préparez 2 fichiers : `docker-compose.init.yml` et `docker-compose.upgrade.yml`, représentant vos deux scénarios. Vous pouvez vous inspirer de cette page et de son dépôt :
+  - <https://blog.container-solutions.com/kubernetes-deployment-strategies>
+  - <https://github.com/ContainerSolutions/k8s-deployment-strategies>
+
+- Nous allons maintenant mettre à jour, lancez d'abord dans un terminal la commande : `while true; do curl localhost:8080; echo; sleep 1; done`
+
+- Appliquez votre `docker-compose.upgrade.yml` et observez
+
+
+<!-- ### Facultatif : cluster Postgres haute dispo et Swarm -->
+<!-- https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm -->
+
+
 ### _Facultatif :_ Utiliser Traefik avec Swarm
 
 Vous pouvez désormais faire [l'exercice 2 du TP 7](../7-tp-traefik) pour configurer un serveur web qui permet d'accéder à vos services Swarm via des domaines spécifiques.
@@ -147,7 +158,3 @@ Vous pouvez désormais faire [l'exercice 2 du TP 7](../7-tp-traefik) pour config
 <!-- ### *Facultatif :* du monitoring de cluster Docker Swarm avec *Prometheus*
 
 Suivre ce tutoriel pour du monitoring d'un cluster Docker Swarm : <https://prometheus.io/docs/guides/dockerswarm> -->
-
-<!-- ### Facultatif : stratégies de déploiement et Swarm -->
-<!-- ### Facultatif : cluster Postgres haute dispo et Swarm -->
-<!-- https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm -->

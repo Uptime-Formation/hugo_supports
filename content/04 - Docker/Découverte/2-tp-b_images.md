@@ -3,6 +3,30 @@ title: TP 2b - Exercices sur les images
 weight: 1026
 ---
 
+{{% expand "Portainer :" %}}
+
+
+<!-- - Pour visualiser aisément notre environnement docker au fur et à mesure de nos TPs nous allons charger une interface web d'administration docker appelée `portainer` et qui s'installe elle-même avec Docker. -->
+
+Si vous aviez déjà créé le conteneur Portainer, vous pouvez le relancer en faisant `docker start portainer`, sinon créez-le comme suit :
+
+```bash
+docker volume create portainer_data
+docker run --detach --name portainer \
+    -p 9000:9000 \
+    -v portainer_data:/data \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    portainer/portainer-ce
+```
+
+- Remarque sur la commande précédente : pour que Portainer puisse fonctionner et contrôler Docker lui-même depuis l'intérieur du conteneur il est nécessaire de lui donner accès au socket de l'API Docker de l'hôte grâce au paramètre `--volume` ci-dessus.
+
+- Visitez ensuite la page [http://localhost:9000](http://localhost:9000) pour accéder à l'interface.
+- Créez votre user admin avec le formulaire.
+- Explorez l'interface de Portainer.
+
+{{% /expand %}}
+
 ## Docker Hub
 
 - Avec `docker login`, `docker tag` et `docker push`, poussez l'image `microblog` sur le Docker Hub. Créez un compte sur le Docker Hub le cas échéant.
