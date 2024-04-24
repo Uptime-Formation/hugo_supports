@@ -146,12 +146,6 @@ A partir d'une commande Curl, observez les changements de version d'un conteneur
 - Appliquez votre `docker-compose.upgrade.yml` et observez
 
 
-<!-- ### Facultatif : cluster Postgres haute dispo et Swarm -->
-<!--
-https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm 
--->
-
-
 ### _Facultatif :_ Utiliser Traefik avec Swarm
 
 Vous pouvez désormais faire [l'exercice 2 du TP 7](../7-tp-traefik) pour configurer un serveur web qui permet d'accéder à vos services Swarm via des domaines spécifiques.
@@ -160,3 +154,9 @@ Vous pouvez désormais faire [l'exercice 2 du TP 7](../7-tp-traefik) pour config
 <!-- ### *Facultatif :* du monitoring de cluster Docker Swarm avec *Prometheus*
 
 Suivre ce tutoriel pour du monitoring d'un cluster Docker Swarm : <https://prometheus.io/docs/guides/dockerswarm> -->
+
+
+### Facultatif : cluster Postgres haute dispo et Swarm -->
+
+https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm 
+
