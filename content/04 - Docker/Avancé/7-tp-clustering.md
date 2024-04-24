@@ -147,7 +147,9 @@ A partir d'une commande Curl, observez les changements de version d'un conteneur
 
 
 <!-- ### Facultatif : cluster Postgres haute dispo et Swarm -->
-<!-- https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm -->
+<!--
+https://www.crunchydata.com/blog/an-easy-recipe-for-creating-a-postgresql-cluster-with-docker-swarm 
+-->
 
 
 ### _Facultatif :_ Utiliser Traefik avec Swarm

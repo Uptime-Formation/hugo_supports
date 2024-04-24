@@ -112,6 +112,10 @@ de ces services dans ELK. -->
 
 Suivre ce tutoriel pour du monitoring des conteneurs Docker : <https://prometheus.io/docs/guides/cadvisor/>
 
+On pourra se servir de cette stack Compose : <https://github.com/vegasbrianc/prometheus/>
+
+#### Ressources supplémentaires
+
 Une alternative est Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_ : <https://learn.netdata.cloud/docs/netdata-agent/installation/docker>
 
 On peut aussi regarder du côté de Signoz (logging, monitoring et alerting) : https://github.com/SigNoz/signoz
