@@ -20,7 +20,7 @@ ArgoCD est un outil de GitOps extrêment pratique et puissant mais il nécessite
 
 Qu'est-ce que le GitOps: https://www.objectif-libre.com/fr/blog/2019/12/17/gitops-tour-horizon-pratiques-outils/
 
-Vos serveurs VNC qui sont aussi désormais des clusters k3s ont déjà plusieurs sous-domaines configurés: `<votrelogin>.<soudomaine>.dopl.uk` et `*.<votrelogin>.<soudomaine>.dopl.uk`. Le sous domaine `argocd.<login>.<soudomaine>.dopl.uk` pointe donc déjà sur le serveur (Wildcard DNS).
+Vos serveurs VNC qui sont aussi désormais des clusters k3s ont déjà plusieurs sous-domaines configurés: `<votrelogin>.<sousdomaine>.dopl.uk` et `*.<votrelogin>.<sousdomaine>.dopl.uk`. Le sous domaine `argocd.<login>.<sousdomaine>.dopl.uk` pointe donc déjà sur le serveur (Wildcard DNS).
 
 Ce nom de domaine va nous permettre de générer un certificat HTTPS pour notre application web argoCD grâce à un ingress nginx, le cert-manager de k8s et letsencrypt (challenge HTTP101).
 
