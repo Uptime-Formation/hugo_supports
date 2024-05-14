@@ -40,12 +40,12 @@ flask db upgrade
 - Utilisez la commande `git blame` sur le fichier `app/main/routes.py`. Cette commande est très utile quand on travaille à plusieurs car elle permet de savoir à qui s'adresser lorsqu'on cherche à comprendre le code ou qu'on a trouvé un bug.
 
 <!-- - Installez `tig` qui est un utilitaire pour explorer un dépôt depuis le terminal. -->
-- Installez les extensions VSCode suivantes pour explorer le dépôt depuis VSCode :
+- Installez l'extension VSCode suivante pour explorer le dépôt depuis VSCode :
 
-  - [**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+  <!-- - [**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) -->
   - [**Git Graph**](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph).
 
-- À l'aide de `tig` ou des extensions VSCode cherchez le premier commit de l'historique **qui ne fasse pas référence à Redis** : c'est le commit de la version v0.21 avant la version v0.22
+- À l'aide de l'extension VSCode cherchez le premier commit de l'historique **qui ne fasse pas référence à Redis** : c'est le commit de la version v0.21 avant la version v0.22
 <!-- - À l'aide de `tig` cherchez le premier commit de l'historique sans référence à Elasticsearch : c'est le commit de la version v0.15 avant la version v0.16 -->
 
 - Déplacez vous au niveau de ce commit avec `git checkout <num_commit>`. Votre dépôt est en mode "_HEAD détaché_" c'est à dire que le pointeur HEAD se balade le long de l'historique.
@@ -64,11 +64,11 @@ flask db upgrade
 
 Nous allons maintenant créer une branche en repartant du début du projet pour étendre l'application avec une page supplémentaire "A propos".
 
-- Installez dans VSCode l'extension `GitLens`.
+- Installez dans VSCode l'extension `Git Graph`.
 
 - Retournez à la fin de l'historique du projet comme précédemment (`master`).
 
-- Nous allons expérimenter de réinitialiser (violemment) le projet au début de son historique avec `git reset --hard`. Réinitialisez au niveau du commit identifié précédemment. Constatez sur GitLens ou Git Graph que les commits on été effacés et les fichiers également (sans le `--hard` les commits auraient disparu mais les fichiers et leur contenus auraient été gardés et désindexés comme dans la partie 1).
+- Nous allons expérimenter de réinitialiser (violemment) le projet au début de son historique avec `git reset --hard`. Réinitialisez au niveau du commit identifié précédemment. Constatez sur Git Graph que les commits on été effacés et les fichiers également (sans le `--hard` les commits auraient disparu mais les fichiers et leur contenus auraient été gardés et désindexés comme dans la partie 1).
 
 - La commande précédente a effacé toutes les modifications du dépôt des 106 derniers commits. Faites bien attention avec cette commande `git reset --hard` ! Dans notre cas ce n'est pas un problème car ces commits sont disponibles sur le serveur. Pour récupérer les commits effacés utilisez `git pull`. `pull` va récupérer les modifications depuis le serveur.
 

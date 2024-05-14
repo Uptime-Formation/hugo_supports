@@ -16,7 +16,7 @@ Il s'agit de **télécharger** le dépôt d'un **logiciel** depuis Internet en c
 - `git log` pour voir la liste des commits
 - `git checkout <commit num>` pour vous **déplacer** au niveau d'un commit : le code dans le dépôt **change**.
 - `git diff <commit_1> <commit_2>` pour voir ce qui a changé entre deux commits.
-- Plus pratique : `apt install tig` et `tig` pour explorer chaque commit ou alors utilisez **VSCode** et [**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- Plus pratique : utilisez **VSCode** et **Git Graph**
 
 Un dépôt Git téléchargé depuis Internet peut être privé : il faut alors se connecter avant à son compte (en HTTP ou SSH) pour le télécharger. Quand on veut modifier le dépôt distant (ajouter des commits), il faut de toute façon se connecter à un compte.
 
@@ -58,11 +58,11 @@ Plusieurs éditeurs de code proposent des interfaces graphique pour :
 - naviguer dans les modifications d'un dépôt.
 - comparer plusieurs états du dépôt.
 
-C'est le cas de VSCode, en particulier avec les extensions **Git Graph** et **GitLens**.
+C'est le cas de VSCode, en particulier avec l'extension **Git Graph**
 
 D'autres interfaces pratiques et indépendantes de l'éditeur : _tig_, _meld_, ...
 
-- Installer GitLens dans VSCode si ce n'est pas déjà fait
+- Installer Git Graph dans VSCode si ce n'est pas déjà fait
 
 ## Utiliser les commandes `git reset` et `git reset --hard`
 
