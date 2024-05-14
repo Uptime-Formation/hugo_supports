@@ -17,7 +17,10 @@ Durant ces exercices nous allons utiliser Git en ligne de commande (sans interfa
 
 - En ligne de commande créez le dossier de code `tp1_git`.
 
-- Chargez ce dossier avec VSCode. Si VSCode n'est pas installé : `snap install --classic code`
+- Chargez ce dossier avec VSCode.
+
+Sur Linux : Si VSCode n'est pas installé : `snap install --classic code`
+
 - Pour lancer VSCode : `code` ou `code mondossier/`
 
 - Créez un nouveau fichier Python dans ce dossier appelé `multiplication.py`. Copiez-y le code suivant :
@@ -112,7 +115,7 @@ Pour le moment Git ne versionne aucun fichier du dépôt comme le confirme la co
 <!-- FIXME: autre fichier -->
 - Créez un nouveau fichier et écrivez quelque chose à l'intérieur (ou copiez un fichier situé en dehors de ce dossier vers ce dossier).
 - Faites `git status` à nouveau. Que s'est-il passé ?
-- Lancez le script `multiplication.py` pour vérifier
+<!-- - Lancez le script `multiplication.py` pour vérifier -->
 
 ### Faire votre premier commit
 

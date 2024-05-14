@@ -15,7 +15,7 @@ Il s'agit d'un dépôt exemple d'une application de microblogging (comme Twitter
 
 ## Explorer le dépôt
 
-- Installez ce qui est nécessaire pour l'application avec les commandes :
+<!-- - Installez ce qui est nécessaire pour l'application avec les commandes :
 
 ```bash
 sudo apt install python3-pip
@@ -31,7 +31,7 @@ flask db upgrade
 - Utilisez l'application en visitant l'adresse `http://localhost:5000/`, puis créez-vous un compte et postez un message.
 
 - Tentez d'exporter vos posts
-- Tenter de faire une recherche sur un post
+- Tenter de faire une recherche sur un post -->
 
 - Plutôt que d'utiliser la version finale de l'application, remontons l'historique du dépôt pour retrouver un état plus simple de l'application.
 
@@ -39,7 +39,7 @@ flask db upgrade
 
 - Utilisez la commande `git blame` sur le fichier `app/main/routes.py`. Cette commande est très utile quand on travaille à plusieurs car elle permet de savoir à qui s'adresser lorsqu'on cherche à comprendre le code ou qu'on a trouvé un bug.
 
-- Installez `tig` qui est un utilitaire pour explorer un dépôt depuis le terminal.
+<!-- - Installez `tig` qui est un utilitaire pour explorer un dépôt depuis le terminal. -->
 - Installez les extensions VSCode suivantes pour explorer le dépôt depuis VSCode :
 
   - [**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
@@ -103,9 +103,7 @@ def about_page():
 <h1>A propos</h1>
 <p>
   Bonjour, je m'appelle Hadrien et j'ai modifié
-  <a href="https://github.com/miguelgrinberg/microblog"
-    >l'application Microblog de Miguel Grinberg pour ce TP</a
-  >.
+  <a href="https://github.com/miguelgrinberg/microblog">l'application Microblog de Miguel Grinberg pour ce TP</a>.
 </p>
 {% endblock %}
 ```
