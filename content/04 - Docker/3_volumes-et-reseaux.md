@@ -2,8 +2,9 @@
 title: 3 - Volumes et réseaux
 weight: 1030
 ---
-
 ## Cycle de vie d'un conteneur
+
+![](../../images/docker-lifecycle.png)
 
 - Un conteneur a un cycle de vie très court: il doit pouvoir être créé et supprimé rapidement même en contexte de production.
 
