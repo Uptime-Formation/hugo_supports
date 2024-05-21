@@ -200,14 +200,15 @@ Maintenant un peu abandonné, `Ansible Container` rend possible de construire et
 
 Pour l'installation plusieurs options sont possibles:
 
+- Avec `pip` le gestionnaire de paquet du langage python: `pip3 install ansible`
+  - installe la dernière version stable (2.8 actuellement)
+  - commande d'upgrade spécifique `pip3 install ansible --upgrade`
+  - possibilité d'installer facilement une version de développement pour tester de nouvelles fonctionnalité ou anticiper les migrations.
+
 - Avec le gestionnaire de paquet de la distribution ou homebrew sur OSX:
   - version généralement plus ancienne (2.4 ou 2.6)
   - facile à mettre à jour avec le reste du système
   - Pour installer une version récente on il existe des dépots spécifique à ajouter: exemple sur ubuntu: `sudo apt-add-repository --yes --update ppa:ansible/ansible`
-- Avec `pip` le gestionnaire de paquet du langage python: `sudo pip3 install`
-  - installe la dernière version stable (2.8 actuellement)
-  - commande d'upgrade spécifique `sudo pip3 install ansible --upgrade`
-  - possibilité d'installer facilement une version de développement pour tester de nouvelles fonctionnalité ou anticiper les migrations.
 
 Pour voir l'ensemble des fichiers installés par un paquet `pip3` :
 

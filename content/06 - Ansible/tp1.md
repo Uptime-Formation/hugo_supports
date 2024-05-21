@@ -344,9 +344,9 @@ L'élévation de privilège est nécessaire lorsqu'on a besoin d'être `root` po
   - après n'importe quelle tâche : l'élévation concerne uniquement la tâche cible.
 {{% /expand %}}
 
-- Re-relancez le playbook après avoir sauvegardé les modifications. Si cela ne marche pas, pourquoi ?
+- Re-relancez la commande après avoir sauvegardé les modifications. Si cela ne marche pas, pourquoi ?
 
-- Re-relancez le même playbook une seconde fois. Que se passe-t-il ?
+- Re-relancez la même commande une seconde fois. Que se passe-t-il ?
 
 {{% expand "Réponse  :" %}}
 C'est l'idempotence: ansible nous indique via les couleurs vertes ou jaunes si nginx était déjà présent sur le serveur.
@@ -393,66 +393,12 @@ ansible adhoc_lab --become --check -m systemd -a "name=nginx state=started"
 
 - Visitez dans un navigateur l'ip d'un des hôtes pour voir la page d'accueil nginx.
 
-## Ansible et les commandes unix
-
-Il existe trois façon de lancer des commandes unix avec ansible:
-
-- le module `command` utilise python pour lancez la commande.
-  - les pipes et syntaxes bash ne fonctionnent pas.
-  - il peut executer seulement les binaires.
-  - il est cependant recommandé quand c'est possible car il n'est pas perturbé par l'environnement du shell sur les machine et donc plus prévisible.
-  
-- le module `shell` utilise un module python qui appelle un shell pour lancer une commande.
-  - fonctionne comme le lancement d'une commande shell mais utilise un module python.
-  
-- le module `raw`.
-  - exécute une commande ssh brute.
-  - ne nécessite pas python sur l'hote : on peut l'utiliser pour installer python justement.
-  - ne dispose pas de l'option `creates` pour simuler de l'idempotence.
-
-- Créez un fichier dans `/tmp` avec `touch` et l'un des modules précédents.
-
-- Relancez la commande. Le retour est toujours `changed` car ces modules ne sont pas idempotents.
-
-- Relancer l'un des modules `shell` ou `command` avec `touch` et l'option `creates` pour rendre l'opération idempotente. Ansible détecte alors que le fichier témoin existe et n'exécute pas la commande.
-
-```
-ansible adhoc_lab --become -m "command touch /tmp/file" -a "creates=/tmp/file"
-```
-
 ## Les variables en Ansible, les Ansible Facts et les templates Jinja2
 
 Nous allons faire que la page d'accueil Nginx affiche des données extraites d'Ansible.
 
-Pour cela nous allons partir à la découverte des variables fournies par Ansible.
-
-### Les Ansible Facts
-
-Dans Ansible, on peut accéder à la variable `ansible_facts` : ce sont les faits récoltés par Ansible sur l'hôte en cours.
-
-Pour explorer chacune de ces variables vous pouvez utiliser le module `debug` dans un playbook:
-
-```yaml
-- name: show vars
-  debug:
-    msg: "{{ ansible_facts }}"
-```
-
-Vous pouvez aussi exporter les "facts" d'un hôte en JSON pour plus de lisibilité :
-`ansible all -m setup --tree ./ansible_facts_export`
-
-Puis les lire avec `cat ./ansible_facts_export/votremachine.json | jq` (il faut que jq soit installé, sinon tout ouvrir dans VSCode avec `code ./ansible_facts_export`).
-
-- utilisez `jq` pour extraire et visualiser des informations spécifiques à partir du fichier JSON. Par exemple, pour voir le type de virtualisation détecté :
-
-```bash
-cat /tmp/ansible_facts/<nom_hôte_ou_IP>.json | jq '.ansible_facts.ansible_virtualization_type'
-```
 
 ### Créer un playbook et utiliser un template Jinja2
-
-Nous allons faire que la page d'accueil Nginx affiche des données extraites d'Ansible.
-
 
 
 - Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
@@ -503,3 +449,65 @@ Dans ce modèle, nous avons ajouté une condition pour vérifier si le service N
 <!-- - Assurez-vous que ce fichier ait bien les bons droits de lecture par l'user `www-data`. -->
 
 - En modifiant le fichier de template et en réexécutant le playbook avec l'option `--diff` et `--check`, observez les changements qu'Ansible aurait fait au fichier.
+
+
+Pour cela nous allons partir à la découverte des variables fournies par Ansible.
+
+### Les Ansible Facts
+
+Dans Ansible, on peut accéder à la variable `ansible_facts` : ce sont les faits récoltés par Ansible sur l'hôte en cours.
+
+Pour explorer chacune de ces variables vous pouvez utiliser le module `debug` dans un playbook:
+
+```yaml
+- name: show vars
+  debug:
+    msg: "{{ ansible_facts }}"
+```
+
+Vous pouvez aussi exporter les "facts" d'un hôte en JSON pour plus de lisibilité :
+`ansible all -m setup --tree ./ansible_facts_export`
+
+Puis les lire avec `cat ./ansible_facts_export/votremachine.json | jq` (il faut que jq soit installé, sinon tout ouvrir dans VSCode avec `code ./ansible_facts_export`).
+
+- utilisez `jq` pour extraire et visualiser des informations spécifiques à partir du fichier JSON. Par exemple, pour voir le type de virtualisation détecté :
+
+```bash
+cat /tmp/ansible_facts/<nom_hôte_ou_IP>.json | jq '.ansible_facts.ansible_virtualization_type'
+```
+
+## Ansible et les commandes unix
+
+Il existe trois façon de lancer des commandes unix avec ansible:
+
+- le module `command` utilise python pour lancez la commande.
+  - les pipes et syntaxes bash ne fonctionnent pas.
+  - il peut executer seulement les binaires.
+  - il est cependant recommandé quand c'est possible car il n'est pas perturbé par l'environnement du shell sur les machine et donc plus prévisible.
+  
+- le module `shell` utilise un module python qui appelle un shell pour lancer une commande.
+  - fonctionne comme le lancement d'une commande shell mais utilise un module python.
+  
+- le module `raw`.
+  - exécute une commande ssh brute.
+  - ne nécessite pas python sur l'hote : on peut l'utiliser pour installer python justement.
+  - ne dispose pas de l'option `creates` pour simuler de l'idempotence.
+
+- Créez un fichier dans `/tmp` avec `touch` et l'un des modules précédents.
+
+- Relancez la commande. Le retour est toujours `changed` car ces modules ne sont pas idempotents.
+
+- Relancer l'un des modules `shell` ou `command` avec `touch` et l'option `creates` pour rendre l'opération idempotente. Ansible détecte alors que le fichier témoin existe et n'exécute pas la commande.
+
+{{% expand "Réponse  :" %}}
+```
+ansible adhoc_lab --become -m "command touch /tmp/file" -a "creates=/tmp/file"
+```
+ou
+```
+- name: "On crée"
+  command:
+    cmd: "touch /tmp/file"
+    creates: "/tmp/file"
+```
+{{% /expand %}}
