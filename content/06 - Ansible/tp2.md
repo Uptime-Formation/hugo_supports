@@ -156,7 +156,6 @@ N'hésitez pas à tester l'option `--diff -v` avec vos commandes pour voir l'ava
       git:
         repo: "https://github.com/e-lie/flask_hello_ansible.git"
         dest: /home/flask/hello
-        version: "master"
         clone: yes
         update: no
 ```
@@ -316,10 +315,8 @@ server {
       git:
         repo: "https://github.com/e-lie/flask_hello_ansible.git"
         dest: /home/flask/hello
-        version: "master"
         clone: yes
         update: no
-      become_user:  "{{ app.user }}"
 
     - name: Install python dependencies for the webapp in a virtualenv
       pip:
@@ -425,8 +422,63 @@ Ajoutez une section `handlers:` à la suite
 # => penser aussi à supprimer la tâche maintenant inutile de restart de nginx précédente
 ```
 
-## Améliorer notre playbook avec des variables
+## Solution
 
+- Pour la solution complète, clonons le dépôt via cette commande :
+```bash
+cd # Pour revenir dans notre dossier home
+git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correction tp2_before_handlers
+```
+
+Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_correction>
+
+## Amélioration A : Les conditions : faire varier le playbook selon une variable
+
+Nous allons tenter de faire que notre playbook puisse décider ou de la gestion de notre configuration Nginx
+Pour cela, utilisez la variable `when: mavariable == 'valeur'` où c'est nécessaire.
+
+<!-- 
+Note :
+Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variable, la syntaxe est la suivante :
+```jinja2
+{% if ansible_os_family == "Debian" %}
+# ma config spécial Debian
+# ...
+{% endif %}
+``` -->
+
+## Amélioration B : un handler en deux parties en testant la config de Nginx avant de reload
+On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
+Avec `nginx -t`, testons la config de Nginx dans le handler avant de reload.
+Documentation : <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#naming-handlers>
+
+## Amélioration C : faire fonctionner le playbook en check mode
+Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
+Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
+Avec `ignore_errors:` et `{{ ansible_check_mode }}`, résolvons le problème.
+
+## Amélioration D : modifier le `/etc/hosts` via le playbook
+
+A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
+Idéalement, on utiliserait la regex `.* {{ app.domain }}` pour gérer les variations d'adresse IP
+
+Dans le cas de plusieurs hosts hébergeant nos apps, on pourrait même ajouter une autre entrée DNS pour préciser à quelle instance de notre app nous voulons accéder. Sans cela, nous sommes en train de faire une sorte de loadbalancing via le DNS.
+
+Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que l'on a donné à une machine dans l'inventaire.
+
+
+## Amélioration E : faire varier le playbook selon les OS
+
+Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
+
+Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+
+Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
+
+
+## Réorganisation : rendre le playbook dynamique avec une boucle, pour préparer à penser aux rôles
+
+### Améliorer notre playbook avec des variables
 
 Ajoutons des variables pour gérer dynamiquement les paramètres de notre déploiement:
 
@@ -484,33 +536,7 @@ git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_before
 Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_before_handlers_correction>
 
 
-## Solution
-
-- Pour la solution complète, clonons le dépôt via cette commande :
-```bash
-cd # Pour revenir dans notre dossier home
-git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correction tp2_before_handlers
-```
-
-Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_correction>
-
-## Amélioration 1 : Les conditions : faire varier le playbook selon une variable
-
-Nous allons tenter de faire que notre playbook puisse mettre à jour l'app, et décider de l'installation d'un service.
-
-Pour cela, utilisez la variable `when: mavariable == 'valeur'` ou bien `{{ mavariable }}`, où c'est nécessaire.
-
-Note :
-Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variable, la syntaxe est la suivante :
-```jinja2
-{% if ansible_os_family == "Debian" %}
-# ma config spécial Debian
-# ...
-{% endif %}
-```
-
-
-## Amélioration 2 : Rendre le playbook dynamique avec une boucle
+### Rendre le playbook dynamique avec une boucle
 
 Nous allons nous préparer à transformer ce playbook en rôle, plus général.
 
@@ -580,33 +606,7 @@ La directive `loop_var` permet de renommer la variable sur laquelle on boucle pa
 
 - Pour la solution : activez la branche `tp2_correction` avec `git checkout tp2_correction`.
 
-## Amélioration 3 : modifier le `/etc/hosts` via le playbook
 
-A l'aide de la documentation de l'option `delegate:` et du module `lineinfile`, trouvez comment ajouter une tâche qui modifie automatiquement votre `/etc/hosts` pour ajouter une entrée liant le nom de domaine de votre app à l'IP du conteneur (il faudra utiliser la variable `ansible_host` et celle du nom de domaine).
-Idéalement, on utiliserait la regex `.* {{ app.domain }}` pour gérer les variations d'adresse IP
-
-Dans le cas de plusieurs hosts hébergeant nos apps, on pourrait même ajouter une autre entrée DNS pour préciser à quelle instance de notre app nous voulons accéder. Sans cela, nous sommes en train de faire une sorte de loadbalancing via le DNS.
-
-Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que l'on a donné à une machine dans l'inventaire.
-
-## Amélioration 4 : faire fonctionner le playbook en check mode
-Certaines tâches ne peuvent fonctionner sur une nouvelle machine en check mode.
-Pour tester, créons une nouvelle machine et exécutons le playbook avec `--check`.
-Avec `ignore_errors:` et `{{ ansible_check_mode }}`, résolvons le problème.
-
-## Amélioration 5 : un handler en deux parties en testant la config de Nginx avant de reload
-On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
-Avec `nginx -t`, testons la config de Nginx dans le handler avant de reload.
-Documentation : <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#naming-handlers>
-
-
-## Amélioration 6 : faire varier le playbook selon les OS
-
-Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
-
-Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
-
-Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
 
 ## Bonus : pour pratiquer
 
