@@ -393,6 +393,38 @@ git commit -m "tp2 solution intermediaire"
 
 {{% /expand %}}
 
+## Ajouter un handler pour nginx et le service
+
+Pour le moment dans notre playbook, les deux tâches de redémarrage de service sont en mode `restarted` c'est à dire qu'elles redémarrent le service à chaque exécution (résultat: `changed`) et ne sont donc pas idempotentes. En imaginant qu'on lance ce playbook toutes les 15 minutes dans un cron pour stabiliser la configuration, on aurait un redémarrage de nginx 4 fois par heure sans raison.
+
+On désire plutôt ne relancer/recharger le service que lorsque la configuration conrespondante a été modifiée. c'est l'objet des tâches spéciales nommées `handlers`.
+
+Ajoutez une section `handlers:` à la suite
+
+- Déplacez la tâche de redémarrage/reload de `nginx` dans cette section et mettez comme nom `reload nginx`.
+- Ajoutez aux deux tâches de modification de la configuration la directive `notify: <nom_du_handler>`.
+
+- Testez votre playbook. il devrait être idempotent sauf le restart de `hello.service`.
+- Testez le handler en ajoutant un commentaire dans le fichier de configuration `nginx.conf.j2`.
+
+```yaml
+    - name: template nginx site config
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/{{ app.domain }}.conf
+      notify: reload nginx
+
+      ...
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: "nginx"
+        state: reloaded
+
+# => penser aussi à supprimer la tâche maintenant inutile de restart de nginx précédente
+```
+
 ## Améliorer notre playbook avec des variables
 
 
@@ -451,37 +483,6 @@ git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_before
 
 Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_before_handlers_correction>
 
-## Ajouter un handler pour nginx et le service
-
-Pour le moment dans notre playbook, les deux tâches de redémarrage de service sont en mode `restarted` c'est à dire qu'elles redémarrent le service à chaque exécution (résultat: `changed`) et ne sont donc pas idempotentes. En imaginant qu'on lance ce playbook toutes les 15 minutes dans un cron pour stabiliser la configuration, on aurait un redémarrage de nginx 4 fois par heure sans raison.
-
-On désire plutôt ne relancer/recharger le service que lorsque la configuration conrespondante a été modifiée. c'est l'objet des tâches spéciales nommées `handlers`.
-
-Ajoutez une section `handlers:` à la suite
-
-- Déplacez la tâche de redémarrage/reload de `nginx` dans cette section et mettez comme nom `reload nginx`.
-- Ajoutez aux deux tâches de modification de la configuration la directive `notify: <nom_du_handler>`.
-
-- Testez votre playbook. il devrait être idempotent sauf le restart de `hello.service`.
-- Testez le handler en ajoutant un commentaire dans le fichier de configuration `nginx.conf.j2`.
-
-```yaml
-    - name: template nginx site config
-      template:
-        src: templates/nginx.conf.j2
-        dest: /etc/nginx/sites-available/{{ app.domain }}.conf
-      notify: reload nginx
-
-      ...
-
-  handlers:
-    - name: reload nginx
-      systemd:
-        name: "nginx"
-        state: reloaded
-
-# => penser aussi à supprimer la tâche maintenant inutile de restart de nginx précédente
-```
 
 ## Solution
 
@@ -495,7 +496,7 @@ Vous pouvez également consulter la solution directement sur le site de Github :
 
 ## Amélioration 1 : Les conditions : faire varier le playbook selon les OS
 
-Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre centos et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
+Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
 
 Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
 
