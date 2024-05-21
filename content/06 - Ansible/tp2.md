@@ -494,14 +494,13 @@ git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correc
 
 Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_correction>
 
-## Amélioration 1 : Les conditions : faire varier le playbook selon les OS
+## Amélioration 1 : Les conditions : faire varier le playbook selon une variable
 
-Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
+Nous allons tenter de faire que notre playbook puisse mettre à jour l'app, et décider de l'installation d'un service.
 
-Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+Pour cela, utilisez la variable `when: mavariable == 'valeur'` ou bien `{{ mavariable }}`, où c'est nécessaire.
 
-Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
-
+Note :
 Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variable, la syntaxe est la suivante :
 ```jinja2
 {% if ansible_os_family == "Debian" %}
@@ -509,6 +508,7 @@ Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variabl
 # ...
 {% endif %}
 ```
+
 
 ## Amélioration 2 : Rendre le playbook dynamique avec une boucle
 
@@ -599,6 +599,14 @@ On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler
 Avec `nginx -t`, testons la config de Nginx dans le handler avant de reload.
 Documentation : <https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#naming-handlers>
 
+
+## Amélioration 6 : faire varier le playbook selon les OS
+
+Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
+
+Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+
+Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
 
 ## Bonus : pour pratiquer
 
