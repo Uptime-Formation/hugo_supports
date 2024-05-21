@@ -476,7 +476,7 @@ Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée 
 Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
 
 
-## Réorganisation : rendre le playbook dynamique avec une boucle, pour préparer à penser aux rôles
+## Réorganisation : rendre le playbook dynamique avec des variables, puis une boucle, pour se préparer aux rôles
 
 ### Améliorer notre playbook avec des variables
 
