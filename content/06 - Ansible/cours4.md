@@ -6,7 +6,7 @@ weight: 31
 
 ## Organisation d'un dépôt de code Ansible
 
-Voici, extrait de la documentation Ansible sur les "Best Practice", l'une des organisations de référence d'un projet ansible de configuration d'une infrastructure:
+Voici, extrait de la documentation Ansible sur les "Best Practices", l'une des organisations de référence d'un projet ansible de configuration d'une infrastructure :
 
 ```
 production                # inventory file for production servers
@@ -180,7 +180,7 @@ Conventionnellement on utilise un fichier `requirements.yml` situé dans `roles`
 
 #### Dépendances entre rôles
 
- à chaque fois avec un playbook on peut laisser la cascade de dépendances mettre nos serveurs dans un état complexe désiré
+Même si cela a un coût quant à la clarté d'exécution, chaque fois avec un playbook on peut laisser la cascade de dépendances mettre nos serveurs dans un état complexe désiré
 Si un role dépend d'autres roles, les dépendances sont décrite dans le fichier `meta/main.yml` comme suit
 
 ```yaml

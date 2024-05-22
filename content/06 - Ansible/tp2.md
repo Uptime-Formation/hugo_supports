@@ -511,7 +511,7 @@ Ajoutons des variables pour gérer dynamiquement les paramètres de notre déplo
 - Relancez le playbook : toutes les tâches devraient renvoyer `ok` à part les "restart" car les valeurs sont identiques.
 
 {{% expand "Facultatif  :" %}}
-- Ajoutez deux variables `repository` et `version` pour l'adresse du dépôt git et la version de l'application `master` par défaut.
+- Ajoutez deux variables `repository` et `version` pour l'adresse du dépôt git et la version de l'application `master` par défaut. Il faudra modifier la tâche `git` pour utiliser ces nouvelles variables.
 
 - Remplacez les valeurs correspondante dans le playbook par ces nouvelles variables.
 

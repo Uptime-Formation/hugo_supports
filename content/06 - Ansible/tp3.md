@@ -5,7 +5,7 @@ weight: 32
 ---
 
 
-## Ajouter une installation mysql simple à une de vos machines avec un rôle trouvé sur Internet
+## Ajouter une installation MySQL simple à une de vos machines avec un rôle trouvé sur Internet
 
 - Créez à la racine du projet le dossier `roles` dans lequel seront rangés tous les rôles (c'est une convention ansible à respecter).
 - Les rôles sont sur [https://galaxy.ansible.com/](https://galaxy.ansible.com/), mais difficilement trouvables... cherchons sur GitHub l'adresse du dépôt Git avec le **nom** du rôle `mysql` de `geerlingguy`. Il s'agit de l'auteur d'un livre de référence **"Ansible for DevOps"** et de nombreux rôles de références.
@@ -127,6 +127,10 @@ Notre rôle `flaskapp` est jusqu'ici concu pour être un rôle de configuration,
 Nous aimerions maintenant créer un playbook `upgrade_apps.yml` qui contrairement à `appservers.yml` devrait être lancé ponctuellement pour mettre à jour l'application. Il serait bête de ne pas réutiliser notre role pour cette tâche : nous allons rajouter un paramère `flask_upgrade_apps`.
 
 - Remplacez dans la tâche `git` la valeur `false` des paramètres `update` et `force` par cette variable.
+
+- Ajoutez deux variables `repository` et `version` pour l'adresse du dépôt git et la version de l'application `master` par défaut.
+
+- Remplacez dans la tâche `git` les valeurs nécessaires.
 
 Vous noterez que son nom commence par `flask_` car elle fait partie du role `flaskapp`. Cette façon de créer une sorte d'espace de nom simple pour chaque rôle est une bonne pratique.
 
