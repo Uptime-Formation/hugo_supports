@@ -61,8 +61,7 @@ Pour que Terraform puisse s'identifier auprès de DigitalOcean nous devons rense
 
 - copiez le fichier `terraform.tfvars.dist` et renommez-le en enlevant le `.dist`
 - collez le token récupéré précédemment dans le fichier de variables `terraform.tfvars`
-- normalement la clé SSH `id_stagiaire` est déjà configurée au niveau de DigitalOcean.
-On peut préciser le fingerprint `05:f7:18:15:4a:77:3c:4c:86:70:85:aa:cb:18:b7:68`. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
+- normalement la clé SSH `id_ssh_shared` est déjà configurée au niveau de DigitalOcean. On doit préciser le fingerprint `05:f7:18:15:4a:77:3c:4c:86:70:85:aa:cb:18:b7:68`. Elle sera donc ajoutée aux VPS que nous allons créer.
 
 - Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS :
   - faisons `cd provisioner/terraform`
