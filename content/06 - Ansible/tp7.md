@@ -38,7 +38,7 @@ git clone https://github.com/ansible/awx-operator.git
 cd awx-operator
 git checkout tags/2.7.2
 
-sudo make deploy
+make deploy
 ```
 
 Créer un fichier `awx-demo.yml` :
@@ -54,9 +54,12 @@ spec:
 
 Puis :
 ```
-kubectl apply -f awx-demo.yml
+kubectl apply -f awx-demo.yml -n awx
 
 kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
+
+echo "Se connecter en localhost à ce port :"
+kubectl get svc -n awx awx-demo -o=jsonpath='{.spec.ports[?(@.nodePort)].nodePort}'
 ```
 
 ## Explorer AWX
