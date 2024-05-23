@@ -56,7 +56,7 @@ Puis :
 ```
 kubectl apply -f awx-demo.yml -n awx
 
-kubectl get secret awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
+kubectl get secret -n awx awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
 
 echo "Se connecter en localhost à ce port :"
 kubectl get svc -n awx awx-demo -o=jsonpath='{.spec.ports[?(@.nodePort)].nodePort}'
@@ -68,7 +68,7 @@ kubectl get svc -n awx awx-demo -o=jsonpath='{.spec.ports[?(@.nodePort)].nodePor
 
 - Dans la section Modèle de projet, importez votre projet. Un job d'import se lance. Si vous avez mis le fichier `requirements.yml` dans  `roles` les roles devraient être automatiquement installés.
 
-- Dans la section credentials, créez un credential de type machine. Dans la section clé privée copiez le contenu du fichier `~/.ssh/id_ssh_tp` que nous avons configuré comme clé SSH de nos machines. Ajoutez également la passphrase que vous avez configuré au moment de la création de cette clé.
+- Dans la section credentials, créez un credential de type machine. Dans la section clé privée copiez le contenu du fichier `~/.ssh/id_ssh_tp` (ou autre nom) que nous avons configuré comme clé SSH de nos machines. Ajoutez également la passphrase si vous l'avez configuré au moment de la création de cette clé.
 
 - Créez une ressource inventaire. Créez simplement l'inventaire avec un nom au départ. Une fois créé vous pouvez aller dans la section `source` et choisir de l'importer depuis le `projet`, sélectionnez `inventory.cfg` que nous avons configuré précédemment.
 <!-- Bien que nous utilisions AWX les ip n'ont pas changé car AWX est en local et peut donc se connecter au reste de notre infrastructure LXD. -->

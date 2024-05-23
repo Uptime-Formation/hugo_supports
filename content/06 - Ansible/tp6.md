@@ -23,7 +23,7 @@ git clone https://github.com/e-lie/id_ssh_shared.git
 chmod 600 id_ssh_shared/id_ssh_shared
 ```
 
-- faites `ssh-add ~/.ssh/id_ssh_shared` pour déverrouiller la clé, **le mot de passe est `trucmuch42`**
+- faites `ssh-add ~/id_ssh_shared/id_ssh_shared` pour déverrouiller la clé, **le mot de passe est `trucmuch42`**
 
 ### Si vous utilisez votre propre compte
 Si vous utilisez votre propre compte, vous aurez besoin d'un token personnel. Pour en créer, allez dans *API > Personal access tokens* et créez un nouveau token. Copiez bien ce token et collez-le dans un fichier par exemple `~/Bureau/compte_digitalocean.txt` (important : détruisez ce token à la fin du TP par sécurité).
@@ -61,7 +61,8 @@ Pour que Terraform puisse s'identifier auprès de DigitalOcean nous devons rense
 
 - copiez le fichier `terraform.tfvars.dist` et renommez-le en enlevant le `.dist`
 - collez le token récupéré précédemment dans le fichier de variables `terraform.tfvars`
-- normalement la clé SSH `id_stagiaire` est déjà configurée au niveau de DigitalOcean et précisée dans ce fichier. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
+- normalement la clé SSH `id_stagiaire` est déjà configurée au niveau de DigitalOcean.
+On peut préciser le fingerprint `05:f7:18:15:4a:77:3c:4c:86:70:85:aa:cb:18:b7:68`. Elle sera donc automatiquement ajoutée aux VPS que nous allons créer.
 
 - Maintenant que ce fichier est complété nous pouvons lancer la création de nos VPS :
   - faisons `cd provisioner/terraform`
