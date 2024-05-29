@@ -326,7 +326,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 - N'hésitez pas consulter extensivement la documentation des modules avec leur exemple ou d'utiliser la commande de documentation `ansible-doc <module>`
   - utilisez `become` pour devenir root avant d'exécuter la commande (cf élévation de privilège dans le cours2)
 
-## Commandes ad-hoc
+## Commandes ad-hoc et premier playbook
 
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
