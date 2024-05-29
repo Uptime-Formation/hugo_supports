@@ -461,10 +461,10 @@ Dans ce modèle, nous avons ajouté une condition pour vérifier si le service N
 
 ### Afficher le template comme page d'accueil Nginx
 
-- Avec la documentation du module `template:`, copiez le fichier `nginx_index.j2` à l'emplacement de la configuration Nginx par défaut (c'est `/var/www/html/index.html` pour Ubuntu).
+- Avec la documentation du module `copy:`, copiez le fichier `nginx_index.j2` à l'emplacement de la configuration Nginx par défaut (c'est `/var/www/html/index.html` pour Ubuntu).
 <!-- - Assurez-vous que ce fichier ait bien les bons droits de lecture par l'user `www-data`. -->
 
-- En modifiant le fichier de template et en réexécutant le playbook avec l'option `--diff` et `--check`, observez les changements qu'Ansible aurait fait au fichier.
+- En modifiant le module utilisé de `copy:` à `template:` et en réexécutant le playbook avec l'option `--diff`, observez les changements qu'Ansible fait au fichier.
 
 
 Pour cela nous allons partir à la découverte des variables fournies par Ansible.
