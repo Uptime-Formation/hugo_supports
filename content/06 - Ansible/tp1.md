@@ -330,7 +330,22 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
-- Créons un playbook rudimentaire pour installer `nginx`.
+- Adaptons ce playbook rudimentaire pour installer `nginx` :
+```yaml
+
+  # (chaque play commence par un tiret)
+- hosts: web # une machine ou groupe de machines
+  tasks:
+    - name: créer un fichier de log
+      file: # syntaxe yaml extensive : conseillée
+        path: /var/log/{{ logfile_name }} #guillemets facultatifs
+        mode: 755 
+```
+
+- Lançons la commande en "ad-hoc" : 
+```
+ansible adhoc_lab --become -m package -a "name=nginx state=present"
+```
 
 - Relancez le playbook après avoir sauvegardé les modifications. Si cela ne marche pas, pourquoi ?
 
