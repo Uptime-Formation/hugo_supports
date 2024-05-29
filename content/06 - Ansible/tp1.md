@@ -327,7 +327,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
   - utilisez `become` pour devenir root avant d'exécuter la commande (cf élévation de privilège dans le cours2)
 
 ## Commandes ad-hoc et premier playbook
-
+### Installation de Nginx
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
 - Adaptons ce playbook rudimentaire pour installer `nginx`, on va l'appeler `monplaybook.yml` :
@@ -392,6 +392,7 @@ ansible adhoc_lab -m package -a name=nginx state=present
 la machine centos a un retour changed jaune alors que la machine ubuntu a un retour ok vert. C'est l'idempotence: ansible nous indique que nginx était déjà présent sur le serveur ubuntu.
 {{% /expand %}}
 
+### Vérifier l'état du service Nginx
 - Utiliser le module `systemd` et l'option `--check` pour vérifier si le service `nginx` est démarré sur chacune des 2 machines. Normalement vous constatez que le service est déjà démarré (par défaut) sur la machine ubuntu et non démarré sur la machine centos.
 
 {{% expand "Réponse  :" %}}
