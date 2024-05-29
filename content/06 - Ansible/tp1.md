@@ -328,9 +328,26 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
 
 ## Commandes ad-hoc et premier playbook
 ### Installation de Nginx
+
+
+### Créer un playbook 
+
+- Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
+
+```yaml
+- hosts: ubu1
+  
+  tasks:
+    - name: ping
+      ping:
+```
+
+- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`.
+
 - Commençons par installer les dépendances de cette application. Tous nos serveurs d'application sont sur ubuntu. Nous pouvons donc utiliser le module `apt` pour installer les dépendances. Il fournit plus d'option que le module `package`.
 
-- Adaptons ce playbook rudimentaire pour installer `nginx`, on va l'appeler `monplaybook.yml` :
+- Adaptons ce playbook rudimentaire pour installer `nginx`.
+<!-- 
 ```yaml
 
   # (chaque play commence par un tiret)
@@ -340,7 +357,7 @@ Nous allons maintenant installer `nginx` sur nos machines. Il y a plusieurs faç
       file: # nom du module
         path: /var/log/{{ logfile_name }} #guillemets facultatifs
         mode: 755 
-```
+``` -->
 
 - Lançons la commande en "ad-hoc" : 
 ```
@@ -389,7 +406,7 @@ ansible centos_hosts --become -m package -a "name=epel-release state=present"
 ansible adhoc_lab -m package -a name=nginx state=present
 ```
 
-la machine centos a un retour changed jaune alors que la machine ubuntu a un retour ok vert. C'est l'idempotence: ansible nous indique que nginx était déjà présent sur le serveur ubuntu.
+La machine centos a un retour changed jaune alors que la machine ubuntu a un retour ok vert. C'est l'idempotence: ansible nous indique que nginx était déjà présent sur le serveur ubuntu.
 {{% /expand %}}
 
 ### Vérifier l'état du service Nginx
@@ -403,7 +420,7 @@ ansible adhoc_lab --become --check -m systemd -a "name=nginx state=started"
 
 - L'option `--check` sert à vérifier l'état des ressources sur les machines mais sans modifier la configuration`. Relancez la commande précédente pour le vérifier. Normalement le retour de la commande est le même (l'ordre peut varier).
 
-- Lancez la commande avec `state=stopped` : le retour est inversé.
+- Lancez la commande ou le playbook avec `state` à `stopped` : le retour est inversé.
 
 - Enlevez le `--check` pour vous assurer que le service est démarré sur chacune des machines.
 
@@ -413,23 +430,6 @@ ansible adhoc_lab --become --check -m systemd -a "name=nginx state=started"
 
 Nous allons faire que la page d'accueil Nginx affiche des données extraites d'Ansible.
 
-
-### Créer un playbook et utiliser un template Jinja2
-
-
-- Créons un playbook : ajoutez un fichier `tp1.yml` avec à l'intérieur:
-
-```yaml
-- hosts: ubu1
-  
-  tasks:
-    - name: ping
-      ping:
-```
-
-- Lancez ce playbook avec la commande `ansible-playbook <nom_playbook>`.
-
-- Ajoutez une task utilisant le module `systemd:`, en ajoutant bien un nom (`name:`) à cette task, pour s'assurer que le service Nginx est bien lancé.
 
 - créons un fichier nommé `nginx_index.j2` avec le contenu suivant :
 
