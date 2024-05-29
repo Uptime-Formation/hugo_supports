@@ -267,7 +267,7 @@ server {
 
 - Ajouter une tâche de redémarrage de nginx.
 
-- Ajoutez `hello.test` dans votre fichier `/etc/hosts` pointant sur l'ip d'un des serveur d'application.
+- Ajoutez l'IP de la VM puis `hello.test` séparé par un espace dans votre fichier `/etc/hosts`, pour que le domaine `hello.test` soit résolu par l'IP d'un des serveurs d'application.
 
 - Visitez l'application dans un navigateur et debugger le cas échéant.
 
