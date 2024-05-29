@@ -374,7 +374,7 @@ ansible adhoc_lab --become -m package -a "name=nginx state=present"
 ```
 {{% /expand %}}
 
-- Pour résoudre le problème installez `epel-release` sur la  machine centos.
+- Pour résoudre le problème sur les hôtes CentOS, installez `epel-release` sur la  machine CentOS.
 
 {{% expand "Réponse  :" %}}
 ```
