@@ -261,7 +261,7 @@ server {
 
 <!-- - Remplacez `hello.test` par `hello.test.votrenom.formation.doxx.fr` le cas échéant si vous avez accès à un nom de domaine public -->
 
-- Utilisez `file` pour créer un lien symbolique de ce fichier dans `/etc/nginx/sites-enabled` (avec l'option `force: yes` pour écraser le cas échéant).
+- Utilisez `file` pour créer un lien symbolique de ce fichier dans `/etc/nginx/sites-enabled` (avec l'option `force: yes` pour écraser le cas échéant). C'est une bonne pratique Nginx que nous allons respecter dans notre playbook Ansible.
 
 - Ajoutez une tache pour supprimer le site `/etc/nginx/sites-enabled/default`.
 
@@ -469,12 +469,25 @@ Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que 
 
 ## Amélioration E : faire varier le playbook selon les OS
 
-Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et ubuntu. Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat`.
+Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et Ubuntu.
 
-Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+- Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat` (on pourra aussi utiliser des modules génériques comme `package:` au lieu de `apt:`, ou `service:` au lieu de `systemd:`). Cette directive peut s'utiliser sur toutes les tâches.
 
-Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`.
+- N'oubliez pas d'installer `epel-release` qui est nécessaire à CentOS.
 
+- Il va falloir adapter le nom des packages à CentOS.
+
+- Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+
+- De même, les fichiers Nginx ne sont pas forcément au même endroit dans CentOS : il n'y a pas de notion de `sites-enabled` dans Nginx, il suffit de copier un fichier de config dans `/etc/nginx/conf.d` à la place (pas de lien symbolique).
+
+<!-- - Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`. -->
+
+### Amélioration F : l'attribut `register:`
+
+- Avec le module `command`, listez les configs activées dans Nginx, utilisez la directive `register:` pour la mettre dans une variable.
+
+- Ajoutez une tâche de `debug:` qui affiche le contenu de cette variable (avec `{{ }}`)
 
 ## Réorganisation : rendre le playbook dynamique avec des variables, puis une boucle, pour se préparer aux rôles
 
