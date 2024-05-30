@@ -434,7 +434,7 @@ Vous pouvez également consulter la solution directement sur le site de Github :
 
 ## Amélioration A : Les conditions : faire varier le playbook selon une variable
 
-Nous allons tenter de faire que notre playbook puisse décider ou de la gestion de notre configuration Nginx
+Nous allons tenter de faire que notre playbook puisse lancer une tâche en plus selon la valeur de la variable `ajoute_config_nginx` (on pourra la mettre dans la section `vars:` du playbook). 
 Pour cela, utilisez la variable `when: mavariable == 'valeur'` où c'est nécessaire.
 
 <!-- 
