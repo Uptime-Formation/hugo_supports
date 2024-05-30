@@ -432,12 +432,12 @@ git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correc
 
 Vous pouvez également consulter la solution directement sur le site de Github : <https://github.com/Uptime-Formation/ansible-tp-solutions/tree/tp2_correction>
 
-## Amélioration A : Les conditions : faire varier le playbook selon une variable
+<!-- ## Amélioration A : Les conditions : faire varier le playbook selon une variable
 
 Nous allons tenter de faire que notre playbook puisse lancer une tâche en plus selon la valeur de la variable `ajoute_config_nginx` (on pourra la mettre dans la section `vars:` du playbook). 
 Pour cela, utilisez la variable `when: mavariable == 'valeur'` où c'est nécessaire.
 
-<!-- 
+
 Note :
 Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variable, la syntaxe est la suivante :
 ```jinja2
@@ -445,7 +445,23 @@ Dans un template Jinja2, pour écrire un bloc de texte en fonction d'une variabl
 # ma config spécial Debian
 # ...
 {% endif %}
-``` -->
+```  -->
+
+## Amélioration A : faire varier le playbook selon les OS
+
+Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et Ubuntu.
+
+- Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat` (on pourra aussi utiliser des modules génériques comme `package:` au lieu de `apt:`, ou `service:` au lieu de `systemd:`). Cette directive peut s'utiliser sur toutes les tâches.
+
+- N'oubliez pas d'installer `epel-release` qui est nécessaire à CentOS.
+
+- Il va falloir adapter le nom des packages à CentOS.
+
+- Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
+
+- De même, les fichiers Nginx ne sont pas forcément au même endroit dans CentOS : il n'y a pas de notion de `sites-enabled` dans Nginx, il suffit de copier un fichier de config dans `/etc/nginx/conf.d` à la place (pas de lien symbolique).
+
+<!-- - Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`. -->
 
 ## Amélioration B : un handler en deux parties en testant la config de Nginx avant de reload
 On peut utiliser l'attribut `listen` dans le handler pour décomposer un handler en plusieurs étapes.
@@ -467,24 +483,9 @@ Dans le cas de plusieurs hosts hébergeant nos apps, on pourrait même ajouter u
 Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que l'on a donné à une machine dans l'inventaire.
 
 
-## Amélioration E : faire varier le playbook selon les OS
 
-Nous allons tenter de créer une nouvelle version de votre playbook pour qu'il soit portable entre CentOS et Ubuntu.
-
-- Pour cela, utilisez la directive `when: ansible_os_family == 'Debian'` ou `RedHat` (on pourra aussi utiliser des modules génériques comme `package:` au lieu de `apt:`, ou `service:` au lieu de `systemd:`). Cette directive peut s'utiliser sur toutes les tâches.
-
-- N'oubliez pas d'installer `epel-release` qui est nécessaire à CentOS.
-
-- Il va falloir adapter le nom des packages à CentOS.
-
-- Pour le nom du user Nginx, on pourrait ajouter une section de playbook appelée `vars:` et définir quelque chose comme `nginx_user: "{{ 'nginx' if ansible_os_family == "RedHat" else 'www-data' }}`
-
-- De même, les fichiers Nginx ne sont pas forcément au même endroit dans CentOS : il n'y a pas de notion de `sites-enabled` dans Nginx, il suffit de copier un fichier de config dans `/etc/nginx/conf.d` à la place (pas de lien symbolique).
-
-<!-- - Il faudra peut-être penser à l'installation de Python 3 dans CentOS, et dire à Ansible d'utiliser Python 3 en indiquant dans l'inventaire `ansible_python_interpreter=/usr/bin/python3`. -->
-
-### Amélioration F : l'attribut `register:`
-
+### Amélioration E : l'attribut `register:`
+<!-- TODO: à améliorer -->
 - Avec le module `command`, listez les configs activées dans Nginx, utilisez la directive `register:` pour la mettre dans une variable.
 
 - Ajoutez une tâche de `debug:` qui affiche le contenu de cette variable (avec `{{ }}`)
@@ -594,7 +595,7 @@ flask_apps:
   - name: hello2
     domain: "hello2.test"
     user: "flask2"
-    version: master
+    version: version2
     repository: https://github.com/e-lie/flask_hello_ansible.git
 ```
 
