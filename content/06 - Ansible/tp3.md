@@ -4,6 +4,9 @@ draft: false
 weight: 32
 ---
 
+**Pour ce TP on va réutiliser soit le dossier du TP2, soit la solution du TP2 :
+`git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correction`**
+
 
 ## Ajouter une installation MySQL simple à une de vos machines avec un rôle trouvé sur Internet
 
@@ -20,7 +23,7 @@ weight: 32
 
 - Pour installez le rôle lancez ensuite `ansible-galaxy install -r roles/requirements.yml -p roles`.
 
-- Ajoutez la ligne `geerlingguy.*` au fichier `.gitignore` pour ne pas ajouter les rles externes à votre dépot git.
+- Facultatif : Ajoutez la ligne `geerlingguy.*` au fichier `.gitignore` pour ne pas ajouter les roles externes à votre dépot git.
 
 - Pour installer notre base de données, ajoutez un playbook `dbservers.yml` appliqué au groupe `dbservers` avec juste une section:
 
@@ -34,9 +37,12 @@ weight: 32
 
 - Lancer la configuration de toute l'infra avec ce playbook.
 
-- Dans votre playbook `dbservers.yml` et en lisant le mode d'emploi du rôle (ou bien le fichier `defaults/main.yml`), écrasez certaines variables par défaut du rôle par des variables personnalisés. Relancez votre playbook avec `--diff` (et éventuellement `--check`) pour observer les différences.
+- Dans votre playbook `dbservers.yml` et en lisant le mode d'emploi du rôle (ou bien le fichier `defaults/main.yml`), écrasez certaines variables par défaut du rôle par des variables personnalisées. Relancez votre playbook avec `--diff` (et éventuellement `--check`) pour observer les différences.
 
 ## Transformer notre playbook en role
+
+**Pour ce TP on va réutiliser soit le dossier du TP2, soit la solution du TP2 :
+`git clone https://github.com/Uptime-Formation/ansible-tp-solutions -b tp2_correction`**
 
 - Si ce n'est pas fait, créez à la racine du projet le dossier `roles` dans lequel seront rangés tous les roles (c'est une convention ansible à respecter).
 - Créer un dossier `flaskapp` dans `roles`.

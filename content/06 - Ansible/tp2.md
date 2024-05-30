@@ -483,8 +483,7 @@ Dans le cas de plusieurs hosts hébergeant nos apps, on pourrait même ajouter u
 Pour info : la variable `{{ inventory_hostname }}` permet d'accéder au nom que l'on a donné à une machine dans l'inventaire.
 
 
-
-### Amélioration E : l'attribut `register:`
+## Amélioration E : l'attribut `register:`
 <!-- TODO: à améliorer -->
 - Avec le module `command`, listez les configs activées dans Nginx, utilisez la directive `register:` pour la mettre dans une variable.
 
