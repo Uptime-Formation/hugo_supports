@@ -22,7 +22,7 @@ Ce dictionnaire contient en particulier:
 On peut définir et modifier la valeur des variables à différents endroits du code ansible:
 
 - La section `vars:` du playbook.
-- Un fichier de variables appelé avec `var_files:`
+- Un fichier de variables appelé avec `vars_files:`
 - L'inventaire : variables pour chaque machine ou pour le groupe.
 - Dans des dossier extension de l'inventaire `group_vars`, `host_vars`
 - Dans le dossier `defaults` des roles (cf partie sur les roles)

@@ -55,7 +55,7 @@ Ansible intègre un trousseau de secret appelé **Ansible Vault**, qui permet de
 Les valeurs stockées dans le trousseau sont déchiffrées à l'exécution après déverrouillage du trousseau.
 
 - `ansible-vault create /var/secrets.yml`
-- `ansible-vault edit /var/secrets.yml` ouvre `$EDITOR` pour changer le fichier de variables.
+- `ansible-vault edit /var/secrets.yml` ouvre `$EDITOR` pour changer le fichier de variables (`export EDITOR=code` pour éditer avec VSCode)
 - `ansible-vault encrypt_file /vars/secrets.yml` pour chiffrer un fichier existant
 - `ansible-vault encrypt_string monmotdepasse` permet de chiffrer une valeur avec un mot de passe. le résultat peut être ensuite collé dans un fichier de variables par ailleurs en clair.
 

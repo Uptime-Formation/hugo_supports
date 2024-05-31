@@ -159,10 +159,12 @@ deploy:
     refs:
       - master
   script:
-    - curl http://hadrien.lab.doxx.fr:9999/hooks/redeploy-webhook
+    - curl --fail http://hadrien.lab.doxx.fr:9999/hooks/redeploy-webhook
 ```
 
 Cette configuration est bien plus sécurisée, même si en production nous protégerions le webhook avec un mot de passe (token) pour éviter que le webhook soit déclenché abusivement si quelqu'un en découvrait l'URL.
+
+`--fail` permet de **convertir une erreur HTTP (500) en code de sortie d'erreur Bash** pour la CI.
 
 On pourrait aussi variabiliser le webhook pour faire passer des paramètres à notre script `ansible-run.sh`.
 
