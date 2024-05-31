@@ -31,14 +31,15 @@ curl -sfL https://get.k3s.io | sh
 alias kubectl="sudo k3s kubectl"
 ```
 
-- Puis suivre : <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>
+- Puis suivre ces instructions :
+(inspiré de <https://ansible.readthedocs.io/projects/awx-operator/en/latest/installation/basic-install.html>)
 
 ```bash
 git clone https://github.com/ansible/awx-operator.git
 cd awx-operator
 git checkout tags/2.7.2
 
-make deploy
+sudo make deploy
 ```
 
 Créer un fichier `awx-demo.yml` :

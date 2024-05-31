@@ -4,6 +4,69 @@ draft: false
 weight: 41
 ---
 
+
+<!-- 
+FIXME: instructions Forgejo + Git
+1. Ajouter une clé SSH (éventuellement  la générer avec ssh-keygen) publique à Gitlab ou Codeberg
+2. Tenter de push notre dépôt Git :
+
+    1. git init
+
+    2. git remote add ...
+
+    3. Créer un commit : git add . ; git commit -m "message de commit" (si vous n'avez pas encore spécifié de nom d'auteur Git et d'email, suivre les instructions)
+
+    4. git push 
+
+3. Pour Gitlab : Test d'un fichier de CI simple
+4. Pour Gitlab : Vérifier l'exécution de la CI
+5. Enregistrer un "runner" : https://docs.codeberg.org/ci/actions/#running-on-host-machine
+
+    1. Actions > Exécuteurs > et copier le token
+
+    2. 
+
+    wget -O forgejo-runner https://code.forgejo.org/forgejo/runner/releases/download/v3.3.0/forgejo-runner-3.3.0-linux-amd64
+
+    chmod +x forgejo-runner
+
+    ./forgejo-runner register --instance https://codeberg.org et compléter
+
+    3. Installer Docker : 
+
+    curl https://get.docker.com | sh 
+
+    sudo usermod -a -G docker votreprenom 
+
+    et rebooter : sudo reboot
+
+    4. Lancer le runner dans un terminal : ./forgejo-runner daemon ou gitlab-runner 
+
+6. Pour Codeberg : activer les Actions ForgeJo dans les paramètres du dépôt
+6bis. Pour Gitlab : activer notre runner dans 
+7. Adapter le fichier de CI pour que Ansible lance nos playbooks
+
+    A. Pour Gitlab : dans Build > Pipeline editors
+
+    B. Pour Codeberg / Forgejo, repartir de ce template à mettre dans .forgejo/workflows/ansible.yml
+
+    on: [push]
+
+    jobs:
+
+      test:
+
+        runs-on: docker
+
+              container:
+                  image: williamyeh/ansible:ubuntu18.04
+
+        steps:
+
+                   - uses: actions/checkout@v4
+
+          - run: ansible-playbook site.yml -->
+
 ## Versionner le projet et utiliser la CI Gitlab avec Ansible pour automatiser le déploiement
 
 - Créez un compte sur la forge logicielle `gitlab.com` et créez un projet (dépôt) public.
