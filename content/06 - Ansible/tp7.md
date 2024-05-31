@@ -19,7 +19,7 @@ sudo semaphore user add --admin --name "Your Name" --login your_login --email yo
 puis se connecter sur le port 3000
 
 ## Installer Docker
-Nécessaire pour Minikube, Semaphore ou Rundeck.
+Nécessaire pour Minikube ou Rundeck.
 
 `curl https://get.docker.com | sh`
 
