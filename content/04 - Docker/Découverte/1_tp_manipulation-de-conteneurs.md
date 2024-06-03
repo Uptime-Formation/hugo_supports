@@ -24,7 +24,7 @@ weight: 1015
 
   - Le daemon tourne toujours en `root`
   - Un utilisateur ne peut accéder au client que s'il est membre du groupe `docker`
-  - Ajoutez-le au groupe avec la commande `sudo usermod -aG docker <user>` (en remplaçant `<user>` par ce qu'il faut)
+  - Ajoutez-le au groupe avec la commande `sudo usermod -aG docker $USER`
   - Pour actualiser la liste de groupes auquel appartient l'utilisateur, redémarrez la VM avec `sudo reboot` puis reconnectez-vous avec Guacamole pour que la modification sur les groupes prenne effet.
 
   <!-- **à l'aide du bouton en haut à droite de l'écran sur Ubuntu (pas simplement le terminal mais bien la session Ubuntu, redémarrer marche aussi)**  -->
