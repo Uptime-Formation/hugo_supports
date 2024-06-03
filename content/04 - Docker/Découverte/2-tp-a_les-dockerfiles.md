@@ -160,7 +160,7 @@ CMD ["./boot.sh"]
 
 ```Dockerfile
 # Ajoute un user et groupe appelés microblog
-RUN addgroup microblog && adduser -S microblog -G microblog
+RUN addgroup microblog && useradd microblog -g microblog  # Ou adduser --ingroup sur Alpine plutôt que useradd -g
 RUN chown -R microblog:microblog ./
 USER microblog
 ```
