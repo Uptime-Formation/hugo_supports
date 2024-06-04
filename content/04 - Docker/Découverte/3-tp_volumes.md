@@ -105,6 +105,26 @@ docker run -d --network moby-network --name moby-counter -p 8000:80 russmckendri
 docker run -d --name redis --network moby-network --volume __VOLUME__:__POINT_DE_MONTAGE__ redis
 ```
 
+
+### (facultatif) Deux conteneurs Redis sur un seul volume
+
+- Créez un réseau `moby-network2` et ajoutez un deuxième conteneur `redis2` qui va partager les même données que le premier :
+  - situé à l'intérieur du nouveau réseau (`moby-network2`) comme à la partie précédent.
+  - utilisant l'option `--network-alias redis` pour pouvoir être joignable par `moby-counter2` (que nous n'avons pas encore créé).
+  - partageant le volume de données du premier (cf. cours)
+      - monté en read-only (`:ro` après le paramètre de la question précédente)
+
+{{% expand "Indice :" %}}
+`docker run -v redis_data:/data -d --name redis2 --network moby-network2 --network-alias redis redis:alpine`
+{{% /expand %}}
+
+Le read-only est nécessaire pour que les deux Redis n'écrivent pas de façon contradictoire dans la base de valeurs.
+
+- Ajoutez une deuxième instance de l'application dans le deuxième réseau connectée à ce nouveau Redis.
+
+- Visitez la deuxième application : vous devriez voir également le motif de moby apparaître.
+
+
 ### Récupérer un volume d'un conteneur supprimé
 
 - supprimez le conteneur `redis` : `docker stop redis` puis `docker rm redis`
@@ -282,26 +302,6 @@ Il faut donc remplacer la variable `DATABASE_URL` au lancement.
 Il va falloir configurer des options de démarrage pour le conteneur `mysql`, à lire sur le [Docker Hub](https://hub.docker.com/).
 
 {{% /expand %}} -->
-
-
-
-### (facultatif) Deux conteneurs Redis sur un seul volume
-
-- Créez un réseau `moby-network2` et ajoutez un deuxième conteneur `redis2` qui va partager les même données que le premier :
-  - situé à l'intérieur du nouveau réseau (`moby-network2`) comme à la partie précédent.
-  - utilisant l'option `--network-alias redis` pour pouvoir être joignable par `moby-counter2` (que nous n'avons pas encore créé).
-  - partageant le volume de données du premier (cf. cours)
-      - monté en read-only (`:ro` après le paramètre de la question précédente)
-
-{{% expand "Indice :" %}}
-`docker run -v redis_data:/data -d --name redis2 --network moby-network2 --network-alias redis redis:alpine`
-{{% /expand %}}
-
-Le read-only est nécessaire pour que les deux Redis n'écrivent pas de façon contradictoire dans la base de valeurs.
-
-- Ajoutez une deuxième instance de l'application dans le deuxième réseau connectée à ce nouveau Redis.
-
-- Visitez la deuxième application : vous devriez voir également le motif de moby apparaître.
 
 
 ### _Facultatif :_ Packagez votre propre app
