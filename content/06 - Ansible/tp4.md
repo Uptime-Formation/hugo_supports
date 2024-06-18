@@ -210,7 +210,7 @@ chmod +x forgejo-runner
 ```bash
 curl https://get.docker.com | sh 
 
-sudo usermod -a -G docker votreprenom 
+sudo usermod -a -G docker $USER 
 ```
 
 et rebooter : `sudo reboot`
@@ -228,20 +228,12 @@ et rebooter : `sudo reboot`
 
 ```yaml
 on: [push]
-
 jobs:
-
   test:
-
     runs-on: docker
-
           container:
               image: williamyeh/ansible:ubuntu18.04
-
     steps:
-
-                - uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - run: ansible-playbook site.yml 
-
 ```
