@@ -60,7 +60,7 @@ kubectl apply -f awx-demo.yml -n awx
 kubectl get secret -n awx awx-demo-admin-password -o jsonpath="{.data.password}" | base64 --decode ; echo
 
 echo "Se connecter en localhost à ce port :"
-kubectl get svc -n awx awx-demo -o=jsonpath='{.spec.ports[?(@.nodePort)].nodePort}'
+kubectl get svc -n awx awx-demo-service -o=jsonpath='{.spec.ports[?(@.nodePort)].nodePort}'
 ```
 
 ## Explorer AWX
