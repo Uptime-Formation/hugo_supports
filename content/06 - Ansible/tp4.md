@@ -178,9 +178,9 @@ On pourrait aussi variabiliser le webhook pour faire passer des paramètres à n
 - Supprimez le job
 
 ## Pour Codeberg / ForgeJo
- instructions Forgejo + Git
+
 1. Ajouter une clé SSH (éventuellement  la générer avec ssh-keygen) publique à Gitlab ou Codeberg
-2. Tenter de push notre dépôt Git :
+<!-- 2. Tenter de push notre dépôt Git :
 
     1. git init
 
@@ -191,14 +191,15 @@ On pourrait aussi variabiliser le webhook pour faire passer des paramètres à n
     4. git push 
 
 3. Pour Gitlab : Test d'un fichier de CI simple
-4. Pour Gitlab : Vérifier l'exécution de la CI
+4. Pour Gitlab : Vérifier l'exécution de la CI -->
 5. Enregistrer un "runner" : https://docs.codeberg.org/ci/actions/#running-on-host-machine
 
     1. Actions > Exécuteurs > et copier le token
 
     2. 
 
-```wget -O forgejo-runner https://code.forgejo.org/forgejo/runner/releases/download/v3.3.0/forgejo-runner-3.3.0-linux-amd64
+```bash
+wget -O forgejo-runner https://code.forgejo.org/forgejo/runner/releases/download/v3.3.0/forgejo-runner-3.3.0-linux-amd64
 
 chmod +x forgejo-runner
 
@@ -206,23 +207,24 @@ chmod +x forgejo-runner
 ```
 3. Installer Docker : 
 
+```bash
 curl https://get.docker.com | sh 
 
-```
 sudo usermod -a -G docker votreprenom 
 ```
 
-et rebooter : sudo reboot
+et rebooter : `sudo reboot`
 
-4. Lancer le runner dans un terminal : ./forgejo-runner daemon ou gitlab-runner 
+4. Lancer le runner dans un terminal : `./forgejo-runner daemon` 
+<!-- ou gitlab-runner  -->
 
 6. Pour Codeberg : activer les Actions ForgeJo dans les paramètres du dépôt
-6bis. Pour Gitlab : activer notre runner dans 
+<!-- 6bis. Pour Gitlab : activer notre runner dans  -->
 7. Adapter le fichier de CI pour que Ansible lance nos playbooks
 
-  A. Pour Gitlab : dans Build > Pipeline editors
+  <!-- A. Pour Gitlab : dans Build > Pipeline editors -->
 
-  B. Pour Codeberg / Forgejo, repartir de ce template à mettre dans .forgejo/workflows/ansible.yml
+  B. Pour Codeberg / Forgejo, repartir de ce template à mettre dans `.forgejo/workflows/ansible.yml`
 
 ```yaml
 on: [push]
