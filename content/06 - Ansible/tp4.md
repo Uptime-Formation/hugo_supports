@@ -218,7 +218,7 @@ et rebooter : `sudo reboot`
 4. Lancer le runner dans un terminal : `./forgejo-runner daemon` 
 <!-- ou gitlab-runner  -->
 
-6. Pour Codeberg : activer les Actions ForgeJo dans les paramètres du dépôt
+6. Pour Codeberg : activer les Actions ForgeJo dans les paramètres du dépôt : Fonctionnalité des dépôts > Vue générale
 <!-- 6bis. Pour Gitlab : activer notre runner dans  -->
 7. Adapter le fichier de CI pour que Ansible lance nos playbooks
 
@@ -231,9 +231,10 @@ on: [push]
 jobs:
   test:
     runs-on: docker
-          container:
-              image: williamyeh/ansible:ubuntu18.04
+      container:
+        image: nikolaik/python-nodejs
     steps:
       - uses: actions/checkout@v4
+      - run: pip install ansible
       - run: ansible-playbook site.yml 
 ```
