@@ -114,6 +114,8 @@ Suivre ce tutoriel pour du monitoring des conteneurs Docker : <https://prometheu
 
 On pourra se servir de cette stack Compose : <https://github.com/vegasbrianc/prometheus/>
 
+Vous pouvez aussi aspirer le port 9191 du container `identidock` qui affiche un JSON de stats du serveur Gunicorn.
+
 #### Ressources supplémentaires
 
 Une alternative est Netdata, joli et configuré pour monitorer des conteneurs _out-of-the-box_ : <https://learn.netdata.cloud/docs/netdata-agent/installation/docker>
